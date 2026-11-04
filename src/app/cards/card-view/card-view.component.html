@@ -1,0 +1,24 @@
+<article
+  class="card"
+  [class.active]="active()"
+  [attr.data-rarity]="rarity()"
+  [attr.data-family]="family()"
+  (pointermove)="onMove($event)"
+  (pointerdown)="onMove($event)"
+  (pointerleave)="onLeave($event)"
+  (pointercancel)="onLeave($event)"
+>
+  @if (imageUrl()) {
+    <img [src]="imageUrl()" alt="" draggable="false" />
+  } @else {
+    <div class="placeholder">Image</div>
+  }
+
+  @if (family()) { <span class="family">{{ family() }}</span> }
+
+  <div class="info">
+    <h3>{{ title() || 'Titre de la carte' }}</h3>
+    @if (subtitle()) { <small>{{ subtitle() }}</small> }
+    @if (description()) { <p>{{ description() }}</p> }
+  </div>
+</article>

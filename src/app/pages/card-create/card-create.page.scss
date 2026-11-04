@@ -1,0 +1,37 @@
+// card-create.page.scss
+.url-row { display: flex; gap: 8px; align-items: center; margin: 12px 0; }
+.error { color: var(--ion-color-danger); }
+h2 { font-size: 1rem; margin: 20px 0 8px; }
+
+/* ---------- Mobile : aperçu en haut, config dessous, la page scrolle ---------- */
+.layout { display: flex; flex-direction: column; }
+
+.preview-pane {
+  display: flex; justify-content: center;
+  padding: 16px;
+  app-card-view { max-width: 220px; }
+}
+.config-pane { padding: 0 16px 24px; }
+
+/* ---------- Desktop : 2 colonnes, seule la colonne de droite scrolle ---------- */
+@media (min-width: 768px) {
+  ion-content { --overflow: hidden; }
+
+  .layout {
+    position: absolute; inset: 0;
+    flex-direction: row;
+  }
+
+  .preview-pane {
+    flex: 0 0 40%;
+    align-items: center;
+    background: var(--ion-color-light);
+    app-card-view { max-width: 340px; }
+  }
+
+  .config-pane {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 24px 32px;
+  }
+}

@@ -1,0 +1,71 @@
+<!-- card-create.page.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/cards"></ion-back-button></ion-buttons>
+    <ion-title>Nouvelle carte</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="layout">
+
+    <section class="preview-pane">
+      <app-card-view
+        [family]="form.controls.family.value"
+        [rarity]="form.controls.rarity.value"
+        [title]="form.controls.title.value"
+        [subtitle]="form.controls.subtitle.value"
+        [description]="form.controls.description.value"
+        [imageUrl]="croppedPreview"
+      />
+    </section>
+
+    <section class="config-pane">
+      <h2>Image</h2>
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+
+      <div class="url-row">
+        <ion-input placeholder="ou colle un lien d'image" (ionInput)="onUrlInput($event)"></ion-input>
+        <ion-button size="small" (click)="loadFromUrl()">Charger</ion-button>
+      </div>
+
+      @if (imageChangedEvent || imageSource) {
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [imageURL]="imageSource"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="63 / 88"
+          [resizeToWidth]="750"
+          [onlyScaleDown]="false"
+          format="png"
+          (imageCropped)="onCropped($event)"
+          (loadImageFailed)="onLoadFailed()"
+        ></image-cropper>
+      }
+
+      <h2>Informations</h2>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <ion-item>
+          <ion-select label="Famille" formControlName="family" interface="popover">
+            @for (f of families; track f) { <ion-select-option [value]="f">{{ f }}</ion-select-option> }
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-select label="Rareté" formControlName="rarity" interface="popover">
+            @for (r of rarities; track r) { <ion-select-option [value]="r">{{ r }}</ion-select-option> }
+          </ion-select>
+        </ion-item>
+        <ion-item><ion-input label="Titre" labelPlacement="floating" formControlName="title"></ion-input></ion-item>
+        <ion-item><ion-input label="Sous-titre" labelPlacement="floating" formControlName="subtitle"></ion-input></ion-item>
+        <ion-item><ion-textarea label="Description" labelPlacement="floating" formControlName="description" [autoGrow]="true"></ion-textarea></ion-item>
+
+        @if (error) { <p class="error">{{ error }}</p> }
+
+        <ion-button type="submit" expand="block" [disabled]="saving">
+          @if (saving) { <ion-spinner name="dots"></ion-spinner> } @else { Créer la carte }
+        </ion-button>
+      </form>
+    </section>
+
+  </div>
+</ion-content>

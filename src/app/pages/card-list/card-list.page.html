@@ -1,0 +1,15 @@
+<ion-header><ion-toolbar><ion-title>Mes cartes</ion-title></ion-toolbar></ion-header>
+<ion-content class="ion-padding">
+  <div class="grid">
+    @for (c of cards$ | async; track c.id) {
+      <app-card-view
+        [family]="c.family" [rarity]="c.rarity" [title]="c.title"
+        [subtitle]="c.subtitle ?? ''" [description]="c.description ?? ''"
+        [imageUrl]="c.imageUrl" />
+    }
+  </div>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button routerLink="/cards/new"><ion-icon name="add"></ion-icon></ion-fab-button>
+  </ion-fab>
+</ion-content>
