@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, of, switchMap, map } from 'rxjs';
 import { Card, CardRequest } from './card.model';
@@ -9,8 +9,9 @@ export class CardService {
   private http = inject(HttpClient);
   private api = environment.api;
 
-  getAll(): Observable<Card[]> {
-    return this.http.get<Card[]>(`${this.api}/cards`);
+  getAll(lang = 'fr', country = 'FR'): Observable<Card[]> {
+    const params = new HttpParams().set('lang', lang).set('country', country);
+    return this.http.get<Card[]>(`${this.api}/cards`, { params });
   }
 
   uploadImage(blob: Blob): Observable<string> {

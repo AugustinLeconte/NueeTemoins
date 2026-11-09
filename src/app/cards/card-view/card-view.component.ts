@@ -1,5 +1,5 @@
 // card-view.component.ts
-import { Component, input, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-card-view',
@@ -15,9 +15,21 @@ export class CardViewComponent {
   description = input<string>('');
   imageUrl = input<string | null | undefined>(null);
 
+  feastMonth = input<number | null | undefined>(null);
+  feastDay = input<number | null | undefined>(null);
+  locale = input<string>('fr');
+
+  feastLabel = computed(() => {
+    const m = this.feastMonth();
+    const d = this.feastDay();
+    if (!m || !d) return '';
+    const date = new Date(2000, m - 1, d);
+    if (date.getMonth() !== m - 1) return '';
+    return new Intl.DateTimeFormat(this.locale(), { day: 'numeric', month: 'long' }).format(date);
+  });
+
   active = signal(false);
 
-  // Suit le doigt / la souris : inclinaison 3D + position de l'effet holo
   onMove(e: PointerEvent) {
     const el = e.currentTarget as HTMLElement;
     const r = el.getBoundingClientRect();

@@ -1,4 +1,3 @@
-<!-- card-create.page.html -->
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start"><ion-back-button defaultHref="/cards"></ion-back-button></ion-buttons>
@@ -13,11 +12,27 @@
       <app-card-view
         [family]="form.controls.family.value"
         [rarity]="form.controls.rarity.value"
-        [title]="form.controls.title.value"
-        [subtitle]="form.controls.subtitle.value"
-        [description]="form.controls.description.value"
+        [title]="active.controls.title.value"
+        [subtitle]="active.controls.subtitle.value"
+        [description]="active.controls.description.value"
+        [locale]="active.getRawValue().locale || 'fr'"
+        [feastMonth]="previewFeast?.controls?.month?.value"
+        [feastDay]="previewFeast?.controls?.day?.value"
         [imageUrl]="croppedPreview"
       />
+
+      @if (feastDates.length) {
+        <ion-select class="preview-country" label="Pays de l'aperçu" interface="popover"
+                    [(ngModel)]="previewCountry" [ngModelOptions]="{ standalone: true }">
+          @for (f of feastDates.controls; track f) {
+            @if (f.controls.countryCode.value) {
+              <ion-select-option [value]="f.controls.countryCode.value">
+                {{ f.controls.countryCode.value }}
+              </ion-select-option>
+            }
+          }
+        </ion-select>
+      }
     </section>
 
     <section class="config-pane">
@@ -43,8 +58,13 @@
         ></image-cropper>
       }
 
-      <h2>Informations</h2>
       <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <h2>Général</h2>
+        <ion-item>
+          <ion-input label="Identifiant" labelPlacement="floating" formControlName="publicId"
+                     helperText="Minuscules, chiffres et tirets (ex : saint-nicolas)"></ion-input>
+        </ion-item>
         <ion-item>
           <ion-select label="Famille" formControlName="family" interface="popover">
             @for (f of families; track f) { <ion-select-option [value]="f">{{ f }}</ion-select-option> }
@@ -55,13 +75,62 @@
             @for (r of rarities; track r) { <ion-select-option [value]="r">{{ r }}</ion-select-option> }
           </ion-select>
         </ion-item>
-        <ion-item><ion-input label="Titre" labelPlacement="floating" formControlName="title"></ion-input></ion-item>
-        <ion-item><ion-input label="Sous-titre" labelPlacement="floating" formControlName="subtitle"></ion-input></ion-item>
-        <ion-item><ion-textarea label="Description" labelPlacement="floating" formControlName="description" [autoGrow]="true"></ion-textarea></ion-item>
+
+        <h2>Traductions</h2>
+        <ion-segment [scrollable]="true" [value]="activeIdx" (ionChange)="onSegmentChange($event)">
+          @for (t of translations.controls; track t; let i = $index) {
+            <ion-segment-button [value]="i">
+              {{ (t.getRawValue().locale || '?').toUpperCase() }}
+            </ion-segment-button>
+          }
+        </ion-segment>
+
+        @for (t of translations.controls; track t; let i = $index) {
+          @if (i === activeIdx) {
+            <div [formGroup]="t" class="translation-fields">
+              <ion-item>
+                <ion-select label="Langue" formControlName="locale" interface="popover">
+                  @for (l of availableLanguages(i); track l.code) {
+                    <ion-select-option [value]="l.code">{{ l.label }}</ion-select-option>
+                  }
+                </ion-select>
+              </ion-item>
+              <ion-item><ion-input label="Titre" labelPlacement="floating" formControlName="title"></ion-input></ion-item>
+              <ion-item><ion-input label="Sous-titre" labelPlacement="floating" formControlName="subtitle"></ion-input></ion-item>
+              <ion-item><ion-textarea label="Description" labelPlacement="floating" formControlName="description" [autoGrow]="true"></ion-textarea></ion-item>
+
+              @if (i > 0) {
+                <ion-button size="small" fill="clear" color="danger" (click)="removeTranslation(i)">
+                  Supprimer cette langue
+                </ion-button>
+              } @else {
+                <p class="hint">La version française est obligatoire (langue par défaut).</p>
+              }
+            </div>
+          }
+        }
+        <ion-button size="small" fill="outline" (click)="addTranslation()">+ Ajouter une langue</ion-button>
+
+        <h2>Dates de fête par pays</h2>
+        <div formArrayName="feastDates">
+          @for (f of feastDates.controls; track f; let i = $index) {
+            <div class="feast-row" [formGroupName]="i">
+              <ion-select label="Pays" formControlName="countryCode" interface="popover">
+                @for (c of availableCountries(i); track c.code) {
+                  <ion-select-option [value]="c.code">{{ c.label }}</ion-select-option>
+                }
+              </ion-select>
+              <ion-input label="Jour" labelPlacement="floating" type="number" min="1" max="31" formControlName="day"></ion-input>
+              <ion-input label="Mois" labelPlacement="floating" type="number" min="1" max="12" formControlName="month"></ion-input>
+              <ion-button size="small" fill="clear" color="danger" (click)="removeFeastDate(i)">✕</ion-button>
+            </div>
+          }
+        </div>
+        <ion-button size="small" fill="outline" (click)="addFeastDate()">+ Ajouter un pays</ion-button>
 
         @if (error) { <p class="error">{{ error }}</p> }
 
-        <ion-button type="submit" expand="block" [disabled]="saving">
+        <ion-button type="submit" expand="block" [disabled]="saving" class="submit">
           @if (saving) { <ion-spinner name="dots"></ion-spinner> } @else { Créer la carte }
         </ion-button>
       </form>

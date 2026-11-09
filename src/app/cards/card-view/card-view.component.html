@@ -19,6 +19,7 @@
   <div class="info">
     <h3>{{ title() || 'Titre de la carte' }}</h3>
     @if (subtitle()) { <small>{{ subtitle() }}</small> }
+    @if (feastLabel()) { <span class="feast">{{ feastLabel() }}</span> }
     @if (description()) { <p>{{ description() }}</p> }
   </div>
 </article>

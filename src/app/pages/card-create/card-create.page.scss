@@ -1,19 +1,32 @@
-// card-create.page.scss
 .url-row { display: flex; gap: 8px; align-items: center; margin: 12px 0; }
 .error { color: var(--ion-color-danger); }
 h2 { font-size: 1rem; margin: 20px 0 8px; }
 
-/* ---------- Mobile : aperçu en haut, config dessous, la page scrolle ---------- */
 .layout { display: flex; flex-direction: column; }
 
 .preview-pane {
   display: flex; justify-content: center;
   padding: 16px;
   app-card-view { max-width: 220px; }
+  flex-direction: column;
+  gap: 12px;
 }
+.preview-country { max-width: 220px; }
 .config-pane { padding: 0 16px 24px; }
 
-/* ---------- Desktop : 2 colonnes, seule la colonne de droite scrolle ---------- */
+.translation-fields { margin-top: 8px; }
+.hint { font-size: 0.8rem; opacity: 0.7; }
+
+.feast-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.submit { margin-top: 24px; }
+
 @media (min-width: 768px) {
   ion-content { --overflow: hidden; }
 
