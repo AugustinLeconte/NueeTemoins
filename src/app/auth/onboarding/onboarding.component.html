@@ -1,0 +1,14 @@
+ <h1>Finalisez votre profil</h1>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <input formControlName="pseudo" placeholder="Pseudonyme" />
+      <select formControlName="country">
+        <option value="" disabled>Pays</option>
+        @for (c of countries; track c.code) { <option [value]="c.code">{{ c.name }}</option> }
+      </select>
+      <select formControlName="language">
+        <option value="" disabled>Langue</option>
+        @for (l of languages; track l.code) { <option [value]="l.code">{{ l.name }}</option> }
+      </select>
+      @if (error) { <p class="error">{{ error }}</p> }
+      <button type="submit" [disabled]="form.invalid || loading">Continuer</button>
+    </form>

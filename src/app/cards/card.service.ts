@@ -11,7 +11,7 @@ export class CardService {
 
   getAll(lang = 'fr', country = 'FR'): Observable<Card[]> {
     const params = new HttpParams().set('lang', lang).set('country', country);
-    return this.http.get<Card[]>(`${this.api}/cards`, { params });
+    return this.http.get<Card[]>(`${this.api}cards`, { params });
   }
 
   uploadImage(blob: Blob): Observable<string> {
@@ -22,10 +22,10 @@ export class CardService {
 
   create(req: CardRequest, image: Blob | null): Observable<Card> {
     if (!image) {
-      return this.http.post<Card>(`${this.api}/cards`, req);
+      return this.http.post<Card>(`${this.api}cards`, req);
     }
     return this.uploadImage(image).pipe(
-      switchMap(imageUrl => this.http.post<Card>(`${this.api}/cards`, { ...req, imageUrl }))
+      switchMap(imageUrl => this.http.post<Card>(`${this.api}cards`, { ...req, imageUrl }))
     );
   }
 }

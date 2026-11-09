@@ -1,0 +1,9 @@
+ <h1>Connexion</h1>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <input type="email" formControlName="email" placeholder="Email" autocomplete="email" />
+      <input type="password" formControlName="password" placeholder="Mot de passe" autocomplete="current-password" />
+      @if (error) { <p class="error">{{ error }}</p> }
+      <button type="submit" [disabled]="form.invalid || loading">Se connecter</button>
+    </form>
+    <button type="button" (click)="google()">Continuer avec Google</button>
+    <p>Pas de compte ? <a routerLink="/signup">S'inscrire</a></p>

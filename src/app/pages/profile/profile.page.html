@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/cards"></ion-back-button></ion-buttons>
+    <ion-title>Mon profil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (loading()) {
+    <div class="center"><ion-spinner></ion-spinner></div>
+  } @else if (error()) {
+    <p class="error">{{ error() }}</p>
+  } @else {
+    <section class="card">
+      <div class="avatar">
+        @if (user()?.image) {
+          <img [src]="user()!.image" alt="" referrerpolicy="no-referrer" />
+        } @else {
+          <span>{{ initial() }}</span>
+        }
+      </div>
+      <h2>{{ profile()?.pseudo }}</h2>
+
+      <dl>
+        <div><dt>Email</dt><dd>{{ user()?.email }}</dd></div>
+        <div><dt>Nom</dt><dd>{{ user()?.name }}</dd></div>
+        <div><dt>Pays</dt><dd>{{ countryName(profile()!.country) }}</dd></div>
+        <div><dt>Langue</dt><dd>{{ languageName(profile()!.language) }}</dd></div>
+      </dl>
+    </section>
+
+    <ion-button expand="block" color="danger" fill="outline" [disabled]="loggingOut()" (click)="logout()">
+      @if (loggingOut()) { <ion-spinner name="dots"></ion-spinner> } @else { Se déconnecter }
+    </ion-button>
+  }
+</ion-content>

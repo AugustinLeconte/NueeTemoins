@@ -1,0 +1,146 @@
+:host {
+  --bg: #ffffff;
+  --text: #1f2430;
+  --muted: #8a90a0;
+  --border: #d5d9e2;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --danger: #dc2626;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-sizing: border-box;
+  width: min(100% - 2rem, 400px);
+  margin: 4rem auto;
+  padding: 2rem;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgb(0 0 0 / 0.06);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --bg: #1a1d27;
+    --text: #eceef4;
+    --muted: #8b91a3;
+    --border: #343948;
+    --primary: #6366f1;
+    --primary-hover: #818cf8;
+    --danger: #f87171;
+  }
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+input,
+select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem 0.9rem;
+  font: inherit;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input::placeholder {
+  color: var(--muted);
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+/* Champ invalide, une fois que l'utilisateur l'a touché */
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: var(--danger);
+}
+
+/* Select vide : texte du placeholder en gris */
+select.ng-invalid {
+  color: var(--muted);
+}
+select option {
+  color: var(--text);
+  background: var(--bg);
+}
+
+.error {
+  margin: 0;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.9rem;
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+  border-radius: 8px;
+}
+
+button {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font: inherit;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+/* Bouton principal (submit) */
+button[type='submit'] {
+  color: #fff;
+  background: var(--primary);
+  border: none;
+}
+button[type='submit']:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+/* Bouton Google (secondaire) */
+button[type='button'] {
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+}
+button[type='button']:hover {
+  border-color: var(--primary);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+p {
+  margin: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
