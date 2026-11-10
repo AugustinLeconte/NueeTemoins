@@ -2,6 +2,9 @@
   <ion-toolbar>
     <ion-buttons slot="start"><ion-back-button defaultHref="/cards"></ion-back-button></ion-buttons>
     <ion-title>Nouvelle carte</ion-title>
+    <ion-buttons slot="end">
+      <app-user-avatar />
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -9,17 +12,17 @@
   <div class="layout">
 
     <section class="preview-pane">
-      <app-card-view
-        [family]="form.controls.family.value"
-        [rarity]="form.controls.rarity.value"
-        [title]="active.controls.title.value"
-        [subtitle]="active.controls.subtitle.value"
-        [description]="active.controls.description.value"
-        [locale]="active.getRawValue().locale || 'fr'"
-        [feastMonth]="previewFeast.controls.month.value"
-        [feastDay]="previewFeast.controls.day.value"
-        [imageUrl]="croppedPreview"
-      />
+     <app-card-view
+      [family]="form.controls.family.value"
+      [rarity]="form.controls.rarity.value"
+      [title]="active.controls.title.value"
+      [subtitle]="active.controls.subtitle.value"
+      [description]="active.controls.description.value"
+      [locale]="active.getRawValue().locale || 'fr'"
+      [feastMonth]="previewFeast?.controls?.month?.value ?? null"
+      [feastDay]="previewFeast?.controls?.day?.value ?? null"
+      [imageUrl]="croppedPreview"
+    />
 
       @if (feastDates.length) {
         <ion-select class="preview-country" label="Pays de l'aperçu" interface="popover"

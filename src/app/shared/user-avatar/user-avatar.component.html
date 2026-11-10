@@ -1,0 +1,7 @@
+<button type="button" class="avatar" aria-label="Mon profil" (click)="goToProfile()">
+      @if (image() && !imgFailed()) {
+        <img [src]="image()!" alt="" referrerpolicy="no-referrer" (error)="imgFailed.set(true)" />
+      } @else {
+        <span>{{ initial() }}</span>
+      }
+    </button>

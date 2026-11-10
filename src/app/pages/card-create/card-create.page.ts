@@ -10,6 +10,7 @@ import { CardRequest } from '../../cards/card.model';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonInput, IonTextarea,
     IonSelect, IonSelectOption, IonItem, IonButtons, IonBackButton, IonSpinner,
     IonSegment, IonSegmentButton } from '@ionic/angular';
+import { UserAvatarComponent } from '../../shared/user-avatar/user-avatar.component';
 
 const slugify = (s: string) =>
   s.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -24,7 +25,7 @@ const slugify = (s: string) =>
     CommonModule, FormsModule, ReactiveFormsModule, ImageCropperComponent,
     IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonInput, IonTextarea,
     IonSelect, IonSelectOption, IonItem, IonButtons, IonBackButton, IonSpinner,
-    IonSegment, IonSegmentButton, CardViewComponent,
+    IonSegment, IonSegmentButton, CardViewComponent, UserAvatarComponent
   ],
 })
 export class CardCreatePage {

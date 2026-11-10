@@ -53,6 +53,7 @@ export class ProfilePage {
   async logout() {
     this.loggingOut.set(true);
     await this.auth.signOut();
+    this.profiles.clear();
     this.router.navigateByUrl('/login', { replaceUrl: true });
   }
 }

@@ -1,4 +1,7 @@
-<ion-header><ion-toolbar><ion-title>Mes cartes</ion-title></ion-toolbar></ion-header>
+<ion-header><ion-toolbar><ion-title>Cartes</ion-title>
+    <ion-buttons slot="end">
+      <app-user-avatar />
+    </ion-buttons></ion-toolbar></ion-header>
 <ion-content class="ion-padding">
   <div class="grid">
     @for (c of cards$ | async; track c.publicId) {

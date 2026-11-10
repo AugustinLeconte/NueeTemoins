@@ -6,8 +6,6 @@ const client = createAuthClient(environment.neonAuthUrl);
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  // Une seule requête get-session à la fois : les appels simultanés (guard, intercepteur, pages)
-  // partagent la même promesse, sinon le neon_auth_session_verifier est consommé plusieurs fois (400).
   private inflight?: ReturnType<typeof client.getSession>;
 
   private fetchSession() {
