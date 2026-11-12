@@ -1,0 +1,115 @@
+:host {
+  display: block;
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+/* ---------- Fond ---------- */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: #1a0f0a;
+  overflow: hidden;
+
+  /* assombrit la zone du formulaire (gauche) pour la lisibilité */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(10, 6, 4, 0.8) 0%, rgba(10, 6, 4, 0.35) 45%, transparent 75%);
+  }
+}
+
+.bg-img {
+  position: absolute;
+  inset: 0; /* plus de débordement */
+  background: url('/assets/images/saints-bg.webp') center 25% / cover no-repeat;
+  transform-origin: 70% 30%; /* le zoom part du Sacré-Cœur */
+  animation: drift 40s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes drift {
+  from { transform: scale(1); }
+  to   { transform: scale(1.05); } /* zoom léger : ~5 % au lieu de ~18 % */
+}
+
+/* halo de lumière qui pulse, centré sur le Christ / la lumière */
+.bg-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 35%, rgba(255, 220, 140, 0.4), transparent 45%);
+  mix-blend-mode: screen;
+  animation: pulse 7s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 1; }
+}
+
+/* petites particules dorées qui montent doucement vers le ciel */
+.bg-particles {
+  position: absolute;
+  inset: 0;
+  opacity: 0.6;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px,   rgba(255, 230, 160, 0.9), transparent),
+    radial-gradient(1.5px 1.5px at 90px 120px, rgba(255, 240, 200, 0.8), transparent),
+    radial-gradient(2px 2px at 150px 60px,  rgba(255, 215, 130, 0.8), transparent),
+    radial-gradient(1px 1px at 60px 170px,  rgba(255, 255, 255, 0.7), transparent);
+  background-size: 200px 200px; /* taille de tuile = distance de l'animation → boucle parfaite */
+  animation: rise 30s linear infinite;
+}
+@keyframes rise {
+  from { background-position: 0 0; }
+  to   { background-position: 0 -200px; }
+}
+
+/* ---------- Contenu ---------- */
+.lang {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+}
+
+.panel {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;   /* ordinateur : formulaire à gauche */
+  padding: 2rem 2rem 2rem 8vw;
+}
+
+.card {
+  width: min(100%, 380px);
+  padding: 2rem;
+  color: #fff;
+  background: rgba(20, 12, 8, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ---------- Mobile : formulaire centré, image recadrée ---------- */
+@media (max-width: 768px) {
+  .panel {
+    justify-content: center;
+    padding: 1rem;
+  }
+  .bg-img { background-position: 62% center; } /* garde le centre lumineux visible */
+  .bg::after { background: rgba(10, 6, 4, 0.5); }
+  .bg-glow { background: radial-gradient(circle at 60% 30%, rgba(255, 220, 140, 0.4), transparent 55%); }
+}
+
+/* accessibilité : pas d'animation si l'utilisateur la désactive */
+@media (prefers-reduced-motion: reduce) {
+  .bg-img, .bg-glow, .bg-particles { animation: none; }
+}

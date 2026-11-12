@@ -1,0 +1,35 @@
+{
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "passwordMin": "Password (min. 8 characters)",
+    "login": {
+      "title": "Sign in",
+      "submit": "Sign in",
+      "google": "Continue with Google",
+      "noAccount": "No account yet?",
+      "signupLink": "Sign up"
+    },
+    "signup": {
+      "title": "Sign up",
+      "submit": "Create my account",
+      "google": "Sign up with Google",
+      "hasAccount": "Already registered?",
+      "loginLink": "Sign in"
+    },
+    "onboarding": {
+      "title": "Complete your profile",
+      "pseudo": "Username",
+      "country": "Country",
+      "language": "Language",
+      "submit": "Continue"
+    },
+    "errors": {
+      "generic": "Something went wrong",
+      "invalidCredentials": "Incorrect email or password",
+      "loginFailed": "Unable to sign in",
+      "signupFailed": "Unable to sign up",
+      "pseudoTaken": "This username is already taken"
+    }
+  }
+}

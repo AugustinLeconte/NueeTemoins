@@ -1,0 +1,35 @@
+{
+  "auth": {
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "passwordMin": "Contraseña (mín. 8 caracteres)",
+    "login": {
+      "title": "Iniciar sesión",
+      "submit": "Iniciar sesión",
+      "google": "Continuar con Google",
+      "noAccount": "¿No tienes cuenta?",
+      "signupLink": "Regístrate"
+    },
+    "signup": {
+      "title": "Registro",
+      "submit": "Crear mi cuenta",
+      "google": "Registrarse con Google",
+      "hasAccount": "¿Ya tienes cuenta?",
+      "loginLink": "Iniciar sesión"
+    },
+    "onboarding": {
+      "title": "Completa tu perfil",
+      "pseudo": "Nombre de usuario",
+      "country": "País",
+      "language": "Idioma",
+      "submit": "Continuar"
+    },
+    "errors": {
+      "generic": "Ha ocurrido un error",
+      "invalidCredentials": "Correo o contraseña incorrectos",
+      "loginFailed": "No se puede iniciar sesión",
+      "signupFailed": "No se puede registrar",
+      "pseudoTaken": "Este nombre de usuario ya está en uso"
+    }
+  }
+}

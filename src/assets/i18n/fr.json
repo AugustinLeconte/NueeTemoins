@@ -1,0 +1,35 @@
+{
+  "auth": {
+    "email": "Email",
+    "password": "Mot de passe",
+    "passwordMin": "Mot de passe (8 caractères min.)",
+    "login": {
+      "title": "Connexion",
+      "submit": "Se connecter",
+      "google": "Continuer avec Google",
+      "noAccount": "Pas de compte ?",
+      "signupLink": "S'inscrire"
+    },
+    "signup": {
+      "title": "Inscription",
+      "submit": "Créer mon compte",
+      "google": "S'inscrire avec Google",
+      "hasAccount": "Déjà inscrit ?",
+      "loginLink": "Se connecter"
+    },
+    "onboarding": {
+      "title": "Finalisez votre profil",
+      "pseudo": "Pseudonyme",
+      "country": "Pays",
+      "language": "Langue",
+      "submit": "Continuer"
+    },
+    "errors": {
+      "generic": "Une erreur est survenue",
+      "invalidCredentials": "Email ou mot de passe incorrect",
+      "loginFailed": "Connexion impossible",
+      "signupFailed": "Inscription impossible",
+      "pseudoTaken": "Ce pseudo est déjà pris"
+    }
+  }
+}

@@ -1,9 +1,9 @@
-<h1>Inscription</h1>
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <input type="email" formControlName="email" placeholder="Email" autocomplete="email" />
-      <input type="password" formControlName="password" placeholder="Mot de passe (8 caractères min.)" autocomplete="new-password" />
-      @if (error) { <p class="error">{{ error }}</p> }
-      <button type="submit" [disabled]="form.invalid || loading">Créer mon compte</button>
-    </form>
-    <button type="button" (click)="google()">S'inscrire avec Google</button>
-    <p>Déjà inscrit ? <a routerLink="/login">Se connecter</a></p>
+  <h1>{{ 'auth.signup.title' | transloco }}</h1>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <input type="email" formControlName="email" [placeholder]="'auth.email' | transloco" autocomplete="email" />
+    <input type="password" formControlName="password" [placeholder]="'auth.passwordMin' | transloco" autocomplete="new-password" />
+    @if (error) { <p class="error">{{ error | transloco }}</p> }
+    <button type="submit" [disabled]="form.invalid || loading">{{ 'auth.signup.submit' | transloco }}</button>
+  </form>
+  <button type="button" (click)="google()">{{ 'auth.signup.google' | transloco }}</button>
+  <p>{{ 'auth.signup.hasAccount' | transloco }} <a routerLink="/login">{{ 'auth.signup.loginLink' | transloco }}</a></p>

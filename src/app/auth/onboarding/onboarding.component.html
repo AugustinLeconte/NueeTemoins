@@ -1,14 +1,14 @@
- <h1>Finalisez votre profil</h1>
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <input formControlName="pseudo" placeholder="Pseudonyme" />
-      <select formControlName="country">
-        <option value="" disabled>Pays</option>
-        @for (c of countries; track c.code) { <option [value]="c.code">{{ c.name }}</option> }
-      </select>
-      <select formControlName="language">
-        <option value="" disabled>Langue</option>
-        @for (l of languages; track l.code) { <option [value]="l.code">{{ l.name }}</option> }
-      </select>
-      @if (error) { <p class="error">{{ error }}</p> }
-      <button type="submit" [disabled]="form.invalid || loading">Continuer</button>
-    </form>
+  <h1>{{ 'auth.onboarding.title' | transloco }}</h1>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <input formControlName="pseudo" [placeholder]="'auth.onboarding.pseudo' | transloco" />
+    <select formControlName="country">
+      <option value="" disabled>{{ 'auth.onboarding.country' | transloco }}</option>
+      @for (c of countries(); track c.code) { <option [value]="c.code">{{ c.name }}</option> }
+    </select>
+    <select formControlName="language">
+      <option value="" disabled>{{ 'auth.onboarding.language' | transloco }}</option>
+      @for (l of languages; track l.code) { <option [value]="l.code">{{ l.label }}</option> }
+    </select>
+    @if (error) { <p class="error">{{ error | transloco }}</p> }
+    <button type="submit" [disabled]="form.invalid || loading">{{ 'auth.onboarding.submit' | transloco }}</button>
+  </form>

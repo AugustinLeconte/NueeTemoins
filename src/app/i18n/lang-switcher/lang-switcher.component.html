@@ -1,0 +1,9 @@
+<select
+      aria-label="Language"
+      [value]="lang.current()"
+      (change)="lang.set($any($event.target).value)"
+    >
+      @for (l of lang.supported; track l.code) {
+        <option [value]="l.code" [selected]="l.code === lang.current()">{{ l.label }}</option>
+      }
+    </select>
