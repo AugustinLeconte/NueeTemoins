@@ -6,13 +6,9 @@
   <div class="grid">
     @for (c of cards$ | async; track c.publicId) {
       <app-card-view
-        [family]="c.family" [rarity]="c.rarity" [title]="c.title"
+        [families]="c.families" [rarity]="c.rarity" [title]="c.title"
         [subtitle]="c.subtitle ?? ''" [description]="c.description ?? ''"
         [imageUrl]="c.imageUrl" />
     }
   </div>
-
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button routerLink="/cards/new"><ion-icon name="add"></ion-icon></ion-fab-button>
-  </ion-fab>
 </ion-content>

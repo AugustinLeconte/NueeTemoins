@@ -1,5 +1,5 @@
-// card-view.component.ts
 import { Component, computed, input, signal } from '@angular/core';
+import { Family } from '../../families/family.model';
 
 @Component({
   selector: 'app-card-view',
@@ -8,7 +8,7 @@ import { Component, computed, input, signal } from '@angular/core';
   styleUrls: ['./card-view.component.scss'],
 })
 export class CardViewComponent {
-  family = input<string>('');
+  families = input<Family[]>([]);
   rarity = input<string>('');
   title = input<string>('');
   subtitle = input<string>('');
@@ -18,6 +18,12 @@ export class CardViewComponent {
   feastMonth = input<number | null | undefined>(null);
   feastDay = input<number | null | undefined>(null);
   locale = input<string>('fr');
+
+  // slug de la première famille : sert au style (couleur, bordure...)
+  primaryFamily = computed(() => this.families()[0]?.publicId ?? '');
+
+  // tous les slugs séparés par des espaces : permet [data-families~="fire"] en CSS
+  familySlugs = computed(() => this.families().map(f => f.publicId).join(' '));
 
   feastLabel = computed(() => {
     const m = this.feastMonth();
@@ -33,8 +39,8 @@ export class CardViewComponent {
   onMove(e: PointerEvent) {
     const el = e.currentTarget as HTMLElement;
     const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width;   // 0 → 1
-    const y = (e.clientY - r.top) / r.height;   // 0 → 1
+    const x = (e.clientX - r.left) / r.width;
+    const y = (e.clientY - r.top) / r.height;
 
     el.style.setProperty('--mx', `${x * 100}%`);
     el.style.setProperty('--my', `${y * 100}%`);

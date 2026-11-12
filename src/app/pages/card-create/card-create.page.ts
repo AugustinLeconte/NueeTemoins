@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
 import { CardService } from '../../cards/card.service';
 import { CardViewComponent } from '../../cards/card-view/card-view.component';
@@ -11,6 +11,9 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonInput, IonTe
     IonSelect, IonSelectOption, IonItem, IonButtons, IonBackButton, IonSpinner,
     IonSegment, IonSegmentButton } from '@ionic/angular';
 import { UserAvatarComponent } from '../../shared/user-avatar/user-avatar.component';
+import { FamilyService } from '../../families/family.service';
+import { Family } from '../../families/family.model';
+import { COUNTRIES, LANGUAGES } from '../../shared/locales';
 
 const slugify = (s: string) =>
   s.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -32,18 +35,16 @@ export class CardCreatePage {
   private fb = inject(FormBuilder);
   private cards = inject(CardService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private familyService = inject(FamilyService);
 
-  readonly families = ['FIRE', 'WATER', 'GRASS'];
+  readonly editId = this.route.snapshot.paramMap.get('publicId');
+
+  public families: Family[] = [];
   readonly rarities = ['COMMON', 'UNCOMMON', 'RARE', 'EPIC', 'LEGENDARY'];
 
-  readonly languages = [
-    { code: 'fr', label: 'Français' }, { code: 'en', label: 'English' },
-    { code: 'es', label: 'Español' },
-  ];
-  readonly countries = [
-    { code: 'FR', label: 'France' },
-    { code: 'CL', label: 'Chili' },
-  ];
+  readonly languages = LANGUAGES;
+  readonly countries = COUNTRIES;
 
   imageChangedEvent: Event | null = null;
   imageUrlInput = '';
@@ -59,19 +60,15 @@ export class CardCreatePage {
   previewCountry = '';
 
   form = this.fb.nonNullable.group({
-    publicId: ['', [Validators.required, Validators.pattern(/^[a-z0-9]+(-[a-z0-9]+)*$/)]],
-    family: ['', Validators.required],
+    families: [[] as string[], Validators.required],
     rarity: ['', Validators.required],
     translations: this.fb.array([this.translationGroup('fr', true)]),
     feastDates: this.fb.array([] as ReturnType<CardCreatePage['feastGroup']>[]),
   });
 
   constructor() {
-    // L'identifiant se génère depuis le titre français tant qu'on ne l'a pas modifié à la main
-    this.translations.at(0).controls.title.valueChanges.subscribe(title => {
-      const id = this.form.controls.publicId;
-      if (!id.dirty) id.setValue(slugify(title ?? ''));
-    });
+    this.familyService.getAll().subscribe(f => this.families = f);
+    if (this.editId) this.loadForEdit(this.editId);
   }
 
   // ---------- accès pratiques ----------
@@ -85,16 +82,17 @@ export class CardCreatePage {
   }
 
   // ---------- fabriques ----------
-  private translationGroup(locale = '', locked = false) {
-    const g = this.fb.nonNullable.group({
-      locale: [locale, Validators.required],
-      title: ['', Validators.required],
-      subtitle: [''],
-      description: [''],
-    });
-    if (locked) g.controls.locale.disable();   // la traduction FR est obligatoire côté API
-    return g;
-  }
+  private translationGroup(locale = '', locked = false,
+        v: { title: string; subtitle: string; description: string } = { title: '', subtitle: '', description: '' }) {
+      const g = this.fb.nonNullable.group({
+        locale: [locale, Validators.required],
+        title: [v.title, Validators.required],
+        subtitle: [v.subtitle],
+        description: [v.description],
+      });
+      if (locked) g.controls.locale.disable();
+      return g;
+    }
 
   private feastGroup() {
     return this.fb.group({
@@ -127,6 +125,11 @@ export class CardCreatePage {
     this.activeIdx = Number(ev.detail.value);
   }
 
+  get selectedFamilies() {
+    const ids = this.form.controls.families.value;
+    return this.families.filter(f => ids.includes(f.publicId));
+  }
+
   // ---------- dates de fête ----------
   availableCountries(idx: number) {
     const used = this.feastDates.controls
@@ -145,6 +148,31 @@ export class CardCreatePage {
   onLoadFailed() { this.error = "Impossible de charger l'image (lien invalide ou bloqué par CORS)."; }
   onUrlInput(ev: Event) { this.imageUrlInput = (ev.target as HTMLIonInputElement).value as string ?? ''; }
 
+private loadForEdit(id: string) {
+    this.cards.getAdmin(id).subscribe({
+      next: c => {
+        this.form.patchValue({ families: c.families, rarity: c.rarity });
+
+        this.translations.clear();
+        [...c.translations]
+          .sort((a, b) => (a.locale === 'fr' ? -1 : b.locale === 'fr' ? 1 : 0))
+          .forEach(t => this.translations.push(this.translationGroup(t.locale, t.locale === 'fr', {
+            title: t.title, subtitle: t.subtitle ?? '', description: t.description ?? '',
+          })));
+
+        this.feastDates.clear();
+        c.feastDates.forEach(f => {
+          const g = this.feastGroup();
+          g.patchValue(f);
+          this.feastDates.push(g);
+        });
+
+        this.croppedPreview = c.imageUrl;
+      },
+      error: () => this.error = 'Impossible de charger la carte.',
+    });
+  }
+
   // ---------- envoi ----------
   submit() {
     if (this.form.invalid) {
@@ -152,11 +180,10 @@ export class CardCreatePage {
       this.error = 'Certains champs sont invalides (vérifie chaque langue).';
       return;
     }
-    const v = this.form.getRawValue();   // getRawValue : inclut la locale FR désactivée
+    const v = this.form.getRawValue();
 
     const req: CardRequest = {
-      publicId: v.publicId,
-      family: v.family as any,
+      families: v.families,
       rarity: v.rarity as any,
       translations: v.translations.map(t => ({
         locale: t.locale,
@@ -173,16 +200,20 @@ export class CardCreatePage {
 
     this.saving = true;
     this.error = null;
-    this.cards.create(req, this.croppedBlob).subscribe({
-      next: () => this.router.navigateByUrl('/cards'),
-      error: (err: HttpErrorResponse) => {
-        this.saving = false;
-        this.error = err.status === 409
-          ? 'Cet identifiant existe déjà.'
-          : err.status === 400
-            ? 'Données refusées par le serveur (date invalide ou traduction FR manquante).'
-            : 'Erreur lors de la création.';
-      },
-    });
+    const call$ = this.editId
+          ? this.cards.update(this.editId, req, this.croppedBlob)
+          : this.cards.create(req, this.croppedBlob);
+
+        call$.subscribe({
+          next: () => this.router.navigateByUrl('/admin/cards'),
+          error: (err: HttpErrorResponse) => {
+            this.saving = false;
+            this.error = err.status === 400
+              ? 'Données refusées par le serveur (date invalide, famille inconnue ou traduction FR manquante).'
+              : 'Erreur lors de l’enregistrement.';
+          },
+        });
   }
+
+
 }

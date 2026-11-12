@@ -41,12 +41,17 @@
     background: linear-gradient(160deg, color-mix(in srgb, var(--family-color) 40%, #222), #1a1a1a);
   }
 
+  .families {
+  position: absolute; top: 3cqw; left: 3cqw; z-index: 4;
+  top: 8px; left: 8px;
+  display: flex; flex-wrap: wrap; gap: 4px;
+  }
+
   .family {
-    position: absolute; top: 3cqw; left: 3cqw; z-index: 4;
     padding: 1cqw 3cqw; border-radius: 99px;
-    background: var(--family-color);
-    font-size: 4cqw; font-weight: 700;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, .4);
+      background: var(--family-color);
+      font-size: 4cqw; font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, .4);
   }
 
   .info {

@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-menu-button></ion-menu-button></ion-buttons>
+    <ion-title>Familles</ion-title>
+    <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    @for (f of families(); track f.publicId) {
+      <ion-item>
+        <ion-label>
+          <h2>{{ displayName(f) }}</h2>
+          <p>{{ f.publicId }} · {{ locales(f) }}</p>
+        </ion-label>
+        <ion-button fill="clear" (click)="open(f)"><ion-icon slot="icon-only" name="create-outline"></ion-icon></ion-button>
+        <ion-button fill="clear" color="danger" (click)="remove(f)"><ion-icon slot="icon-only" name="trash-outline"></ion-icon></ion-button>
+      </ion-item>
+    } @empty {
+      <p class="ion-padding">Aucune famille pour le moment.</p>
+    }
+  </ion-list>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="open()"><ion-icon name="add"></ion-icon></ion-fab-button>
+  </ion-fab>
+</ion-content>

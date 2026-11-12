@@ -2,7 +2,8 @@
   class="card"
   [class.active]="active()"
   [attr.data-rarity]="rarity()"
-  [attr.data-family]="family()"
+  [attr.data-family]="primaryFamily()"
+  [attr.data-families]="familySlugs()"
   (pointermove)="onMove($event)"
   (pointerdown)="onMove($event)"
   (pointerleave)="onLeave($event)"
@@ -14,7 +15,13 @@
     <div class="placeholder">Image</div>
   }
 
-  @if (family()) { <span class="family">{{ family() }}</span> }
+  @if (families().length) {
+    <div class="families">
+      @for (f of families(); track f.publicId) {
+        <span class="family">{{ f.name }}</span>
+      }
+    </div>
+  }
 
   <div class="info">
     <h3>{{ title() || 'Titre de la carte' }}</h3>

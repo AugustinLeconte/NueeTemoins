@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start"><ion-back-button defaultHref="/cards"></ion-back-button></ion-buttons>
-    <ion-title>Nouvelle carte</ion-title>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/admin/cards"></ion-back-button></ion-buttons>
+    <ion-title>{{ editId ? 'Modifier la carte' : 'Nouvelle carte' }}</ion-title>
     <ion-buttons slot="end">
       <app-user-avatar />
     </ion-buttons>
@@ -13,7 +13,7 @@
 
     <section class="preview-pane">
      <app-card-view
-      [family]="form.controls.family.value"
+      [families]="selectedFamilies"
       [rarity]="form.controls.rarity.value"
       [title]="active.controls.title.value"
       [subtitle]="active.controls.subtitle.value"
@@ -65,12 +65,10 @@
 
         <h2>Général</h2>
         <ion-item>
-          <ion-input label="Identifiant" labelPlacement="floating" formControlName="publicId"
-                     helperText="Minuscules, chiffres et tirets (ex : saint-nicolas)"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-select label="Famille" formControlName="family" interface="popover">
-            @for (f of families; track f) { <ion-select-option [value]="f">{{ f }}</ion-select-option> }
+          <ion-select label="Familles" formControlName="families" [multiple]="true" interface="popover">
+            @for (f of families; track f.publicId) {
+              <ion-select-option [value]="f.publicId">{{ f.name }}</ion-select-option>
+            }
           </ion-select>
         </ion-item>
         <ion-item>
@@ -134,7 +132,7 @@
         @if (error) { <p class="error">{{ error }}</p> }
 
         <ion-button type="submit" expand="block" [disabled]="saving" class="submit">
-          @if (saving) { <ion-spinner name="dots"></ion-spinner> } @else { Créer la carte }
+          @if (saving) { <ion-spinner name="dots"></ion-spinner> } @else { {{ editId ? 'Enregistrer' : 'Créer la carte' }} }
         </ion-button>
       </form>
     </section>

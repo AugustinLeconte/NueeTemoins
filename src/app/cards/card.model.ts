@@ -1,3 +1,5 @@
+import { Family } from "../families/family.model";
+
 export type CardFamily = 'FIRE' | 'WATER' | 'GRASS';
 export type CardRarity = 'COMMON' | 'UNCOMMON' | 'RARE' | 'EPIC' | 'LEGENDARY';
 
@@ -15,17 +17,16 @@ export interface FeastDateRequest {
 }
 
 export interface CardRequest {
-  publicId: string;
-  family: CardFamily;
+  families: string[];
   rarity: CardRarity;
   imageUrl?: string;
-  translations: TranslationRequest[];
-  feastDates: FeastDateRequest[];
+  translations: { locale: string; title: string; subtitle?: string; description?: string }[];
+  feastDates: { countryCode: string; month: number; day: number }[];
 }
 
 export interface Card {
   publicId: string;
-  family: CardFamily;
+  families: Family[];
   rarity: CardRarity;
   imageUrl?: string;
   locale: string;
@@ -35,4 +36,10 @@ export interface Card {
   countryCode?: string;
   feastMonth?: number;
   feastDay?: number;
+}
+
+export interface CardAdmin {
+  publicId: string; families: string[]; rarity: string; imageUrl: string | null;
+  translations: { locale: string; title: string; subtitle: string | null; description: string | null }[];
+  feastDates: { countryCode: string; month: number; day: number }[];
 }

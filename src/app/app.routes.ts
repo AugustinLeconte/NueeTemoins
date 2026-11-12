@@ -4,6 +4,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { OnboardingComponent } from './auth/onboarding/onboarding.component';
 import { authGuard } from './auth/auth.guard';
 import { AuthShellComponent } from './auth/auth-shell/auth-shell.component';
+import { adminGuard } from './pages/admin/admin.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'cards', pathMatch: 'full' },
@@ -31,5 +32,10 @@ export const routes: Routes = [
     path: 'profile',
     canActivate: [authGuard],
     loadComponent: () => import('./pages/profile/profile.page').then((m) => m.ProfilePage),
+  },
+  {
+    path: 'admin',
+    canMatch: [adminGuard],
+    loadChildren: () => import('./pages/admin/admin.routes').then(m => m.ADMIN_ROUTES),
   },
 ];
