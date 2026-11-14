@@ -24,6 +24,12 @@
   transition: transform .15s ease-out, box-shadow .3s;
   will-change: transform;
 
+  &[data-rarity='UNCOMMON'] { --rarity-color: #22c55e; }
+  &.locked {
+    filter: grayscale(1) brightness(.55);
+    &::before, &::after { display: none !important; }
+  }
+
   /* ---------- Couleurs par famille (adapte à ton enum) ---------- */
   &[data-family='FIRE']  { --family-color: #ef4444; }
   &[data-family='WATER'] { --family-color: #0ea5e9; }

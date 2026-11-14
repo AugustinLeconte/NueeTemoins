@@ -10,14 +10,18 @@
   <ion-list>
     @for (c of cards(); track c.publicId) {
       <ion-item>
-        @if (c.imageUrl) {
-          <ion-thumbnail slot="start"><img [src]="c.imageUrl" [alt]="c.title" /></ion-thumbnail>
+        @if (c.defaultArt) {
+          <ion-thumbnail slot="start"><img [src]="c.defaultArt.imageUrl" [alt]="c.title" /></ion-thumbnail>
         }
         <ion-label>
           <h2>{{ c.title }}</h2>
-          <p>{{ familyNames(c) }} · {{ c.rarity }} · {{ c.publicId }}</p>
+          <p>{{ familyNames(c) }} · {{ c.publicId }}</p>
+          @if (!c.defaultArt) { <p class="warn">⚠ Pas d'illustration par défaut</p> }
         </ion-label>
-        <ion-button fill="clear" [routerLink]="['/admin/cards', c.publicId]">
+        <ion-button fill="clear" [routerLink]="['/admin/cards', c.publicId, 'arts']" title="Illustrations">
+          <ion-icon slot="icon-only" name="images-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" [routerLink]="['/admin/cards', c.publicId]" title="Modifier">
           <ion-icon slot="icon-only" name="create-outline"></ion-icon>
         </ion-button>
         <ion-button fill="clear" color="danger" (click)="remove(c)">

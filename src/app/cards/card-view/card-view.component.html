@@ -1,5 +1,6 @@
 <article
   class="card"
+  [class.locked]="locked()"
   [class.active]="active()"
   [attr.data-rarity]="rarity()"
   [attr.data-family]="primaryFamily()"

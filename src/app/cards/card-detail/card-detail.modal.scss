@@ -1,0 +1,16 @@
+.hero { display: flex; justify-content: center; app-card-view { max-width: 260px; } }
+.text { margin-top: 16px; }
+.subtitle { font-weight: 600; margin: 0 0 4px; }
+.feast { opacity: .7; margin: 0 0 8px; font-size: .9rem; }
+.desc { line-height: 1.5; white-space: pre-line; }
+.hint { opacity: .7; font-size: .85rem; }
+.center { display: grid; place-items: center; padding: 24px; }
+h3 small { font-weight: 400; opacity: .6; }
+
+.arts { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 16px; }
+.art {
+  display: flex; flex-direction: column; gap: 6px;
+  &.owned { cursor: pointer; }
+  &.equipped app-card-view { outline: 3px solid var(--ion-color-success); outline-offset: 3px; border-radius: 5cqw; }
+  .meta { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; font-size: .8rem; }
+}

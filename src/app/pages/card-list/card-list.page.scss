@@ -1,1 +1,5 @@
+.top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+.cell { cursor: pointer; }
+.center { display: grid; place-items: center; padding: 40px; }
+.error { color: var(--ion-color-danger); }

@@ -2,9 +2,7 @@
   <ion-toolbar>
     <ion-buttons slot="start"><ion-back-button defaultHref="/admin/cards"></ion-back-button></ion-buttons>
     <ion-title>{{ editId ? 'Modifier la carte' : 'Nouvelle carte' }}</ion-title>
-    <ion-buttons slot="end">
-      <app-user-avatar />
-    </ion-buttons>
+    <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -12,26 +10,23 @@
   <div class="layout">
 
     <section class="preview-pane">
-     <app-card-view
-      [families]="selectedFamilies"
-      [rarity]="form.controls.rarity.value"
-      [title]="active.controls.title.value"
-      [subtitle]="active.controls.subtitle.value"
-      [description]="active.controls.description.value"
-      [locale]="active.getRawValue().locale || 'fr'"
-      [feastMonth]="previewFeast?.controls?.month?.value ?? null"
-      [feastDay]="previewFeast?.controls?.day?.value ?? null"
-      [imageUrl]="croppedPreview"
-    />
+      <app-card-view
+        [families]="selectedFamilies"
+        [rarity]="previewRarity"
+        [title]="active.controls.title.value"
+        [subtitle]="active.controls.subtitle.value"
+        [description]="active.controls.description.value"
+        [locale]="active.getRawValue().locale || 'fr'"
+        [feastMonth]="previewFeast?.controls?.month?.value ?? null"
+        [feastDay]="previewFeast?.controls?.day?.value ?? null"
+        [imageUrl]="previewImage" />
 
       @if (feastDates.length) {
         <ion-select class="preview-country" label="Pays de l'aperçu" interface="popover"
                     [(ngModel)]="previewCountry" [ngModelOptions]="{ standalone: true }">
           @for (f of feastDates.controls; track f) {
             @if (f.controls.countryCode.value) {
-              <ion-select-option [value]="f.controls.countryCode.value">
-                {{ f.controls.countryCode.value }}
-              </ion-select-option>
+              <ion-select-option [value]="f.controls.countryCode.value">{{ f.controls.countryCode.value }}</ion-select-option>
             }
           }
         </ion-select>
@@ -39,26 +34,8 @@
     </section>
 
     <section class="config-pane">
-      <h2>Image</h2>
-      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
-
-      <div class="url-row">
-        <ion-input placeholder="ou colle un lien d'image" (ionInput)="onUrlInput($event)"></ion-input>
-        <ion-button size="small" (click)="loadFromUrl()">Charger</ion-button>
-      </div>
-
-      @if (imageChangedEvent || imageSource) {
-        <image-cropper
-          [imageChangedEvent]="imageChangedEvent"
-          [imageURL]="imageSource"
-          [maintainAspectRatio]="true"
-          [aspectRatio]="63 / 88"
-          [resizeToWidth]="750"
-          [onlyScaleDown]="false"
-          format="png"
-          (imageCropped)="onCropped($event)"
-          (loadImageFailed)="onLoadFailed()"
-        ></image-cropper>
+      @if (!editId) {
+        <p class="hint">Les illustrations (image, rareté, artiste) s'ajoutent à l'étape suivante, une fois la carte créée.</p>
       }
 
       <form [formGroup]="form" (ngSubmit)="submit()">
@@ -71,18 +48,11 @@
             }
           </ion-select>
         </ion-item>
-        <ion-item>
-          <ion-select label="Rareté" formControlName="rarity" interface="popover">
-            @for (r of rarities; track r) { <ion-select-option [value]="r">{{ r }}</ion-select-option> }
-          </ion-select>
-        </ion-item>
 
         <h2>Traductions</h2>
         <ion-segment [scrollable]="true" [value]="activeIdx" (ionChange)="onSegmentChange($event)">
           @for (t of translations.controls; track t; let i = $index) {
-            <ion-segment-button [value]="i">
-              {{ (t.getRawValue().locale || '?').toUpperCase() }}
-            </ion-segment-button>
+            <ion-segment-button [value]="i">{{ (t.getRawValue().locale || '?').toUpperCase() }}</ion-segment-button>
           }
         </ion-segment>
 
@@ -101,9 +71,7 @@
               <ion-item><ion-textarea label="Description" labelPlacement="floating" formControlName="description" [autoGrow]="true"></ion-textarea></ion-item>
 
               @if (i > 0) {
-                <ion-button size="small" fill="clear" color="danger" (click)="removeTranslation(i)">
-                  Supprimer cette langue
-                </ion-button>
+                <ion-button size="small" fill="clear" color="danger" (click)="removeTranslation(i)">Supprimer cette langue</ion-button>
               } @else {
                 <p class="hint">La version française est obligatoire (langue par défaut).</p>
               }
@@ -132,7 +100,8 @@
         @if (error) { <p class="error">{{ error }}</p> }
 
         <ion-button type="submit" expand="block" [disabled]="saving" class="submit">
-          @if (saving) { <ion-spinner name="dots"></ion-spinner> } @else { {{ editId ? 'Enregistrer' : 'Créer la carte' }} }
+          @if (saving) { <ion-spinner name="dots"></ion-spinner> }
+          @else { {{ editId ? 'Enregistrer' : 'Créer la carte et ajouter une illustration' }} }
         </ion-button>
       </form>
     </section>

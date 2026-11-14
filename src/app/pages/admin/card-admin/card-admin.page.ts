@@ -1,7 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { add, createOutline, trashOutline } from 'ionicons/icons';
+import { add, createOutline, trashOutline, imagesOutline } from 'ionicons/icons';
 import { IonButtons, IonMenuButton, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonTitle,
          IonToolbar, IonList, IonItem, IonLabel, IonButton, IonThumbnail, AlertController } from '@ionic/angular';
 import { UserAvatarComponent } from '../../../shared/user-avatar/user-avatar.component';
@@ -23,9 +24,10 @@ export class CardAdminPage {
   cards = signal<Card[]>([]);
 
   constructor() {
-    addIcons({ add, createOutline, trashOutline });
-    this.load();
+    addIcons({ add, createOutline, trashOutline, imagesOutline });
   }
+
+  ionViewWillEnter() { this.load(); }
 
   load() { this.cardService.getAll().subscribe(c => this.cards.set(c)); }
 
@@ -34,11 +36,20 @@ export class CardAdminPage {
   async remove(c: Card) {
     const a = await this.alert.create({
       header: 'Supprimer la carte ?',
-      message: `« ${c.title} » sera définitivement supprimée.`,
+      message: `« ${c.title} » et toutes ses illustrations seront définitivement supprimées.`,
       buttons: [
         { text: 'Annuler', role: 'cancel' },
-        { text: 'Supprimer', role: 'destructive',
-          handler: () => this.cardService.delete(c.publicId).subscribe(() => this.load()) },
+        { text: 'Supprimer', role: 'destructive', handler: () => this.cardService.delete(c.publicId).subscribe({
+            next: () => this.load(),
+            error: async (e: HttpErrorResponse) => {
+              const err = await this.alert.create({
+                header: 'Suppression impossible',
+                message: e.status === 409 ? 'Cette carte est déjà possédée par des joueurs.' : 'Erreur serveur.',
+                buttons: ['OK'],
+              });
+              await err.present();
+            },
+          }) },
       ],
     });
     await a.present();

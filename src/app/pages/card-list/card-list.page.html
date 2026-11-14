@@ -1,14 +1,33 @@
-<ion-header><ion-toolbar><ion-title>Cartes</ion-title>
-    <ion-buttons slot="end">
-      <app-user-avatar />
-    </ion-buttons></ion-toolbar></ion-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ma collection</ion-title>
+    <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content class="ion-padding">
-  <div class="grid">
-    @for (c of cards$ | async; track c.publicId) {
-      <app-card-view
-        [families]="c.families" [rarity]="c.rarity" [title]="c.title"
-        [subtitle]="c.subtitle ?? ''" [description]="c.description ?? ''"
-        [imageUrl]="c.imageUrl" />
-    }
-  </div>
+  @if (loading()) {
+    <div class="center"><ion-spinner></ion-spinner></div>
+  } @else if (error()) {
+    <p class="error">{{ error() }}</p>
+  } @else {
+    <div class="top">
+      <ion-chip><ion-label>{{ ownedCount() }} / {{ cards().length }} saints</ion-label></ion-chip>
+      <ion-button size="small" routerLink="/packs">🎴 Ouvrir un pack</ion-button>
+    </div>
+
+    <div class="grid">
+      @for (c of cards(); track c.publicId) {
+        <div class="cell" (click)="openDetail(c)">
+          <app-card-view
+            [families]="c.families" [rarity]="artOf(c)?.rarity ?? 'COMMON'"
+            [title]="c.title" [subtitle]="c.subtitle ?? ''" [description]="c.description ?? ''"
+            [imageUrl]="artOf(c)?.imageUrl" [feastMonth]="c.feastMonth" [feastDay]="c.feastDay"
+            [locale]="c.locale" [locked]="!isOwned(c)" />
+        </div>
+      } @empty {
+        <p>Aucune carte pour le moment.</p>
+      }
+    </div>
+  }
 </ion-content>

@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ card.title }}</ion-title>
+    <ion-buttons slot="end"><ion-button (click)="close()">Fermer</ion-button></ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="hero">
+    <app-card-view
+      [families]="card.families" [rarity]="current()?.rarity ?? 'COMMON'"
+      [title]="card.title" [subtitle]="card.subtitle ?? ''" [description]="card.description ?? ''"
+      [imageUrl]="current()?.imageUrl" [feastMonth]="card.feastMonth" [feastDay]="card.feastDay"
+      [locale]="card.locale" [locked]="!playerCard" />
+  </div>
+
+  <section class="text">
+    @if (card.subtitle) { <p class="subtitle">{{ card.subtitle }}</p> }
+    @if (feastLabel()) { <p class="feast">Fête : {{ feastLabel() }}</p> }
+    @if (card.description) { <p class="desc">{{ card.description }}</p> }
+    @if (!playerCard) { <p class="hint">Vous ne possédez pas encore ce saint. Ouvrez des packs pour le débloquer.</p> }
+  </section>
+
+  <h3>Illustrations
+    @if (!loading()) { <small>({{ ownedCount() }}/{{ arts().length }})</small> }
+  </h3>
+
+  @if (loading()) {
+    <div class="center"><ion-spinner></ion-spinner></div>
+  } @else {
+    <div class="arts">
+      @for (a of sorted(); track a.publicId) {
+        <div class="art" [class.owned]="isOwned(a)" [class.equipped]="isEquipped(a)" (click)="equip(a)">
+          <app-card-view [families]="card.families" [rarity]="a.rarity" [title]="card.title"
+                         [imageUrl]="a.imageUrl" [locked]="!isOwned(a)" />
+          <div class="meta">
+            <strong>{{ a.title || 'Illustration' }}</strong>
+            @if (a.artist) { <small>par {{ a.artist.name }}</small> }
+            @if (isEquipped(a)) {
+              <ion-badge color="success">Équipée</ion-badge>
+            } @else if (isOwned(a)) {
+              <ion-badge color="primary">Équiper</ion-badge>
+            } @else {
+              <ion-badge color="medium">🔒 {{ sourceLabel(a) }}</ion-badge>
+            }
+          </div>
+        </div>
+      } @empty {
+        <p class="hint">Aucune illustration pour le moment.</p>
+      }
+    </div>
+  }
+</ion-content>

@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="card() ? '/admin/cards/' + card()!.publicId + '/arts' : '/admin/cards'"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ artId ? 'Modifier l’illustration' : 'Nouvelle illustration' }}@if (card()) { · {{ card()!.title }} }</ion-title>
+    <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="layout">
+
+    <section class="preview-pane">
+      @if (card(); as c) {
+        <app-card-view
+          [families]="c.families" [rarity]="form.getRawValue().rarity"
+          [title]="c.title" [subtitle]="c.subtitle ?? ''" [description]="c.description ?? ''"
+          [locale]="c.locale" [feastMonth]="c.feastMonth" [feastDay]="c.feastDay"
+          [imageUrl]="croppedPreview" />
+      }
+    </section>
+
+    <section class="config-pane">
+      <h2>Image</h2>
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+      <div class="url-row">
+        <ion-input placeholder="ou colle un lien d'image" (ionInput)="onUrlInput($event)"></ion-input>
+        <ion-button size="small" (click)="loadFromUrl()">Charger</ion-button>
+      </div>
+
+      @if (imageChangedEvent || imageSource) {
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent" [imageURL]="imageSource"
+          [maintainAspectRatio]="true" [aspectRatio]="63 / 88" [resizeToWidth]="750"
+          [onlyScaleDown]="false" format="png"
+          (imageCropped)="onCropped($event)" (loadImageFailed)="onLoadFailed()"
+        ></image-cropper>
+      }
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <h2>Obtention</h2>
+        <ion-item>
+          <ion-select label="Source" formControlName="source" interface="popover">
+            @for (s of sources; track s.value) { <ion-select-option [value]="s.value">{{ s.label }}</ion-select-option> }
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-select label="Rareté" formControlName="rarity" interface="popover">
+            @for (r of rarities; track r) { <ion-select-option [value]="r">{{ r }}</ion-select-option> }
+          </ion-select>
+        </ion-item>
+        @if (isDefault) { <p class="hint">L'illustration par défaut est toujours COMMON.</p> }
+
+        @if (isShop) {
+          <ion-item><ion-input label="Prix (fragments)" labelPlacement="floating" type="number" min="1" formControlName="fragmentPrice"></ion-input></ion-item>
+        }
+        <ion-item>
+          <ion-input label="Poids de tirage" labelPlacement="floating" type="number" min="0" formControlName="dropWeight"></ion-input>
+        </ion-item>
+        <p class="hint">Probabilité relative parmi les illustrations de même rareté d'un saint (100 = normal).</p>
+        <ion-item><ion-toggle formControlName="obtainable">Obtenable (packs / boutique)</ion-toggle></ion-item>
+
+        <h2>Artiste</h2>
+        <ion-item>
+          <ion-select label="Artiste" formControlName="artistPublicId" interface="popover">
+            <ion-select-option value="">— Aucun —</ion-select-option>
+            @for (a of artists(); track a.publicId) { <ion-select-option [value]="a.publicId">{{ a.name }}</ion-select-option> }
+          </ion-select>
+        </ion-item>
+        <ion-button size="small" fill="outline" (click)="newArtist()">+ Nouvel artiste</ion-button>
+
+        <h2>Textes de l'illustration (optionnels)</h2>
+        <ion-segment [scrollable]="true" [value]="activeIdx" (ionChange)="onSegmentChange($event)">
+          @for (t of translations.controls; track t; let i = $index) {
+            <ion-segment-button [value]="i">{{ (t.getRawValue().locale || '?').toUpperCase() }}</ion-segment-button>
+          }
+        </ion-segment>
+
+        @for (t of translations.controls; track t; let i = $index) {
+          @if (i === activeIdx) {
+            <div [formGroup]="t" class="translation-fields">
+              <ion-item>
+                <ion-select label="Langue" formControlName="locale" interface="popover">
+                  @for (l of availableLanguages(i); track l.code) { <ion-select-option [value]="l.code">{{ l.label }}</ion-select-option> }
+                </ion-select>
+              </ion-item>
+              <ion-item><ion-input label="Titre de l'illustration" labelPlacement="floating" formControlName="title"></ion-input></ion-item>
+              <ion-item><ion-textarea label="Description (histoire de l'illustration)" labelPlacement="floating" formControlName="description" [autoGrow]="true"></ion-textarea></ion-item>
+              @if (i > 0) { <ion-button size="small" fill="clear" color="danger" (click)="removeTranslation(i)">Supprimer cette langue</ion-button> }
+            </div>
+          }
+        }
+        <ion-button size="small" fill="outline" (click)="addTranslation()">+ Ajouter une langue</ion-button>
+
+        @if (error) { <p class="error">{{ error }}</p> }
+
+        <ion-button type="submit" expand="block" [disabled]="saving || !card()" class="submit">
+          @if (saving) { <ion-spinner name="dots"></ion-spinner> } @else { {{ artId ? 'Enregistrer' : 'Créer l’illustration' }} }
+        </ion-button>
+      </form>
+    </section>
+
+  </div>
+</ion-content>

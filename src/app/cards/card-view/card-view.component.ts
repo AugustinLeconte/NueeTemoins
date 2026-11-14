@@ -8,21 +8,19 @@ import { Family } from '../../families/family.model';
   styleUrls: ['./card-view.component.scss'],
 })
 export class CardViewComponent {
-  families = input<Family[]>([]);
-  rarity = input<string>('');
-  title = input<string>('');
-  subtitle = input<string>('');
-  description = input<string>('');
-  imageUrl = input<string | null | undefined>(null);
+  public families = input<Family[]>([]);
+  public rarity = input<string>('');
+  public title = input<string>('');
+  public subtitle = input<string>('');
+  public description = input<string>('');
+  public imageUrl = input<string | null | undefined>(null);
+  public locked = input<boolean>(false);
+  public feastMonth = input<number | null | undefined>(null);
+  public feastDay = input<number | null | undefined>(null);
+  public locale = input<string>('fr');
 
-  feastMonth = input<number | null | undefined>(null);
-  feastDay = input<number | null | undefined>(null);
-  locale = input<string>('fr');
-
-  // slug de la première famille : sert au style (couleur, bordure...)
   primaryFamily = computed(() => this.families()[0]?.publicId ?? '');
 
-  // tous les slugs séparés par des espaces : permet [data-families~="fire"] en CSS
   familySlugs = computed(() => this.families().map(f => f.publicId).join(' '));
 
   feastLabel = computed(() => {

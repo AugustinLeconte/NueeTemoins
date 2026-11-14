@@ -28,6 +28,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/card-create/card-create.page').then((m) => m.CardCreatePage),
     canActivate: [authGuard],
   },
+  { path: 'packs', loadComponent: () => import('./pages/pack-opening/pack-opening.page').then((m) => m.PackOpeningPage),
+    canActivate: [authGuard],
+
+  },
   {
     path: 'profile',
     canActivate: [authGuard],

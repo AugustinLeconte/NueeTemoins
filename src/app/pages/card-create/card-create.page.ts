@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import {FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
+import { forkJoin } from 'rxjs';
 import { CardService } from '../../cards/card.service';
 import { CardViewComponent } from '../../cards/card-view/card-view.component';
 import { CardRequest } from '../../cards/card.model';
@@ -15,17 +15,13 @@ import { FamilyService } from '../../families/family.service';
 import { Family } from '../../families/family.model';
 import { COUNTRIES, LANGUAGES } from '../../shared/locales';
 
-const slugify = (s: string) =>
-  s.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-   .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-
 @Component({
   selector: 'app-card-create',
   standalone: true,
   templateUrl: './card-create.page.html',
   styleUrls: ['./card-create.page.scss'],
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule, ImageCropperComponent,
+    CommonModule, FormsModule, ReactiveFormsModule,
     IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonInput, IonTextarea,
     IonSelect, IonSelectOption, IonItem, IonButtons, IonBackButton, IonSpinner,
     IonSegment, IonSegmentButton, CardViewComponent, UserAvatarComponent
@@ -41,27 +37,21 @@ export class CardCreatePage {
   readonly editId = this.route.snapshot.paramMap.get('publicId');
 
   public families: Family[] = [];
-  readonly rarities = ['COMMON', 'UNCOMMON', 'RARE', 'EPIC', 'LEGENDARY'];
-
   readonly languages = LANGUAGES;
   readonly countries = COUNTRIES;
 
-  imageChangedEvent: Event | null = null;
-  imageUrlInput = '';
-  imageSource: string | undefined;
-  croppedBlob: Blob | null = null;
-  croppedPreview: string | null = null;
+  // aperçu : illustration par défaut de la carte (en édition uniquement)
+  previewImage: string | null = null;
+  previewRarity = 'COMMON';
 
   saving = false;
   error: string | null = null;
 
-  // aperçu
   activeIdx = 0;
   previewCountry = '';
 
   form = this.fb.nonNullable.group({
     families: [[] as string[], Validators.required],
-    rarity: ['', Validators.required],
     translations: this.fb.array([this.translationGroup('fr', true)]),
     feastDates: this.fb.array([] as ReturnType<CardCreatePage['feastGroup']>[]),
   });
@@ -71,7 +61,6 @@ export class CardCreatePage {
     if (this.editId) this.loadForEdit(this.editId);
   }
 
-  // ---------- accès pratiques ----------
   get translations() { return this.form.controls.translations; }
   get feastDates() { return this.form.controls.feastDates; }
   get active() { return this.translations.at(this.activeIdx); }
@@ -81,18 +70,17 @@ export class CardCreatePage {
     return valid.find(f => f.controls.countryCode.value === this.previewCountry) ?? valid[0] ?? null;
   }
 
-  // ---------- fabriques ----------
   private translationGroup(locale = '', locked = false,
         v: { title: string; subtitle: string; description: string } = { title: '', subtitle: '', description: '' }) {
-      const g = this.fb.nonNullable.group({
-        locale: [locale, Validators.required],
-        title: [v.title, Validators.required],
-        subtitle: [v.subtitle],
-        description: [v.description],
-      });
-      if (locked) g.controls.locale.disable();
-      return g;
-    }
+    const g = this.fb.nonNullable.group({
+      locale: [locale, Validators.required],
+      title: [v.title, Validators.required],
+      subtitle: [v.subtitle],
+      description: [v.description],
+    });
+    if (locked) g.controls.locale.disable();
+    return g;
+  }
 
   private feastGroup() {
     return this.fb.group({
@@ -102,11 +90,8 @@ export class CardCreatePage {
     });
   }
 
-  // ---------- traductions ----------
   availableLanguages(idx: number) {
-    const used = this.translations.controls
-      .filter((_, i) => i !== idx)
-      .map(t => t.getRawValue().locale);
+    const used = this.translations.controls.filter((_, i) => i !== idx).map(t => t.getRawValue().locale);
     return this.languages.filter(l => !used.includes(l.code));
   }
 
@@ -121,37 +106,25 @@ export class CardCreatePage {
     this.activeIdx = Math.min(this.activeIdx, this.translations.length - 1);
   }
 
-  onSegmentChange(ev: CustomEvent) {
-    this.activeIdx = Number(ev.detail.value);
-  }
+  onSegmentChange(ev: CustomEvent) { this.activeIdx = Number(ev.detail.value); }
 
   get selectedFamilies() {
     const ids = this.form.controls.families.value;
     return this.families.filter(f => ids.includes(f.publicId));
   }
 
-  // ---------- dates de fête ----------
   availableCountries(idx: number) {
-    const used = this.feastDates.controls
-      .filter((_, i) => i !== idx)
-      .map(f => f.controls.countryCode.value);
+    const used = this.feastDates.controls.filter((_, i) => i !== idx).map(f => f.controls.countryCode.value);
     return this.countries.filter(c => !used.includes(c.code));
   }
 
   addFeastDate() { this.feastDates.push(this.feastGroup()); }
   removeFeastDate(idx: number) { this.feastDates.removeAt(idx); }
 
-  // ---------- image (inchangé) ----------
-  onFileSelected(event: Event) { this.imageSource = undefined; this.imageChangedEvent = event; }
-  loadFromUrl() { this.imageChangedEvent = null; this.imageSource = this.imageUrlInput.trim(); }
-  onCropped(e: ImageCroppedEvent) { this.croppedBlob = e.blob ?? null; this.croppedPreview = e.objectUrl ?? null; }
-  onLoadFailed() { this.error = "Impossible de charger l'image (lien invalide ou bloqué par CORS)."; }
-  onUrlInput(ev: Event) { this.imageUrlInput = (ev.target as HTMLIonInputElement).value as string ?? ''; }
-
-private loadForEdit(id: string) {
-    this.cards.getAdmin(id).subscribe({
-      next: c => {
-        this.form.patchValue({ families: c.families, rarity: c.rarity });
+  private loadForEdit(id: string) {
+    forkJoin({ admin: this.cards.getAdmin(id), card: this.cards.getOne(id) }).subscribe({
+      next: ({ admin: c, card }) => {
+        this.form.patchValue({ families: c.families });
 
         this.translations.clear();
         [...c.translations]
@@ -167,13 +140,13 @@ private loadForEdit(id: string) {
           this.feastDates.push(g);
         });
 
-        this.croppedPreview = c.imageUrl;
+        this.previewImage = card.defaultArt?.imageUrl ?? null;
+        this.previewRarity = card.defaultArt?.rarity ?? 'COMMON';
       },
       error: () => this.error = 'Impossible de charger la carte.',
     });
   }
 
-  // ---------- envoi ----------
   submit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -184,7 +157,6 @@ private loadForEdit(id: string) {
 
     const req: CardRequest = {
       families: v.families,
-      rarity: v.rarity as any,
       translations: v.translations.map(t => ({
         locale: t.locale,
         title: t.title,
@@ -200,20 +172,18 @@ private loadForEdit(id: string) {
 
     this.saving = true;
     this.error = null;
-    const call$ = this.editId
-          ? this.cards.update(this.editId, req, this.croppedBlob)
-          : this.cards.create(req, this.croppedBlob);
 
-        call$.subscribe({
-          next: () => this.router.navigateByUrl('/admin/cards'),
-          error: (err: HttpErrorResponse) => {
-            this.saving = false;
-            this.error = err.status === 400
-              ? 'Données refusées par le serveur (date invalide, famille inconnue ou traduction FR manquante).'
-              : 'Erreur lors de l’enregistrement.';
-          },
-        });
+    const call$ = this.editId ? this.cards.update(this.editId, req) : this.cards.create(req);
+    call$.subscribe({
+      // création : on enchaîne directement sur l'ajout de l'illustration par défaut
+      next: card => this.router.navigateByUrl(
+        this.editId ? '/admin/cards' : `/admin/cards/${card.publicId}/arts/new`),
+      error: (err: HttpErrorResponse) => {
+        this.saving = false;
+        this.error = err.status === 400
+          ? 'Données refusées par le serveur (date invalide, famille inconnue ou traduction FR manquante).'
+          : 'Erreur lors de l’enregistrement.';
+      },
+    });
   }
-
-
 }

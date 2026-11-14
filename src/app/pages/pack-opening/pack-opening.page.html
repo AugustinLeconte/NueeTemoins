@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/cards"></ion-back-button></ion-buttons>
+    <ion-title>Packs</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (phase() !== 'reveal') {
+    <section class="start">
+      <div class="pack" [class.opening]="phase() === 'opening'">
+        <span>✦</span>
+        <small>Pack du jour</small>
+      </div>
+
+      @if (wallet(); as w) {
+        <p class="fragments">Fragments : <strong>{{ w.fragments }}</strong> ✦</p>
+        <div class="pity">
+          <small>Garantie : une illustration rare ou mieux après {{ PITY }} packs sans ({{ w.packsSinceRare }}/{{ PITY }})</small>
+          <ion-progress-bar [value]="pityProgress()"></ion-progress-bar>
+        </div>
+      }
+
+      @if (error()) { <p class="error">{{ error() }}</p> }
+
+      <ion-button expand="block" [disabled]="phase() === 'opening' || !wallet()?.dailyPackAvailable" (click)="open()">
+        @if (phase() === 'opening') {
+          <ion-spinner name="dots"></ion-spinner>
+        } @else if (wallet()?.dailyPackAvailable) {
+          Ouvrir mon pack quotidien
+        } @else {
+          Pack du jour déjà ouvert
+        }
+      </ion-button>
+      <ion-button expand="block" fill="clear" routerLink="/cards">Voir ma collection</ion-button>
+    </section>
+  } @else if (result(); as r) {
+    <section class="reveal-area">
+      <p class="hint">Touchez les cartes pour les révéler</p>
+
+      <div class="slots">
+        @for (d of r.draws; track $index; let i = $index) {
+          <div class="slot">
+            @if (revealed()[i]) {
+              <div class="face flip-in">
+                <app-card-view
+                  [families]="cardOf(d)?.families ?? []" [rarity]="d.art.rarity"
+                  [title]="d.art.cardTitle ?? ''" [subtitle]="cardOf(d)?.subtitle ?? ''"
+                  [description]="cardOf(d)?.description ?? ''" [imageUrl]="d.art.imageUrl"
+                  [feastMonth]="cardOf(d)?.feastMonth" [feastDay]="cardOf(d)?.feastDay"
+                  [locale]="cardOf(d)?.locale ?? 'fr'" />
+                <div class="tags">
+                  @if (d.newCard) {
+                    <ion-badge color="success">Nouveau saint !</ion-badge>
+                  } @else if (d.newArt) {
+                    <ion-badge color="tertiary">Nouvelle illustration</ion-badge>
+                  } @else {
+                    <ion-badge color="medium">Doublon · +{{ d.fragmentsGained }} ✦</ion-badge>
+                  }
+                </div>
+              </div>
+            } @else {
+              <button class="back" type="button" aria-label="Révéler la carte" (click)="reveal(i)"><span>✦</span></button>
+            }
+          </div>
+        }
+      </div>
+
+      @if (!allRevealed()) {
+        <ion-button fill="outline" expand="block" (click)="revealAll()">Tout révéler</ion-button>
+      } @else {
+        <div class="summary">
+          @if (r.fragmentsGained > 0) { <p>+{{ r.fragmentsGained }} ✦ fragments grâce aux doublons</p> }
+          <ion-button expand="block" routerLink="/cards">Voir ma collection</ion-button>
+          <ion-button expand="block" fill="clear" (click)="finish()">Fermer</ion-button>
+        </div>
+      }
+    </section>
+  }
+</ion-content>
