@@ -31,8 +31,10 @@
     <div class="arts">
       @for (a of sorted(); track a.publicId) {
         <div class="art" [class.owned]="isOwned(a)" [class.equipped]="isEquipped(a)" (click)="equip(a)">
-          <app-card-view [families]="card.families" [rarity]="a.rarity" [title]="card.title"
-                         [imageUrl]="a.imageUrl" [locked]="!isOwned(a)" />
+          <div class="art-card">
+            <app-card-view [families]="card.families" [rarity]="a.rarity" [title]="card.title"
+                          [imageUrl]="a.imageUrl" [locked]="!isOwned(a)" />
+          </div>
           <div class="meta">
             <strong>{{ a.title || 'Illustration' }}</strong>
             @if (a.artist) { <small>par {{ a.artist.name }}</small> }
