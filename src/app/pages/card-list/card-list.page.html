@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Ma collection</ion-title>
+    <ion-title>{{ 'card-list.collection' | transloco}}</ion-title>
     <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -9,11 +9,11 @@
   @if (loading()) {
     <div class="center"><ion-spinner></ion-spinner></div>
   } @else if (error()) {
-    <p class="error">{{ error() }}</p>
+    <p class="error">{{ error() | transloco }}</p>
   } @else {
     <div class="top">
-      <ion-chip><ion-label>{{ ownedCount() }} / {{ cards().length }} saints</ion-label></ion-chip>
-      <ion-button size="small" routerLink="/packs">🎴 Ouvrir un pack</ion-button>
+      <ion-chip><ion-label>{{ ownedCount() }} / {{ cards().length }} {{ 'saints' | transloco}}</ion-label></ion-chip>
+      <ion-button size="small" routerLink="/packs">{{"packs.open" | transloco}}</ion-button>
     </div>
 
     <div class="grid">
@@ -27,7 +27,7 @@
           @if (canUpgrade(c)) { <span class="up" title="Montée de niveau disponible">⬆</span> }
         </div>
       } @empty {
-        <p>Aucune carte pour le moment.</p>
+        <p>{{'card-list.no-cards' | transloco}}</p>
       }
     </div>
   }

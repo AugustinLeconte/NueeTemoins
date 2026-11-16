@@ -1,11 +1,12 @@
 {
+  "app-name": "Nube de testigos",
   "auth": {
     "email": "Correo electrónico",
     "password": "Contraseña",
     "passwordMin": "Contraseña (mín. 8 caracteres)",
     "login": {
       "title": "Iniciar sesión",
-      "submit": "Iniciar sesión",
+      "submit": "Entrar",
       "google": "Continuar con Google",
       "noAccount": "¿No tienes cuenta?",
       "signupLink": "Regístrate"
@@ -14,22 +15,161 @@
       "title": "Registro",
       "submit": "Crear mi cuenta",
       "google": "Registrarse con Google",
-      "hasAccount": "¿Ya tienes cuenta?",
+      "hasAccount": "¿Ya estás registrado?",
       "loginLink": "Iniciar sesión"
     },
     "onboarding": {
       "title": "Completa tu perfil",
-      "pseudo": "Nombre de usuario",
+      "pseudo": "Seudónimo",
       "country": "País",
       "language": "Idioma",
       "submit": "Continuar"
     },
     "errors": {
       "generic": "Ha ocurrido un error",
-      "invalidCredentials": "Correo o contraseña incorrectos",
-      "loginFailed": "No se puede iniciar sesión",
-      "signupFailed": "No se puede registrar",
-      "pseudoTaken": "Este nombre de usuario ya está en uso"
+      "invalidCredentials": "Correo electrónico o contraseña incorrectos",
+      "loginFailed": "Imposible iniciar sesión",
+      "signupFailed": "Imposible registrarse",
+      "pseudoTaken": "Este seudónimo ya está en uso"
+    }
+  },
+  "achievements": {
+    "title": "Logros",
+    "unlocked": "¡Logro desbloqueado!",
+    "items": {
+      "LEVEL_1": {
+        "name": "Primeros pasos",
+        "desc": "Alcanza el nivel 1"
+      },
+      "LEVEL_10": {
+        "name": "Aprendiz",
+        "desc": "Alcanza el nivel 10"
+      },
+      "LEVEL_25": {
+        "name": "Veterano",
+        "desc": "Alcanza el nivel 25"
+      },
+      "LEVEL_50": {
+        "name": "Maestro",
+        "desc": "Alcanza el nivel 50"
+      },
+      "CARDS_10": {
+        "name": "Coleccionista",
+        "desc": "Posee 10 santos"
+      },
+      "ARTS_5_ON_ONE_CARD": {
+        "name": "Admirador",
+        "desc": "Posee 5 ilustraciones de un mismo santo"
+      },
+      "COINS_100": {
+        "name": "Ahorros",
+        "desc": "Posee 100 monedas"
+      },
+      "SHOP_FIRST_PURCHASE": {
+        "name": "Primera compra",
+        "desc": "Compra una ilustración en la tienda"
+      },
+      "SHOP_20_PURCHASES": {
+        "name": "Cliente fiel",
+        "desc": "Compra 20 ilustraciones en la tienda"
+      }
+    }
+  },
+  "card-list": {
+    "collection": "Mi colección",
+    "no-cards": "No hay cartas por el momento.",
+    "loadError": "Imposible cargar las cartas."
+  },
+  "saints": "santos",
+  "packs": {
+    "open": "Abrir un sobre",
+    "title": {
+      "default": "Sobres",
+      "level": "Sobre de nivel {{ level }}"
+    },
+    "subtitle": {
+      "daily": "Sobre del día",
+      "level": "Recompensa de nivel {{ level }}"
+    },
+    "coins": "Monedas:",
+    "pity": "Garantía: una ilustración rara o mejor tras {{ pity }} sobres sin ella ({{ current }}/{{ pity }})",
+    "actions": {
+      "openPack": "Abrir sobre",
+      "openDaily": "Abrir mi sobre diario",
+      "dailyOpened": "Sobre del día ya abierto",
+      "revealCard": "Revelar carta",
+      "revealAll": "Revelar todo",
+      "backToShop": "Volver a la tienda",
+      "unclaimedPacks": "🎁 {{ count }} sobre(s) por abrir en la tienda"
+    },
+    "reveal": {
+      "hint": "Toca las cartas para revelarlas",
+      "coinsUnit": "monedas",
+      "newSaint": "¡Nuevo santo!",
+      "newArt": "Nueva ilustración",
+      "duplicate": "Duplicado · +{{ count }} fragmentos",
+      "fragmentsProgress": "{{ current }} / {{ next }} fragmentos de {{ title }}",
+      "maxLevel": "Nivel máximo",
+      "upgradeAvailable": "⬆ Subida de nivel disponible"
+    },
+    "summary": {
+      "coinsGained": "+{{ count }} 🪙 monedas ganadas",
+      "xpGained": "+{{ count }} XP",
+      "levelReached": "🎉 ¡Nivel {{ level }} alcanzado!",
+      "newPackInShop": "Te espera un nuevo sobre en la tienda."
+    }
+  },
+  "profile": {
+    "title": "Mi perfil",
+    "loading-error": "Imposible cargar tu perfil.",
+    "level": {
+      "shortCode": "Niv.",
+      "experience": "XP",
+      "max": "Nivel máximo"
+    },
+    "logout": "Cerrar sesión"
+  },
+  "shop": {
+    "title": "Tienda",
+    "free": {
+      "tag": "🎁 Gratis",
+      "hint": "Monedas de regalo, sin gastar nada.",
+      "dailyTitle": "Regalo del día",
+      "dailyOnce": "una vez al día",
+      "claim": "Reclamar",
+      "comeBackTomorrow": "Vuelve mañana",
+      "adTitle": "Ver un anuncio",
+      "adRemaining": "+{{remaining}}/{{max}} restantes hoy",
+      "watch": "Ver"
+    },
+    "packs": {
+      "tag": "🎴 Sobres de nivel",
+      "hint": "Cada nivel desbloquea un sobre (prémium cada 5 niveles).",
+      "premium": "Sobre prémium",
+      "standard": "Sobre estándar",
+      "levelInfo": "Nivel {{level}} · {{size}} espacios",
+      "open": "Abrir",
+      "unlockAt": "Se desbloquea al nivel {{level}}",
+      "noMore": "No hay más sobres próximos.",
+      "openedCount": "{{count}} sobre(s) ya abierto(s) ✓"
+    },
+    "arts": {
+      "tag": "🖼️ Ilustraciones del día",
+      "hint": "3 ilustraciones, renovadas cada día. El precio depende de la rareza.",
+      "defaultTitle": "Ilustración",
+      "byArtist": "por {{name}}",
+      "owned": "En propiedad",
+      "empty": "No hay ilustraciones a la venta por el momento."
+    },
+    "errors": {
+      "loadFailed": "Imposible cargar la tienda.",
+      "alreadyOwnedOrPoor": "Monedas insuficientes o ilustración ya en propiedad.",
+      "buyFailed": "Compra imposible.",
+      "alreadyClaimed": "Ya reclamado hoy.",
+      "adNotCompleted": "Sin recompensa: mira el anuncio hasta el final.",
+      "adWait": "Espera un poco antes del siguiente anuncio.",
+      "adLimitReached": "Límite de anuncios alcanzado por hoy.",
+      "adUnavailable": "Recompensa no disponible por el momento."
     }
   }
 }

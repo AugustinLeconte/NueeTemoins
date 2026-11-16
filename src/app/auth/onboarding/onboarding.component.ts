@@ -4,7 +4,6 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { ProfileService } from '../profile.service';
-import { AuthShellComponent } from '../auth-shell/auth-shell.component';
 import { LanguageService } from '../../i18n/language.service';
 
 @Component({
@@ -23,7 +22,7 @@ export class OnboardingComponent {
   public loading: boolean = false;
   public error: string = '';
 
-  private countryCodes = ['FR', 'CL', 'ES', 'BE', 'CH', 'CA', 'US', 'GB', 'DE', 'IT'];
+  private countryCodes = ['FR', 'CL'];
 
   countries = computed(() => {
     const names = new Intl.DisplayNames([this.lang.current()], { type: 'region' });

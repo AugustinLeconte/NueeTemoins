@@ -1,4 +1,5 @@
 {
+  "app-name": "Nuée de Témoins",
   "auth": {
     "email": "Email",
     "password": "Mot de passe",
@@ -72,6 +73,103 @@
         "name": "Client fidèle",
         "desc": "Achète 20 illustrations dans la boutique"
       }
+    }
+  },
+  "card-list": {
+    "collection": "Ma collection",
+    "no-cards": "Aucune carte pour le moment.",
+    "loadError": "Impossible de charger les cartes."
+  },
+  "saints": "saints",
+  "packs": {
+    "open": "Ouvrir un pack",
+    "title": {
+      "default": "Packs",
+      "level": "Pack de niveau {{ level }}"
+    },
+    "subtitle": {
+      "daily": "Pack du jour",
+      "level": "Récompense de niveau {{ level }}"
+    },
+    "coins": "Pièces :",
+    "pity": "Garantie : une illustration rare ou mieux après {{ pity }} packs sans ({{ current }}/{{ pity }})",
+    "actions": {
+      "openPack": "Ouvrir le pack",
+      "openDaily": "Ouvrir mon pack quotidien",
+      "dailyOpened": "Pack du jour déjà ouvert",
+      "revealCard": "Révéler la carte",
+      "revealAll": "Tout révéler",
+      "backToShop": "Retour à la boutique",
+      "unclaimedPacks": "🎁 {{ count }} pack(s) à ouvrir en boutique"
+    },
+    "reveal": {
+      "hint": "Touchez les cartes pour les révéler",
+      "coinsUnit": "pièces",
+      "newSaint": "Nouveau saint !",
+      "newArt": "Nouvelle illustration",
+      "duplicate": "Doublon · +{{ count }} fragments",
+      "fragmentsProgress": "{{ current }} / {{ next }} fragments de {{ title }}",
+      "maxLevel": "Niveau maximum",
+      "upgradeAvailable": "⬆ Montée de niveau disponible"
+    },
+    "summary": {
+      "coinsGained": "+{{ count }} 🪙 pièces gagnées",
+      "xpGained": "+{{ count }} XP",
+      "levelReached": "🎉 Niveau {{ level }} atteint !",
+      "newPackInShop": "Un nouveau pack vous attend dans la boutique."
+    }
+  },
+  "profile": {
+    "title": "Mon profil",
+    "loading-error": "Impossible de charger votre profil.",
+    "level": {
+      "shortCode": "Niv.",
+      "experience": "XP",
+      "max": "Niveau maximum"
+    },
+    "logout": "Se déconnecter"
+  },
+  "shop": {
+    "title": "Boutique",
+    "free": {
+      "tag": "Gratuit",
+      "hint": "Des pièces offertes, sans rien dépenser.",
+      "dailyTitle": "Cadeau du jour",
+      "dailyOnce": "une fois par jour",
+      "claim": "Récupérer",
+      "comeBackTomorrow": "Revenez demain",
+      "adTitle": "Regarder une pub",
+      "adRemaining": "+{{remaining}}/{{max}} restantes aujourd’hui",
+      "watch": "Regarder"
+    },
+    "packs": {
+      "tag": "Packs de niveau",
+      "hint": "Chaque niveau débloque un pack (premium tous les 5 niveaux).",
+      "premium": "Pack premium",
+      "standard": "Pack standard",
+      "levelInfo": "Niveau {{level}} · {{size}} emplacements",
+      "open": "Ouvrir",
+      "unlockAt": "Se débloque au niveau {{level}}",
+      "noMore": "Aucun pack à venir.",
+      "openedCount": "{{count}} pack(s) déjà ouvert(s) ✓"
+    },
+    "arts": {
+      "tag": "Illustrations du jour",
+      "hint": "3 illustrations, renouvelées chaque jour. Le prix dépend de la rareté.",
+      "defaultTitle": "Illustration",
+      "byArtist": "par {{name}}",
+      "owned": "Possédée",
+      "empty": "Aucune illustration en vente pour le moment."
+    },
+    "errors": {
+      "loadFailed": "Impossible de charger la boutique.",
+      "alreadyOwnedOrPoor": "Pièces insuffisantes ou illustration déjà possédée.",
+      "buyFailed": "Achat impossible.",
+      "alreadyClaimed": "Déjà récupéré aujourd’hui.",
+      "adNotCompleted": "Aucune récompense : regardez la pub jusqu’au bout.",
+      "adWait": "Patientez un peu avant la prochaine pub.",
+      "adLimitReached": "Limite de pubs atteinte pour aujourd’hui.",
+      "adUnavailable": "Récompense indisponible pour le moment."
     }
   }
 }

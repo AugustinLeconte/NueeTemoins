@@ -1,19 +1,20 @@
 import { Component, computed, input } from '@angular/core';
 import { IonProgressBar } from '@ionic/angular';
 import { PlayerProgress } from '../player.model';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-level-bar',
   standalone: true,
-  imports: [IonProgressBar],
+  imports: [IonProgressBar, TranslocoPipe],
   template: `
     <div class="lvl">
-      <strong>Niv. {{ progress().level }}</strong>
+      <strong>{{'profile.level.shortCode' | transloco}} {{ progress().level }}</strong>
       @if (progress().xpForNextLevel !== null) {
         <ion-progress-bar [value]="ratio()"></ion-progress-bar>
-        <small>{{ progress().xpIntoLevel }} / {{ progress().xpForNextLevel }} XP</small>
+        <small>{{ progress().xpIntoLevel }} / {{ progress().xpForNextLevel }} {{"profile.level.experience" | transloco}}</small>
       } @else {
-        <small>Niveau maximum</small>
+        <small>{{"profile.level.max"}}</small>
       }
     </div>
   `,

@@ -1,13 +1,14 @@
 {
+  "app-name": "Cloud of witnesses",
   "auth": {
     "email": "Email",
     "password": "Password",
-    "passwordMin": "Password (min. 8 characters)",
+    "passwordMin": "Password (8 chars min.)",
     "login": {
-      "title": "Sign in",
+      "title": "Log in",
       "submit": "Sign in",
       "google": "Continue with Google",
-      "noAccount": "No account yet?",
+      "noAccount": "No account?",
       "signupLink": "Sign up"
     },
     "signup": {
@@ -15,7 +16,7 @@
       "submit": "Create my account",
       "google": "Sign up with Google",
       "hasAccount": "Already registered?",
-      "loginLink": "Sign in"
+      "loginLink": "Log in"
     },
     "onboarding": {
       "title": "Complete your profile",
@@ -25,11 +26,150 @@
       "submit": "Continue"
     },
     "errors": {
-      "generic": "Something went wrong",
+      "generic": "An error occurred",
       "invalidCredentials": "Incorrect email or password",
-      "loginFailed": "Unable to sign in",
-      "signupFailed": "Unable to sign up",
+      "loginFailed": "Login failed",
+      "signupFailed": "Sign up failed",
       "pseudoTaken": "This username is already taken"
+    }
+  },
+  "achievements": {
+    "title": "Achievements",
+    "unlocked": "Achievement unlocked!",
+    "items": {
+      "LEVEL_1": {
+        "name": "First steps",
+        "desc": "Reach level 1"
+      },
+      "LEVEL_10": {
+        "name": "Apprentice",
+        "desc": "Reach level 10"
+      },
+      "LEVEL_25": {
+        "name": "Experienced",
+        "desc": "Reach level 25"
+      },
+      "LEVEL_50": {
+        "name": "Master",
+        "desc": "Reach level 50"
+      },
+      "CARDS_10": {
+        "name": "Collector",
+        "desc": "Own 10 saints"
+      },
+      "ARTS_5_ON_ONE_CARD": {
+        "name": "Admirer",
+        "desc": "Own 5 artworks of the same saint"
+      },
+      "COINS_100": {
+        "name": "Nest egg",
+        "desc": "Own 100 coins"
+      },
+      "SHOP_FIRST_PURCHASE": {
+        "name": "First purchase",
+        "desc": "Buy an artwork in the shop"
+      },
+      "SHOP_20_PURCHASES": {
+        "name": "Loyal customer",
+        "desc": "Buy 20 artworks in the shop"
+      }
+    }
+  },
+  "card-list": {
+    "collection": "My collection",
+    "no-cards": "No cards for now.",
+    "loadError": "Unable to load cards."
+  },
+  "saints": "saints",
+  "packs": {
+    "open": "Open a pack",
+    "title": {
+      "default": "Packs",
+      "level": "Level {{ level }} pack"
+    },
+    "subtitle": {
+      "daily": "Daily pack",
+      "level": "Level {{ level }} reward"
+    },
+    "coins": "Coins:",
+    "pity": "Pity: guaranteed rare artwork or better after {{ pity }} packs without one ({{ current }}/{{ pity }})",
+    "actions": {
+      "openPack": "Open pack",
+      "openDaily": "Open my daily pack",
+      "dailyOpened": "Daily pack already opened",
+      "revealCard": "Reveal card",
+      "revealAll": "Reveal all",
+      "backToShop": "Back to shop",
+      "unclaimedPacks": "🎁 {{ count }} pack(s) to open in the shop"
+    },
+    "reveal": {
+      "hint": "Tap cards to reveal them",
+      "coinsUnit": "coins",
+      "newSaint": "New saint!",
+      "newArt": "New artwork",
+      "duplicate": "Duplicate · +{{ count }} fragments",
+      "fragmentsProgress": "{{ current }} / {{ next }} fragments for {{ title }}",
+      "maxLevel": "Max level",
+      "upgradeAvailable": "⬆ Level up available"
+    },
+    "summary": {
+      "coinsGained": "+{{ count }} 🪙 coins earned",
+      "xpGained": "+{{ count }} XP",
+      "levelReached": "🎉 Level {{ level }} reached!",
+      "newPackInShop": "A new pack is waiting for you in the shop."
+    }
+  },
+  "profile": {
+    "title": "My profile",
+    "loading-error": "Unable to load your profile.",
+    "level": {
+      "shortCode": "Lvl.",
+      "experience": "XP",
+      "max": "Max level"
+    },
+    "logout": "Log out"
+  },
+  "shop": {
+    "title": "Shop",
+    "free": {
+      "tag": "🎁 Free",
+      "hint": "Free coins, nothing to spend.",
+      "dailyTitle": "Daily gift",
+      "dailyOnce": "once a day",
+      "claim": "Claim",
+      "comeBackTomorrow": "Come back tomorrow",
+      "adTitle": "Watch an ad",
+      "adRemaining": "+{{remaining}}/{{max}} remaining today",
+      "watch": "Watch"
+    },
+    "packs": {
+      "tag": "🎴 Level packs",
+      "hint": "Each level unlocks a pack (premium every 5 levels).",
+      "premium": "Premium pack",
+      "standard": "Standard pack",
+      "levelInfo": "Level {{level}} · {{size}} slots",
+      "open": "Open",
+      "unlockAt": "Unlocks at level {{level}}",
+      "noMore": "No upcoming packs.",
+      "openedCount": "{{count}} pack(s) already opened ✓"
+    },
+    "arts": {
+      "tag": "🖼️ Daily artworks",
+      "hint": "3 artworks, renewed daily. Price depends on rarity.",
+      "defaultTitle": "Artwork",
+      "byArtist": "by {{name}}",
+      "owned": "Owned",
+      "empty": "No artworks on sale right now."
+    },
+    "errors": {
+      "loadFailed": "Unable to load the shop.",
+      "alreadyOwnedOrPoor": "Insufficient coins or artwork already owned.",
+      "buyFailed": "Purchase impossible.",
+      "alreadyClaimed": "Already claimed today.",
+      "adNotCompleted": "No reward: watch the ad all the way through.",
+      "adWait": "Wait a bit before the next ad.",
+      "adLimitReached": "Ad limit reached for today.",
+      "adUnavailable": "Reward unavailable for now."
     }
   }
 }

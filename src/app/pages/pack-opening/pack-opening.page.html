@@ -1,6 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ levelPack() ? 'Pack de niveau ' + levelPack() : 'Packs' }}</ion-title>
+    <ion-title>
+      {{ levelPack() ? ('packs.title.level' | transloco: { level: levelPack() }) : ('packs.title.default' | transloco) }}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,13 +11,15 @@
     <section class="start">
       <div class="pack" [class.opening]="phase() === 'opening'">
         <span>{{ levelPack() ? '🎁' : '✦' }}</span>
-        <small>{{ levelPack() ? 'Récompense de niveau ' + levelPack() : 'Pack du jour' }}</small>
+        <small>
+          {{ levelPack() ? ('packs.subtitle.level' | transloco: { level: levelPack() }) : ('packs.subtitle.daily' | transloco) }}
+        </small>
       </div>
 
       @if (wallet(); as w) {
-        <p class="coins">Pièces : <strong>{{ w.coins }}</strong> 🪙</p>
+        <p class="coins">{{ 'packs.coins' | transloco }} <strong>{{ w.coins }}</strong> 💰</p>
         <div class="pity">
-          <small>Garantie : une illustration rare ou mieux après {{ PITY }} packs sans ({{ w.packsSinceRare }}/{{ PITY }})</small>
+          <small>{{ 'packs.pity' | transloco: { pity: PITY, current: w.packsSinceRare } }}</small>
           <ion-progress-bar [value]="pityProgress()"></ion-progress-bar>
         </div>
       }
@@ -28,17 +32,17 @@
         @if (phase() === 'opening') {
           <ion-spinner name="dots"></ion-spinner>
         } @else if (levelPack()) {
-          Ouvrir le pack
+          {{ 'packs.actions.openPack' | transloco }}
         } @else if (wallet()?.dailyPackAvailable) {
-          Ouvrir mon pack quotidien
+          {{ 'packs.actions.openDaily' | transloco }}
         } @else {
-          Pack du jour déjà ouvert
+          {{ 'packs.actions.dailyOpened' | transloco }}
         }
       </ion-button>
     </section>
   } @else if (result(); as r) {
     <section class="reveal-area">
-      <p class="hint">Touchez les cartes pour les révéler</p>
+      <p class="hint">{{ 'packs.reveal.hint' | transloco }}</p>
 
       <div class="slots">
         @for (d of r.draws; track $index; let i = $index) {
@@ -48,7 +52,7 @@
                 <div class="coin-face flip-in">
                   <span class="coin">🪙</span>
                   <strong>+{{ d.coinsGained }}</strong>
-                  <small>pièces</small>
+                  <small>{{ 'packs.reveal.coinsUnit' | transloco }}</small>
                 </div>
               } @else if (d.art) {
                 <div class="face flip-in">
@@ -60,52 +64,62 @@
                     [locale]="cardOf(d)?.locale ?? 'fr'" [level]="d.cardLevel ?? 0" />
                   <div class="tags">
                     @if (d.newCard) {
-                      <ion-badge color="success">Nouveau saint !</ion-badge>
+                      <ion-badge color="success">{{ 'packs.reveal.newSaint' | transloco }}</ion-badge>
                     } @else if (d.newArt) {
-                      <ion-badge color="tertiary">Nouvelle illustration</ion-badge>
+                      <ion-badge color="tertiary">{{ 'packs.reveal.newArt' | transloco }}</ion-badge>
                     } @else {
-                      <ion-badge color="medium">Doublon · +{{ d.fragmentsGained }} fragments</ion-badge>
+                      <ion-badge color="medium">{{ 'packs.reveal.duplicate' | transloco: { count: d.fragmentsGained } }}</ion-badge>
                     }
                   </div>
                   @if (!d.newCard && !d.newArt) {
                     <small class="frag">
                       @if (d.nextUpgradeCost !== null) {
-                        {{ d.cardFragments }} / {{ d.nextUpgradeCost }} fragments de {{ d.art.cardTitle }}
+                        {{ 'packs.reveal.fragmentsProgress' | transloco: { current: d.cardFragments, next: d.nextUpgradeCost, title: d.art.cardTitle } }}
                       } @else {
-                        Niveau maximum
+                        {{ 'packs.reveal.maxLevel' | transloco }}
                       }
                     </small>
-                    @if (canUpgrade(d)) { <ion-badge color="success">⬆ Montée de niveau disponible</ion-badge> }
+                    @if (canUpgrade(d)) {
+                      <ion-badge color="success">{{ 'packs.reveal.upgradeAvailable' | transloco }}</ion-badge>
+                    }
                   }
                 </div>
               }
             } @else {
-              <button class="back" type="button" aria-label="Révéler la carte" (click)="reveal(i)"><span>✦</span></button>
+              <button class="back" type="button" [attr.aria-label]="'packs.actions.revealCard' | transloco" (click)="reveal(i)">
+                <span>✦</span>
+              </button>
             }
           </div>
         }
       </div>
 
       @if (!allRevealed()) {
-        <ion-button fill="outline" expand="block" (click)="revealAll()">Tout révéler</ion-button>
+        <ion-button fill="outline" expand="block" (click)="revealAll()">
+          {{ 'packs.actions.revealAll' | transloco }}
+        </ion-button>
       } @else {
         <div class="summary">
-          @if (r.coinsGained > 0) { <p>+{{ r.coinsGained }} 🪙 pièces gagnées</p> }
-          <p class="xp">+{{ r.xpGained }} XP</p>
+          @if (r.coinsGained > 0) {
+            <p>{{ 'packs.summary.coinsGained' | transloco: { count: r.coinsGained } }}</p>
+          }
+          <p class="xp">{{ 'packs.summary.xpGained' | transloco: { count: r.xpGained } }}</p>
 
           @if (leveledUp()) {
             <div class="levelup">
-              🎉 Niveau {{ r.progress.level }} atteint !
-              <small>Un nouveau pack vous attend dans la boutique.</small>
+              {{ 'packs.summary.levelReached' | transloco: { level: r.progress.level } }}
+              <small>{{ 'packs.summary.newPackInShop' | transloco }}</small>
             </div>
           }
 
           @if (levelPack()) {
-            <ion-button expand="block" (click)="finish()">Retour à la boutique</ion-button>
+            <ion-button expand="block" (click)="finish()">
+              {{ 'packs.actions.backToShop' | transloco }}
+            </ion-button>
           } @else {
             @if (r.progress.unclaimedPacks > 0) {
               <ion-button expand="block" color="success" routerLink="/shop">
-                🎁 {{ r.progress.unclaimedPacks }} pack(s) à ouvrir en boutique
+                {{ 'packs.actions.unclaimedPacks' | transloco: { count: r.progress.unclaimedPacks } }}
               </ion-button>
             }
           }

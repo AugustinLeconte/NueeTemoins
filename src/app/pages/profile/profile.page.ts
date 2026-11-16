@@ -18,7 +18,7 @@ import { NavbarComponent } from '../../shared/navbar/navbar.component';
   standalone: true,
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonSpinner, TranslocoPipe, IonProgressBar, LevelBarComponent, NavbarComponent],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonSpinner, TranslocoPipe, IonProgressBar, LevelBarComponent, NavbarComponent, TranslocoPipe],
 })
 export class ProfilePage {
   private auth = inject(AuthService);
@@ -53,7 +53,7 @@ export class ProfilePage {
         this.router.navigateByUrl('/onboarding');
         return;
       }
-      this.error.set('Impossible de charger votre profil.');
+      this.error.set('profile.loading-error');
     } finally {
       this.loading.set(false);
     }

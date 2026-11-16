@@ -1,23 +1,23 @@
 <nav class="responsive-nav">
   <div class="desktop-logo">
     <ion-icon name="custom-logo" color="primary"></ion-icon>
-    <span>Nuée de Témoins</span>
+    <span>{{ "app-name" | transloco}}</span>
   </div>
 
   <div class="nav-links">
     <a routerLink="/cards" routerLinkActive="active" class="nav-item">
       <ion-icon name="custom-collection"></ion-icon>
-      <ion-label>Ma collection</ion-label>
+      <ion-label>{{'card-list.collection' | transloco}}</ion-label>
     </a>
 
     <a routerLink="/packs" routerLinkActive="active" class="nav-item">
       <ion-icon name="custom-packs"></ion-icon>
-      <ion-label>Packs</ion-label>
+      <ion-label>{{"packs.title.default" | transloco}}</ion-label>
     </a>
 
     <a routerLink="/shop" routerLinkActive="active" class="nav-item">
       <ion-icon name="custom-shop"></ion-icon>
-      <ion-label>Boutique</ion-label>
+      <ion-label>{{'shop.title' | transloco}}</ion-label>
     </a>
   </div>
 </nav>

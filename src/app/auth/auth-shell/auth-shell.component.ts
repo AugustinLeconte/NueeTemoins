@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LangSwitcherComponent } from '../../i18n/lang-switcher/lang-switcher.component';
 import { RouterOutlet } from '@angular/router';
 

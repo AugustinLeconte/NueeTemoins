@@ -9,12 +9,13 @@ import { CardViewComponent } from '../../cards/card-view/card-view.component';
 import { PlayerService } from '../../player/player.service';
 import { DrawnItem, PackResult, PlayerCard, PlayerProgress, Wallet } from '../../player/player.model';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-pack-opening',
   standalone: true,
   imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent,
-            IonButton, IonBadge, IonSpinner, IonProgressBar, CardViewComponent, NavbarComponent],
+            IonButton, IonBadge, IonSpinner, IonProgressBar, CardViewComponent, NavbarComponent, TranslocoPipe],
   templateUrl: './pack-opening.page.html',
   styleUrls: ['./pack-opening.page.scss'],
 })

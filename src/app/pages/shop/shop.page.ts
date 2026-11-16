@@ -10,16 +10,19 @@ import { CardViewComponent } from '../../cards/card-view/card-view.component';
 import { PlayerService } from '../../player/player.service';
 import { PackOffer, Wallet } from '../../player/player.model';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
-import { environment } from '../../../environments/environment';
 import { ShopService } from './shop.service';
 import { FreeOffers, ShopItem } from './shop.model';
 import { AdProvider } from '../../ads/ad-provider';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
-            IonBadge, IonSpinner, IonChip, IonLabel, CardViewComponent, NavbarComponent],
+  imports: [
+    IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
+    IonBadge, IonSpinner, IonChip, IonLabel,
+    CardViewComponent, NavbarComponent, TranslocoPipe
+  ],
   templateUrl: './shop.page.html',
   styleUrls: ['./shop.page.scss'],
 })
@@ -27,6 +30,7 @@ export class ShopPage {
   private player = inject(PlayerService);
   private shop = inject(ShopService);
   private router = inject(Router);
+  private transloco = inject(TranslocoService);
   public ads = inject(AdProvider);
 
   public loading = signal(true);
@@ -65,13 +69,17 @@ export class ShopPage {
       },
       error: (e: HttpErrorResponse) => {
         if (e.status === 404) { this.router.navigateByUrl('/onboarding'); return; }
-        this.error.set('Impossible de charger la boutique.');
+        this.error.set(this.transloco.translate('shop.errors.loadFailed'));
         this.loading.set(false);
       },
     });
   }
 
-  packLabel(o: PackOffer) { return o.packType === 'PREMIUM' ? 'Pack premium' : 'Pack standard'; }
+  packLabel(o: PackOffer) {
+    return o.packType === 'PREMIUM'
+      ? this.transloco.translate('shop.packs.premium')
+      : this.transloco.translate('shop.packs.standard');
+  }
 
   openPack(o: PackOffer) {
     this.router.navigate(['/packs'], { queryParams: { level: o.level } });
@@ -88,8 +96,8 @@ export class ShopPage {
       error: (e: HttpErrorResponse) => {
         this.buying.set(null);
         this.error.set(e.status === 409
-          ? 'Pièces insuffisantes ou illustration déjà possédée.'
-          : 'Achat impossible.');
+          ? this.transloco.translate('shop.errors.alreadyOwnedOrPoor')
+          : this.transloco.translate('shop.errors.buyFailed'));
       },
     });
   }
@@ -102,7 +110,7 @@ export class ShopPage {
       next: () => { this.claiming.set(false); this.load(); },
       error: () => {
         this.claiming.set(false);
-        this.error.set('Déjà récupéré aujourd’hui.');
+        this.error.set(this.transloco.translate('shop.errors.alreadyClaimed'));
       },
     });
   }
@@ -113,15 +121,17 @@ export class ShopPage {
     try {
       const rewarded = await this.ads.showRewarded();
       if (!rewarded) {
-        this.error.set('Aucune récompense : regardez la pub jusqu’au bout.');
+        this.error.set(this.transloco.translate('shop.errors.adNotCompleted'));
         return;
       }
       this.shop.claimAd().subscribe({
         next: () => this.load(),
-        error: (e: HttpErrorResponse) => this.error.set(
-          e.status === 429 ? 'Patientez un peu avant la prochaine pub.'
-          : e.status === 409 ? 'Limite de pubs atteinte pour aujourd’hui.'
-          : 'Récompense indisponible pour le moment.'),
+        error: (e: HttpErrorResponse) => {
+          let errorKey = 'shop.errors.adUnavailable';
+          if (e.status === 429) errorKey = 'shop.errors.adWait';
+          else if (e.status === 409) errorKey = 'shop.errors.adLimitReached';
+          this.error.set(this.transloco.translate(errorKey));
+        },
       });
     } finally {
       this.adLoading.set(false);

@@ -13,12 +13,13 @@ import { UserAvatarComponent } from '../../shared/user-avatar/user-avatar.compon
 import { PlayerService } from '../../player/player.service';
 import { PlayerCard } from '../../player/player.model';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-card-list',
   standalone: true,
   imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonSpinner,
-            IonChip, IonLabel, CardViewComponent, UserAvatarComponent, NavbarComponent],
+            IonChip, IonLabel, CardViewComponent, UserAvatarComponent, NavbarComponent, TranslocoPipe],
   templateUrl: './card-list.page.html',
   styleUrls: ['./card-list.page.scss'],
 })
@@ -56,7 +57,7 @@ export class CardListPage {
         this.router.navigateByUrl('/onboarding');
         return;
       }
-      this.error.set('Impossible de charger les cartes.');
+      this.error.set('card-list.loadError');
     } finally {
       this.loading.set(false);
     }
