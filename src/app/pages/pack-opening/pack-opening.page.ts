@@ -2,19 +2,19 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonButton,
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
          IonBadge, IonSpinner, IonProgressBar } from '@ionic/angular';
 import { Card } from '../../cards/card.model';
 import { CardViewComponent } from '../../cards/card-view/card-view.component';
-import { LevelBarComponent } from '../../player/level-bar/level-bar.component';
 import { PlayerService } from '../../player/player.service';
 import { DrawnItem, PackResult, PlayerCard, PlayerProgress, Wallet } from '../../player/player.model';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-pack-opening',
   standalone: true,
-  imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton,
-            IonButton, IonBadge, IonSpinner, IonProgressBar, CardViewComponent],
+  imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent,
+            IonButton, IonBadge, IonSpinner, IonProgressBar, CardViewComponent, NavbarComponent],
   templateUrl: './pack-opening.page.html',
   styleUrls: ['./pack-opening.page.scss'],
 })

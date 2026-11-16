@@ -4,16 +4,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { CardService } from '../../cards/card.service';
-import { CardViewComponent } from '../../cards/card-view/card-view.component';
-import { CardRequest } from '../../cards/card.model';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonInput, IonTextarea,
     IonSelect, IonSelectOption, IonItem, IonButtons, IonBackButton, IonSpinner,
     IonSegment, IonSegmentButton } from '@ionic/angular';
-import { UserAvatarComponent } from '../../shared/user-avatar/user-avatar.component';
-import { FamilyService } from '../../families/family.service';
-import { Family } from '../../families/family.model';
-import { COUNTRIES, LANGUAGES } from '../../shared/locales';
+import { CardViewComponent } from '../../../cards/card-view/card-view.component';
+import { UserAvatarComponent } from '../../../shared/user-avatar/user-avatar.component';
+import { CardService } from '../../../cards/card.service';
+import { FamilyService } from '../../../families/family.service';
+import { Family } from '../../../families/family.model';
+import { COUNTRIES, LANGUAGES } from '../../../shared/locales';
+import { CardRequest } from '../../../cards/card.model';
 
 @Component({
   selector: 'app-card-create',

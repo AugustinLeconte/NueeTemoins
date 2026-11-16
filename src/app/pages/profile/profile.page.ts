@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, forkJoin } from 'rxjs'; // Ajout de forkJoin si tu souhaites charger en parallèle
 import { HttpErrorResponse } from '@angular/common/http';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons,
          IonBackButton, IonSpinner,
@@ -8,15 +8,17 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons,
 import { AuthService } from '../../auth/auth.service';
 import { ProfileService } from '../../auth/profile.service';
 import { PlayerService } from '../../player/player.service';
-import { Achievement } from '../../player/player.model';
+import { Achievement, PlayerProgress } from '../../player/player.model';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { LevelBarComponent } from '../../player/level-bar/level-bar.component';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonBackButton, IonSpinner, TranslocoPipe, IonProgressBar],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonSpinner, TranslocoPipe, IonProgressBar, LevelBarComponent, NavbarComponent],
 })
 export class ProfilePage {
   private auth = inject(AuthService);
@@ -31,14 +33,21 @@ export class ProfilePage {
   public profile = signal<{ pseudo: string; country: string; language: string } | null>(null);
   public achievements = signal<Achievement[]>([]);
   public unlockedCount = computed(() => this.achievements().filter(a => a.unlocked).length);
+  public progress = signal<PlayerProgress | null>(null);
 
   async ngOnInit() {
     try {
-      this.user.set(await this.auth.getUser());
-      this.profile.set(await firstValueFrom(this.profiles.get()));
-      try {
-        this.achievements.set(await firstValueFrom(this.player.achievements()));
-      } catch {}
+      const [user, profile, achievements, progress] = await Promise.all([
+        this.auth.getUser(),
+        firstValueFrom(this.profiles.get()),
+        firstValueFrom(this.player.achievements()).catch(() => [] as Achievement[]),
+        firstValueFrom(this.player.progress()).catch(() => null as PlayerProgress | null)
+      ]);
+
+      this.user.set(user);
+      this.profile.set(profile);
+      this.achievements.set(achievements);
+      this.progress.set(progress);
     } catch (e) {
       if (e instanceof HttpErrorResponse && e.status === 404) {
         this.router.navigateByUrl('/onboarding');

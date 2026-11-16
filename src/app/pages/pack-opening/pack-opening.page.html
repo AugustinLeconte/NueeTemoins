@@ -1,6 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start"><ion-back-button [defaultHref]="levelPack() ? '/shop' : '/cards'"></ion-back-button></ion-buttons>
     <ion-title>{{ levelPack() ? 'Pack de niveau ' + levelPack() : 'Pack du jour' }}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -36,8 +35,6 @@
           Pack du jour déjà ouvert
         }
       </ion-button>
-      <ion-button expand="block" fill="clear" routerLink="/shop">Boutique</ion-button>
-      <ion-button expand="block" fill="clear" routerLink="/cards">Voir ma collection</ion-button>
     </section>
   } @else if (result(); as r) {
     <section class="reveal-area">
@@ -111,11 +108,11 @@
                 🎁 {{ r.progress.unclaimedPacks }} pack(s) à ouvrir en boutique
               </ion-button>
             }
-            <ion-button expand="block" routerLink="/cards">Voir ma collection</ion-button>
-            <ion-button expand="block" fill="clear" (click)="finish()">Fermer</ion-button>
           }
         </div>
       }
     </section>
   }
 </ion-content>
+
+<app-navbar></app-navbar>

@@ -21,3 +21,16 @@
     gap: 16px;
   }
 }
+
+
+//ESPACE POUR LA NAVBAR
+ion-content {
+  --padding-bottom: 80px;
+}
+
+@media (min-width: 992px) {
+  :host {
+    display: block;
+    padding-left: 220px;
+  }
+}

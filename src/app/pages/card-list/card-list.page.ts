@@ -12,12 +12,13 @@ import { ProfileService } from '../../auth/profile.service';
 import { UserAvatarComponent } from '../../shared/user-avatar/user-avatar.component';
 import { PlayerService } from '../../player/player.service';
 import { PlayerCard } from '../../player/player.model';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-card-list',
   standalone: true,
   imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonSpinner,
-            IonChip, IonLabel, CardViewComponent, UserAvatarComponent],
+            IonChip, IonLabel, CardViewComponent, UserAvatarComponent, NavbarComponent],
   templateUrl: './card-list.page.html',
   styleUrls: ['./card-list.page.scss'],
 })

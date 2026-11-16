@@ -16,3 +16,19 @@ h2 { font-size: 1.05rem; margin: 20px 0 4px; }
 
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
 .item { display: flex; flex-direction: column; gap: 6px; .meta { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; font-size: .85rem; } }
+
+//ESPACE POUR LA NAVBAR
+ion-content {
+  --padding-bottom: 80px;
+}
+
+@media (min-width: 992px) {
+  :host {
+    display: block;
+    padding-left: 220px;
+  }
+
+  ion-content {
+    --padding-bottom: 20px;
+  }
+}

@@ -1,0 +1,108 @@
+.responsive-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--ion-color-light, #f4f5f8);
+  border-top: 1px solid var(--ion-color-light-shade, #d7d8dc);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+
+  .desktop-logo {
+    display: none;
+  }
+
+  .nav-links {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--ion-color-step-600, #666);
+    font-size: 0.75rem;
+    gap: 4px;
+    flex: 1;
+    height: 100%;
+
+    ion-icon {
+      font-size: 1.4rem;
+    }
+
+    &.active {
+      color: var(--ion-color-primary, #3880ff);
+      font-weight: 600;
+    }
+  }
+}
+
+// Mode Desktop (>= 992px)
+@media (min-width: 992px) {
+  .responsive-nav {
+    top: 0;
+    right: auto;
+    width: 220px;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    border-top: none;
+    border-right: 1px solid var(--ion-color-light-shade, #d7d8dc);
+    padding-top: 20px;
+
+    .desktop-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 20px 30px 20px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--ion-color-dark);
+
+      ion-icon {
+        font-size: 1.8rem;
+      }
+    }
+
+    .nav-links {
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 8px;
+      padding: 0 12px;
+    }
+
+    .nav-item {
+      flex-direction: row;
+      justify-content: flex-start;
+      height: 50px;
+      padding: 0 16px;
+      border-Zradius: 10px;
+      gap: 15px;
+      flex: unset;
+
+      ion-icon {
+        margin: 0;
+      }
+
+      ion-label {
+        font-size: 0.95rem;
+      }
+
+      &:hover {
+        background: rgba(var(--ion-color-primary-rgb, 56, 128, 255), 0.08);
+      }
+
+      &.active {
+        background: rgba(var(--ion-color-primary-rgb, 56, 128, 255), 0.15);
+      }
+    }
+  }
+}

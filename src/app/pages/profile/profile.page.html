@@ -1,6 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start"><ion-back-button defaultHref="/cards"></ion-back-button></ion-buttons>
     <ion-title>Mon profil</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -27,6 +26,10 @@
         <div><dt>Pays</dt><dd>{{ countryName(profile()!.country) }}</dd></div>
         <div><dt>Langue</dt><dd>{{ languageName(profile()!.language) }}</dd></div>
       </dl>
+    </section>
+
+    <section class="level">
+        @if (progress(); as p) { <app-level-bar class="grow" [progress]="p" /> }
     </section>
 
     <section class="achievements">
@@ -58,3 +61,5 @@
     </ion-button>
   }
 </ion-content>
+
+<app-navbar></app-navbar>

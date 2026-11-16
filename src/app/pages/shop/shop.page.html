@@ -1,6 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start"><ion-back-button defaultHref="/cards"></ion-back-button></ion-buttons>
     <ion-title>Boutique</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -10,7 +9,6 @@
     <div class="center"><ion-spinner></ion-spinner></div>
   } @else {
     <div class="top">
-      @if (progress(); as p) { <app-level-bar class="grow" [progress]="p" /> }
       <ion-chip><ion-label>{{ wallet()?.coins ?? 0 }} 🪙</ion-label></ion-chip>
     </div>
 
@@ -68,3 +66,5 @@
     </div>
   }
 </ion-content>
+
+<app-navbar></app-navbar>
