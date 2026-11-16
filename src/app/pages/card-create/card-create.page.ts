@@ -65,9 +65,10 @@ export class CardCreatePage {
   get feastDates() { return this.form.controls.feastDates; }
   get active() { return this.translations.at(this.activeIdx); }
 
-  get previewFeast() {
+  get previewFeast(): { month: number | null; day: number | null } | null {
     const valid = this.feastDates.controls.filter(f => f.valid);
-    return valid.find(f => f.controls.countryCode.value === this.previewCountry) ?? valid[0] ?? null;
+    const g = valid.find(f => f.controls.countryCode.value === this.previewCountry) ?? valid[0];
+    return g ? { month: g.controls.month.value, day: g.controls.day.value } : null;
   }
 
   private translationGroup(locale = '', locked = false,
@@ -90,36 +91,36 @@ export class CardCreatePage {
     });
   }
 
-  availableLanguages(idx: number) {
+  public availableLanguages(idx: number) {
     const used = this.translations.controls.filter((_, i) => i !== idx).map(t => t.getRawValue().locale);
     return this.languages.filter(l => !used.includes(l.code));
   }
 
-  addTranslation() {
+  public addTranslation() {
     this.translations.push(this.translationGroup());
     this.activeIdx = this.translations.length - 1;
   }
 
-  removeTranslation(idx: number) {
+  public removeTranslation(idx: number) {
     if (idx === 0) return;
     this.translations.removeAt(idx);
     this.activeIdx = Math.min(this.activeIdx, this.translations.length - 1);
   }
 
-  onSegmentChange(ev: CustomEvent) { this.activeIdx = Number(ev.detail.value); }
+  public onSegmentChange(ev: CustomEvent) { this.activeIdx = Number(ev.detail.value); }
 
   get selectedFamilies() {
     const ids = this.form.controls.families.value;
     return this.families.filter(f => ids.includes(f.publicId));
   }
 
-  availableCountries(idx: number) {
+  public availableCountries(idx: number) {
     const used = this.feastDates.controls.filter((_, i) => i !== idx).map(f => f.controls.countryCode.value);
     return this.countries.filter(c => !used.includes(c.code));
   }
 
-  addFeastDate() { this.feastDates.push(this.feastGroup()); }
-  removeFeastDate(idx: number) { this.feastDates.removeAt(idx); }
+  public addFeastDate() { this.feastDates.push(this.feastGroup()); }
+  public removeFeastDate(idx: number) { this.feastDates.removeAt(idx); }
 
   private loadForEdit(id: string) {
     forkJoin({ admin: this.cards.getAdmin(id), card: this.cards.getOne(id) }).subscribe({
@@ -147,7 +148,7 @@ export class CardCreatePage {
     });
   }
 
-  submit() {
+  public submit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.error = 'Certains champs sont invalides (vérifie chaque langue).';

@@ -23,7 +23,8 @@
             [families]="c.families" [rarity]="artOf(c)?.rarity ?? 'COMMON'"
             [title]="c.title" [subtitle]="c.subtitle ?? ''" [description]="c.description ?? ''"
             [imageUrl]="artOf(c)?.imageUrl" [feastMonth]="c.feastMonth" [feastDay]="c.feastDay"
-            [locale]="c.locale" [locked]="!isOwned(c)" />
+            [locale]="c.locale" [locked]="!isOwned(c)" [level]="levelOf(c)" />
+          @if (canUpgrade(c)) { <span class="up" title="Montée de niveau disponible">⬆</span> }
         </div>
       } @empty {
         <p>Aucune carte pour le moment.</p>

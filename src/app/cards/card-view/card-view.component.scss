@@ -30,10 +30,15 @@
     &::before, &::after { display: none !important; }
   }
 
-  /* ---------- Couleurs par famille (adapte à ton enum) ---------- */
-  &[data-family='FIRE']  { --family-color: #ef4444; }
-  &[data-family='WATER'] { --family-color: #0ea5e9; }
-  &[data-family='GRASS'] { --family-color: #22c55e; }
+  .level {
+    position: absolute; top: 3cqw; right: 3cqw; z-index: 4;
+    padding: 1cqw 3cqw; border-radius: 99px;
+    background: rgba(0, 0, 0, .65); font-size: 4cqw; font-weight: 700;
+  }
+  &[data-level='2'] { outline: .6cqw solid rgba(255, 255, 255, .25); outline-offset: -2.2cqw; }
+  &[data-level='3'] { outline: .8cqw solid rgba(255, 255, 255, .45); outline-offset: -2.2cqw; }
+  &[data-level='4'] { outline: .9cqw solid rgba(245, 197, 66, .7);  outline-offset: -2.2cqw; }
+  &[data-level='5'] { outline: 1.2cqw solid #f5c542;                outline-offset: -2.2cqw; }
 
   /* ---------- Couleurs par rareté ---------- */
   &[data-rarity='RARE'] { --rarity-color: #3b82f6; }

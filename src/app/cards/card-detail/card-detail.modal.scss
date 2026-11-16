@@ -13,10 +13,10 @@ h3 small { font-weight: 400; opacity: .6; }
   &.owned { cursor: pointer; }
 
   .art-card {
-    container-type: inline-size;
-    border-radius: 5px;
+    container-type: inline-size;   // cqw se base maintenant sur cette largeur
+    border-radius: 5px;           // même valeur que celle de la carte
     outline: 3px solid transparent;
-    transition: outline-color 0.2s;
+    transition: outline-color .2s;
 
     app-card-view { display: block; }
   }
@@ -25,3 +25,13 @@ h3 small { font-weight: 400; opacity: .6; }
 
   .meta { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; font-size: .8rem; }
 }
+
+.level-box {
+  display: flex; flex-direction: column; gap: 6px; align-items: flex-start;
+  margin-top: 16px; padding: 12px; border-radius: 12px; background: var(--ion-color-light);
+  ion-progress-bar { width: 100%; }
+  .lvl-title { font-weight: 700; font-size: 1.1rem; }
+  small { opacity: .8; }
+  .hint { margin: 0; }
+}
+.error { color: var(--ion-color-danger); margin: 0; }

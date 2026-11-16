@@ -38,7 +38,7 @@ export interface CardArt {
   rarity: CardRarity;
   source: ArtSource;
   imageUrl: string;
-  fragmentPrice?: number | null;
+  coinPrice?: number | null;
   title?: string | null;
   description?: string | null;
 }
@@ -55,7 +55,7 @@ export interface CardArtRequest {
   source: ArtSource;
   imageUrl: string;
   dropWeight?: number | null;
-  fragmentPrice?: number | null;
+  coinPrice?: number | null;
   obtainable?: boolean | null;
   translations: ArtTranslationRequest[];
 }

@@ -18,6 +18,7 @@ export class CardViewComponent {
   public feastMonth = input<number | null | undefined>(null);
   public feastDay = input<number | null | undefined>(null);
   public locale = input<string>('fr');
+  public level = input<number>(0);
 
   primaryFamily = computed(() => this.families()[0]?.publicId ?? '');
 

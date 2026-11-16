@@ -5,6 +5,7 @@
   [attr.data-rarity]="rarity()"
   [attr.data-family]="primaryFamily()"
   [attr.data-families]="familySlugs()"
+  [attr.data-level]="level() || null"
   (pointermove)="onMove($event)"
   (pointerdown)="onMove($event)"
   (pointerleave)="onLeave($event)"
@@ -23,6 +24,8 @@
       }
     </div>
   }
+
+  @if (level() > 0) { <span class="level">Niv. {{ level() }}</span> }
 
   <div class="info">
     <h3>{{ title() || 'Titre de la carte' }}</h3>

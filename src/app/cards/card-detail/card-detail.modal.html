@@ -11,14 +11,31 @@
       [families]="card.families" [rarity]="current()?.rarity ?? 'COMMON'"
       [title]="card.title" [subtitle]="card.subtitle ?? ''" [description]="card.description ?? ''"
       [imageUrl]="current()?.imageUrl" [feastMonth]="card.feastMonth" [feastDay]="card.feastDay"
-      [locale]="card.locale" [locked]="!playerCard" />
+      [locale]="card.locale" [locked]="!pc()" [level]="pc()?.level ?? 0" />
   </div>
+
+  @if (pc(); as p) {
+    <section class="level-box">
+      <div class="lvl-title">Niveau {{ p.level }}</div>
+      @if (p.nextUpgradeCost !== null) {
+        <ion-progress-bar [value]="progress()"></ion-progress-bar>
+        <small>{{ p.fragments }} / {{ p.nextUpgradeCost }} fragments de {{ card.title }}</small>
+        <ion-button size="small" [disabled]="!canUpgrade() || upgrading()" (click)="upgrade()">
+          @if (upgrading()) { <ion-spinner name="dots"></ion-spinner> } @else { Passer au niveau {{ p.level + 1 }} }
+        </ion-button>
+        <p class="hint">Les fragments s'obtiennent en tirant des doublons des illustrations de ce saint.</p>
+      } @else {
+        <small>Niveau maximum atteint 🎉 ({{ p.fragments }} fragments en réserve)</small>
+      }
+      @if (error()) { <p class="error">{{ error() }}</p> }
+    </section>
+  }
 
   <section class="text">
     @if (card.subtitle) { <p class="subtitle">{{ card.subtitle }}</p> }
     @if (feastLabel()) { <p class="feast">Fête : {{ feastLabel() }}</p> }
     @if (card.description) { <p class="desc">{{ card.description }}</p> }
-    @if (!playerCard) { <p class="hint">Vous ne possédez pas encore ce saint. Ouvrez des packs pour le débloquer.</p> }
+    @if (!pc()) { <p class="hint">Vous ne possédez pas encore ce saint. Ouvrez des packs pour le débloquer.</p> }
   </section>
 
   <h3>Illustrations

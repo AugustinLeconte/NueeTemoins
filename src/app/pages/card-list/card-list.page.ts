@@ -10,8 +10,8 @@ import { CardViewComponent } from '../../cards/card-view/card-view.component';
 import { CardDetailModal } from '../../cards/card-detail/card-detail.modal';
 import { ProfileService } from '../../auth/profile.service';
 import { UserAvatarComponent } from '../../shared/user-avatar/user-avatar.component';
-import { PlayerCard } from '../../player/player.model';
 import { PlayerService } from '../../player/player.service';
+import { PlayerCard } from '../../player/player.model';
 
 @Component({
   selector: 'app-card-list',
@@ -62,6 +62,14 @@ export class CardListPage {
   }
 
   isOwned(c: Card) { return this.owned().has(c.publicId); }
+
+  levelOf(c: Card) { return this.owned().get(c.publicId)?.level ?? 0; }
+
+  /** assez de fragments pour monter le saint d'un niveau */
+  canUpgrade(c: Card) {
+    const pc = this.owned().get(c.publicId);
+    return !!pc && pc.nextUpgradeCost !== null && pc.fragments >= pc.nextUpgradeCost;
+  }
 
   /** Illustration affichée : celle équipée si possédée, sinon celle par défaut (grisée). */
   artOf(c: Card): CardArt | null {

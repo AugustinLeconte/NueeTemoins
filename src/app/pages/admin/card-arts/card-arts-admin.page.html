@@ -15,7 +15,7 @@
           <h2>{{ a.title || 'Sans titre' }}
             @if (a.source === 'DEFAULT') { <ion-badge color="success">Défaut</ion-badge> }
           </h2>
-          <p>{{ a.rarity }} · {{ a.source }}@if (a.artist) { · {{ a.artist.name }} }@if (a.fragmentPrice) { · {{ a.fragmentPrice }} ✦ }</p>
+          <p>{{ a.rarity }} · {{ a.source }}@if (a.artist) { · {{ a.artist.name }} }@if (a.coinPrice) { · {{ a.coinPrice }} 🪙 }</p>
         </ion-label>
         <ion-button fill="clear" [routerLink]="['/admin/arts', a.publicId]">
           <ion-icon slot="icon-only" name="create-outline"></ion-icon>

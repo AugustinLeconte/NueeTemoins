@@ -1,7 +1,7 @@
 import { Card, CardArt } from '../cards/card.model';
 
 export interface Wallet {
-  fragments: number;
+  coins: number;
   packsSinceRare: number;
   dailyPackAvailable: boolean;
 }
@@ -9,23 +9,37 @@ export interface Wallet {
 export interface PlayerCard {
   card: Card;
   level: number;
+  /** fragments de CE saint (doublons) */
+  fragments: number;
   equippedArt: CardArt;
   ownedArts: CardArt[];
+  /** null si niveau maximum */
   nextUpgradeCost: number | null;
 }
 
-export interface DrawnArt {
-  art: CardArt;
+export interface DrawnItem {
+  type: 'ART' | 'COINS';
+  art: CardArt | null;
   newArt: boolean;
   newCard: boolean;
   fragmentsGained: number;
+  cardFragments: number | null;
+  cardLevel: number | null;
+  nextUpgradeCost: number | null;
+  coinsGained: number;
 }
 
 export interface PackResult {
-  draws: DrawnArt[];
-  fragmentsGained: number;
-  fragments: number;
+  draws: DrawnItem[];
+  coinsGained: number;
+  coins: number;
   packsSinceRare: number;
+}
+
+export interface UpgradeResult {
+  level: number;
+  fragments: number;
+  nextUpgradeCost: number | null;
 }
 
 export interface ShopItem {

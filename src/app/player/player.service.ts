@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { PackResult, PlayerCard, ShopItem, Wallet } from './player.model';
+import { PackResult, PlayerCard, ShopItem, UpgradeResult, Wallet } from './player.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -16,7 +16,7 @@ export class PlayerService {
   }
 
   upgrade(cardPublicId: string) {
-    return this.http.post<{ level: number; fragments: number }>(`${this.base}/cards/${cardPublicId}/upgrade`, {});
+    return this.http.post<UpgradeResult>(`${this.base}/cards/${cardPublicId}/upgrade`, {});
   }
 
   openDaily() { return this.http.post<PackResult>(`${this.base}/packs/daily`, {}); }

@@ -17,8 +17,8 @@
         [subtitle]="active.controls.subtitle.value"
         [description]="active.controls.description.value"
         [locale]="active.getRawValue().locale || 'fr'"
-        [feastMonth]="previewFeast?.controls?.month?.value ?? null"
-        [feastDay]="previewFeast?.controls?.day?.value ?? null"
+        [feastMonth]="previewFeast?.month ?? null"
+        [feastDay]="previewFeast?.day ?? null"
         [imageUrl]="previewImage" />
 
       @if (feastDates.length) {

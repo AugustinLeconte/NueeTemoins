@@ -7,7 +7,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton,
 import { Card } from '../../cards/card.model';
 import { CardViewComponent } from '../../cards/card-view/card-view.component';
 import { PlayerService } from '../../player/player.service';
-import { DrawnArt, PackResult, PlayerCard, Wallet } from '../../player/player.model';
+import { DrawnItem, PackResult, PlayerCard, Wallet } from '../../player/player.model';
 
 @Component({
   selector: 'app-pack-opening',
@@ -44,7 +44,7 @@ export class PackOpeningPage {
     this.error.set('');
     this.phase.set('opening');
     this.player.openDaily().pipe(
-      // on récupère la collection pour avoir familles / sous-titre / description des saints tirés
+      // collection : familles / sous-titre / description des saints tirés
       switchMap(res => this.player.collection().pipe(
         catchError(() => of([] as PlayerCard[])),
         map(col => ({ res, col })),
@@ -54,14 +54,20 @@ export class PackOpeningPage {
         this.cardInfo = new Map(col.map(pc => [pc.card.publicId, pc.card]));
         this.result.set(res);
         this.revealed.set(res.draws.map(() => false));
-        this.wallet.set({ fragments: res.fragments, packsSinceRare: res.packsSinceRare, dailyPackAvailable: false });
+        this.wallet.set({ coins: res.coins, packsSinceRare: res.packsSinceRare, dailyPackAvailable: false });
         this.phase.set('reveal');
       },
       error: e => { this.phase.set('idle'); this.handleError(e); },
     });
   }
 
-  cardOf(d: DrawnArt): Card | undefined { return this.cardInfo.get(d.art.cardPublicId); }
+  cardOf(d: DrawnItem): Card | undefined {
+    return d.art ? this.cardInfo.get(d.art.cardPublicId) : undefined;
+  }
+
+  canUpgrade(d: DrawnItem) {
+    return d.nextUpgradeCost !== null && d.cardFragments !== null && d.cardFragments >= d.nextUpgradeCost;
+  }
 
   reveal(i: number) { this.revealed.update(r => r.map((v, j) => (j === i ? true : v))); }
   revealAll() { this.revealed.update(r => r.map(() => true)); }

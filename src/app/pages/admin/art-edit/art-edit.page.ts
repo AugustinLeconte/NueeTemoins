@@ -43,7 +43,7 @@ export class ArtEditPage {
   readonly sources: { value: ArtSource; label: string }[] = [
     { value: 'DEFAULT', label: 'Illustration par défaut (donnée avec le saint)' },
     { value: 'PACK', label: 'Tirable dans les packs' },
-    { value: 'SHOP', label: 'Boutique (fragments)' },
+    { value: 'SHOP', label: 'Boutique (pièces)' },
     { value: 'EVENT', label: 'Événement / distribution manuelle' },
   ];
   readonly languages = LANGUAGES;
@@ -68,7 +68,7 @@ export class ArtEditPage {
     rarity: ['COMMON' as CardRarity, Validators.required],
     source: ['PACK' as ArtSource, Validators.required],
     dropWeight: [100, [Validators.required, Validators.min(0)]],
-    fragmentPrice: this.fb.control<number | null>(null),
+    coinPrice: this.fb.control<number | null>(null),
     obtainable: [true],
     translations: this.fb.array([this.translationGroup('fr')]),
   });
@@ -94,11 +94,11 @@ export class ArtEditPage {
 
   /** Règles liées à la source : DEFAULT => COMMON ; SHOP => prix obligatoire. */
   private applySource(s: ArtSource) {
-    const { rarity, fragmentPrice } = this.form.controls;
+    const { rarity, coinPrice } = this.form.controls;
     if (s === 'DEFAULT') { rarity.setValue('COMMON'); rarity.disable(); } else { rarity.enable(); }
-    if (s === 'SHOP') fragmentPrice.setValidators([Validators.required, Validators.min(1)]);
-    else { fragmentPrice.clearValidators(); fragmentPrice.setValue(null); }
-    fragmentPrice.updateValueAndValidity();
+    if (s === 'SHOP') coinPrice.setValidators([Validators.required, Validators.min(1)]);
+    else { coinPrice.clearValidators(); coinPrice.setValue(null); }
+    coinPrice.updateValueAndValidity();
   }
 
   private loadForCreate(cardId: string) {
@@ -117,13 +117,13 @@ export class ArtEditPage {
     ).subscribe({
       next: ({ req, card }) => {
         this.card.set(card);
-        // l'ordre des clés compte : source avant fragmentPrice (applySource remet le prix à null)
+        // l'ordre des clés compte : source avant coinPrice (applySource remet le prix à null)
         this.form.patchValue({
           artistPublicId: req.artistPublicId ?? '',
           rarity: req.rarity,
           source: req.source,
           dropWeight: req.dropWeight ?? 100,
-          fragmentPrice: req.fragmentPrice ?? null,
+          coinPrice: req.coinPrice ?? null,
           obtainable: req.obtainable ?? true,
         });
         this.translations.clear();
@@ -199,7 +199,7 @@ export class ArtEditPage {
       source: v.source,
       imageUrl,
       dropWeight: Number(v.dropWeight),
-      fragmentPrice: v.source === 'SHOP' ? Number(v.fragmentPrice) : null,
+      coinPrice: v.source === 'SHOP' ? Number(v.coinPrice) : null,
       obtainable: v.obtainable,
       translations: v.translations
         .filter(t => t.title.trim() || t.description.trim())

@@ -14,7 +14,7 @@
       </div>
 
       @if (wallet(); as w) {
-        <p class="fragments">Fragments : <strong>{{ w.fragments }}</strong> ✦</p>
+        <p class="coins">Pièces : <strong>{{ w.coins }}</strong> 🪙</p>
         <div class="pity">
           <small>Garantie : une illustration rare ou mieux après {{ PITY }} packs sans ({{ w.packsSinceRare }}/{{ PITY }})</small>
           <ion-progress-bar [value]="pityProgress()"></ion-progress-bar>
@@ -42,23 +42,41 @@
         @for (d of r.draws; track $index; let i = $index) {
           <div class="slot">
             @if (revealed()[i]) {
-              <div class="face flip-in">
-                <app-card-view
-                  [families]="cardOf(d)?.families ?? []" [rarity]="d.art.rarity"
-                  [title]="d.art.cardTitle ?? ''" [subtitle]="cardOf(d)?.subtitle ?? ''"
-                  [description]="cardOf(d)?.description ?? ''" [imageUrl]="d.art.imageUrl"
-                  [feastMonth]="cardOf(d)?.feastMonth" [feastDay]="cardOf(d)?.feastDay"
-                  [locale]="cardOf(d)?.locale ?? 'fr'" />
-                <div class="tags">
-                  @if (d.newCard) {
-                    <ion-badge color="success">Nouveau saint !</ion-badge>
-                  } @else if (d.newArt) {
-                    <ion-badge color="tertiary">Nouvelle illustration</ion-badge>
-                  } @else {
-                    <ion-badge color="medium">Doublon · +{{ d.fragmentsGained }} ✦</ion-badge>
+              @if (d.type === 'COINS') {
+                <div class="coin-face flip-in">
+                  <span class="coin">🪙</span>
+                  <strong>+{{ d.coinsGained }}</strong>
+                  <small>pièces</small>
+                </div>
+              } @else if (d.art) {
+                <div class="face flip-in">
+                  <app-card-view
+                    [families]="cardOf(d)?.families ?? []" [rarity]="d.art.rarity"
+                    [title]="d.art.cardTitle ?? ''" [subtitle]="cardOf(d)?.subtitle ?? ''"
+                    [description]="cardOf(d)?.description ?? ''" [imageUrl]="d.art.imageUrl"
+                    [feastMonth]="cardOf(d)?.feastMonth" [feastDay]="cardOf(d)?.feastDay"
+                    [locale]="cardOf(d)?.locale ?? 'fr'" [level]="d.cardLevel ?? 0" />
+                  <div class="tags">
+                    @if (d.newCard) {
+                      <ion-badge color="success">Nouveau saint !</ion-badge>
+                    } @else if (d.newArt) {
+                      <ion-badge color="tertiary">Nouvelle illustration</ion-badge>
+                    } @else {
+                      <ion-badge color="medium">Doublon · +{{ d.fragmentsGained }} fragments</ion-badge>
+                    }
+                  </div>
+                  @if (!d.newCard && !d.newArt) {
+                    <small class="frag">
+                      @if (d.nextUpgradeCost !== null) {
+                        {{ d.cardFragments }} / {{ d.nextUpgradeCost }} fragments de {{ d.art.cardTitle }}
+                      } @else {
+                        Niveau maximum
+                      }
+                    </small>
+                    @if (canUpgrade(d)) { <ion-badge color="success">⬆ Montée de niveau disponible</ion-badge> }
                   }
                 </div>
-              </div>
+              }
             } @else {
               <button class="back" type="button" aria-label="Révéler la carte" (click)="reveal(i)"><span>✦</span></button>
             }
@@ -70,7 +88,7 @@
         <ion-button fill="outline" expand="block" (click)="revealAll()">Tout révéler</ion-button>
       } @else {
         <div class="summary">
-          @if (r.fragmentsGained > 0) { <p>+{{ r.fragmentsGained }} ✦ fragments grâce aux doublons</p> }
+          @if (r.coinsGained > 0) { <p>+{{ r.coinsGained }} 🪙 pièces gagnées</p> }
           <ion-button expand="block" routerLink="/cards">Voir ma collection</ion-button>
           <ion-button expand="block" fill="clear" (click)="finish()">Fermer</ion-button>
         </div>
