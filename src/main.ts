@@ -12,13 +12,19 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 import { authInterceptor } from './app/auth/auth.interceptor';
-import { isDevMode } from '@angular/core';
+import { inject, isDevMode, provideAppInitializer } from '@angular/core';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
+import { AdProvider } from './app/ads/ad-provider';
+import { AdMobProvider } from './app/ads/admob.provider';
+import { WebAdProvider } from './app/ads/web-ad.provider';
+import { Capacitor } from '@capacitor/core';
 
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: AdProvider, useClass: Capacitor.isNativePlatform() ? AdMobProvider : WebAdProvider },
+    provideAppInitializer(() => { inject(AdProvider).init(); }),
     provideIonicAngular({
       animated: false,
     }),

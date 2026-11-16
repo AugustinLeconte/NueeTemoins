@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Achievement, PackOffer, PackResult, PlayerCard, PlayerProgress, ShopItem, UpgradeResult, Wallet } from './player.model';
+import { Achievement, PackOffer, PackResult, PlayerCard, PlayerProgress, UpgradeResult, Wallet } from './player.model';
 import { environment } from '../../environments/environment';
 import { AchievementToastService } from '../achievements/achievement-toast.service';
 import { tap } from 'rxjs';
@@ -34,13 +34,6 @@ export class PlayerService {
 
   public openLevelPack(level: number) {
     return this.http.post<PackResult>(`${this.base}/shop/packs/${level}/open`, {})
-      .pipe(tap(r => this.toasts.show(r.newAchievements)));
-  }
-
-  public shop() { return this.http.get<ShopItem[]>(`${this.base}/shop`); }
-
-  public buy(artPublicId: string) {
-    return this.http.post<Wallet>(`${this.base}/shop/arts/${artPublicId}/buy`, {})
       .pipe(tap(r => this.toasts.show(r.newAchievements)));
   }
 }

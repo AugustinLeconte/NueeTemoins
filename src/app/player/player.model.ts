@@ -65,12 +65,6 @@ export interface UpgradeResult {
   newAchievements?: string[];
 }
 
-export interface ShopItem {
-  art: CardArt;
-  price: number;
-  owned: boolean;
-}
-
 export interface Achievement {
   code: string;
   unlocked: boolean;

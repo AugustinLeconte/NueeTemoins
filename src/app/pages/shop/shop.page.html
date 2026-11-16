@@ -1,7 +1,5 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Boutique</ion-title>
-  </ion-toolbar>
+  <ion-toolbar><ion-title>Boutique</ion-title></ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
@@ -9,15 +7,51 @@
     <div class="center"><ion-spinner></ion-spinner></div>
   } @else {
     <div class="top">
-      <ion-chip><ion-label>{{ wallet()?.coins ?? 0 }} 🪙</ion-label></ion-chip>
+      <ion-chip><ion-label>{{ wallet()?.coins ?? 0 }} 💰</ion-label></ion-chip>
     </div>
 
     @if (error()) { <p class="error">{{ error() }}</p> }
 
-    <h2>Packs de niveau</h2>
-    <p class="hint">Chaque passage de niveau débloque un pack (premium tous les 5 niveaux).</p>
+    <section class="category cat-free">
+      <header class="cat-header">
+        <span class="cat-tag">🎁 Gratuit</span>
+        <p class="hint">Des pièces offertes, sans rien dépenser.</p>
+      </header>
 
-    <div class="packs">
+      @if (free(); as f) {
+        <div class="offer">
+          <div class="info">
+            <strong>Cadeau du jour</strong>
+            <small>+{{ f.dailyCoins }} 💰 · une fois par jour</small>
+          </div>
+          <ion-button size="small" [disabled]="!f.dailyAvailable || claiming()" (click)="claimDaily()">
+            {{ f.dailyAvailable ? 'Récupérer' : 'Revenez demain' }}
+          </ion-button>
+        </div>
+
+        @if (ads.available()) {
+          <div class="offer">
+            <div class="icon">📺</div>
+            <div class="info">
+              <strong>Regarder une pub</strong>
+              <small>+{{ f.adCoins }} 💰 · {{ f.adRemaining }}/{{ f.adMax }} restantes aujourd’hui</small>
+            </div>
+            <ion-button size="small" color="secondary"
+                        [disabled]="f.adRemaining === 0 || adLoading()" (click)="watchAd()">
+              @if (adLoading()) { <ion-spinner name="dots"></ion-spinner> } @else { Regarder }
+            </ion-button>
+          </div>
+        }
+      }
+    </section>
+
+    <!-- ===== PACKS ===== -->
+    <section class="category cat-packs">
+      <header class="cat-header">
+        <span class="cat-tag">🎴 Packs de niveau</span>
+        <p class="hint">Chaque niveau débloque un pack (premium tous les 5 niveaux).</p>
+      </header>
+
       @for (o of available(); track o.level) {
         <div class="offer available">
           <div class="icon">{{ o.packType === 'PREMIUM' ? '💎' : '🎴' }}</div>
@@ -38,32 +72,38 @@
         </div>
       }
       @if (!available().length && !locked().length) { <p class="hint">Aucun pack à venir.</p> }
-    </div>
-    @if (openedCount() > 0) { <p class="hint">{{ openedCount() }} pack(s) de niveau déjà ouvert(s) ✓</p> }
+      @if (openedCount() > 0) { <p class="hint">{{ openedCount() }} pack(s) déjà ouvert(s) ✓</p> }
+    </section>
 
-    <h2>Illustrations</h2>
-    <p class="hint">Achetez-les avec les pièces gagnées dans les packs.</p>
+    <!-- ===== ILLUSTRATIONS ===== -->
+    <section class="category cat-arts">
+      <header class="cat-header">
+        <span class="cat-tag">🖼️ Illustrations du jour</span>
+        <p class="hint">3 illustrations, renouvelées chaque jour. Le prix dépend de la rareté.</p>
+      </header>
 
-    <div class="grid">
-      @for (it of items(); track it.art.publicId) {
-        <div class="item">
-          <app-card-view [rarity]="it.art.rarity" [title]="it.art.cardTitle ?? ''" [imageUrl]="it.art.imageUrl" />
-          <div class="meta">
-            <strong>{{ it.art.title || 'Illustration' }}</strong>
-            @if (it.art.artist) { <small>par {{ it.art.artist.name }}</small> }
-            @if (it.owned) {
-              <ion-badge color="success">Possédée</ion-badge>
-            } @else {
-              <ion-button size="small" [disabled]="!canBuy(it)" (click)="buy(it)">
-                @if (buying() === it.art.publicId) { <ion-spinner name="dots"></ion-spinner> } @else { {{ it.price }} 🪙 }
-              </ion-button>
-            }
+      <div class="grid">
+        @for (it of items(); track it.art.publicId) {
+          <div class="item" [attr.data-rarity]="it.art.rarity">
+            <span class="rarity-tag">{{ it.art.rarity }}</span>
+            <app-card-view [rarity]="it.art.rarity" [title]="it.art.cardTitle ?? ''" [imageUrl]="it.art.imageUrl" />
+            <div class="meta">
+              <strong>{{ it.art.title || 'Illustration' }}</strong>
+              @if (it.art.artist) { <small>par {{ it.art.artist.name }}</small> }
+              @if (it.owned) {
+                <ion-badge color="success">Possédée</ion-badge>
+              } @else {
+                <ion-button size="small" [disabled]="!canBuy(it)" (click)="buy(it)">
+                  @if (buying() === it.art.publicId) { <ion-spinner name="dots"></ion-spinner> } @else { {{ it.price }} 🪙 }
+                </ion-button>
+              }
+            </div>
           </div>
-        </div>
-      } @empty {
-        <p class="hint">Aucune illustration en vente pour le moment.</p>
-      }
-    </div>
+        } @empty {
+          <p class="hint">Aucune illustration en vente pour le moment.</p>
+        }
+      </div>
+    </section>
   }
 </ion-content>
 
