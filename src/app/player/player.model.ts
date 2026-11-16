@@ -29,17 +29,41 @@ export interface DrawnItem {
   coinsGained: number;
 }
 
+export interface PlayerProgress {
+  level: number;
+  xp: number;
+  xpIntoLevel: number;
+  /** null au niveau maximum */
+  xpForNextLevel: number | null;
+  /** packs de niveau débloqués mais pas encore ouverts */
+  unclaimedPacks: number;
+}
+
 export interface PackResult {
+  packType: string;
   draws: DrawnItem[];
   coinsGained: number;
   coins: number;
   packsSinceRare: number;
+  xpGained: number;
+  levelBefore: number;
+  progress: PlayerProgress;
+}
+
+export interface PackOffer {
+  level: number;
+  packType: 'STANDARD' | 'PREMIUM';
+  size: number;
+  status: 'LOCKED' | 'AVAILABLE' | 'OPENED';
 }
 
 export interface UpgradeResult {
   level: number;
   fragments: number;
   nextUpgradeCost: number | null;
+  xpGained: number;
+  playerLevelUp: boolean;
+  progress: PlayerProgress;
 }
 
 export interface ShopItem {

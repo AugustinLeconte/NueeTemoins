@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/cards"></ion-back-button></ion-buttons>
+    <ion-title>Boutique</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (loading()) {
+    <div class="center"><ion-spinner></ion-spinner></div>
+  } @else {
+    <div class="top">
+      @if (progress(); as p) { <app-level-bar class="grow" [progress]="p" /> }
+      <ion-chip><ion-label>{{ wallet()?.coins ?? 0 }} 🪙</ion-label></ion-chip>
+    </div>
+
+    @if (error()) { <p class="error">{{ error() }}</p> }
+
+    <h2>Packs de niveau</h2>
+    <p class="hint">Chaque passage de niveau débloque un pack (premium tous les 5 niveaux).</p>
+
+    <div class="packs">
+      @for (o of available(); track o.level) {
+        <div class="offer available">
+          <div class="icon">{{ o.packType === 'PREMIUM' ? '💎' : '🎴' }}</div>
+          <div class="info">
+            <strong>{{ packLabel(o) }}</strong>
+            <small>Niveau {{ o.level }} · {{ o.size }} emplacements</small>
+          </div>
+          <ion-button size="small" (click)="openPack(o)">Ouvrir</ion-button>
+        </div>
+      }
+      @for (o of locked(); track o.level) {
+        <div class="offer locked">
+          <div class="icon">🔒</div>
+          <div class="info">
+            <strong>{{ packLabel(o) }}</strong>
+            <small>Se débloque au niveau {{ o.level }}</small>
+          </div>
+        </div>
+      }
+      @if (!available().length && !locked().length) { <p class="hint">Aucun pack à venir.</p> }
+    </div>
+    @if (openedCount() > 0) { <p class="hint">{{ openedCount() }} pack(s) de niveau déjà ouvert(s) ✓</p> }
+
+    <h2>Illustrations</h2>
+    <p class="hint">Achetez-les avec les pièces gagnées dans les packs.</p>
+
+    <div class="grid">
+      @for (it of items(); track it.art.publicId) {
+        <div class="item">
+          <app-card-view [rarity]="it.art.rarity" [title]="it.art.cardTitle ?? ''" [imageUrl]="it.art.imageUrl" />
+          <div class="meta">
+            <strong>{{ it.art.title || 'Illustration' }}</strong>
+            @if (it.art.artist) { <small>par {{ it.art.artist.name }}</small> }
+            @if (it.owned) {
+              <ion-badge color="success">Possédée</ion-badge>
+            } @else {
+              <ion-button size="small" [disabled]="!canBuy(it)" (click)="buy(it)">
+                @if (buying() === it.art.publicId) { <ion-spinner name="dots"></ion-spinner> } @else { {{ it.price }} 🪙 }
+              </ion-button>
+            }
+          </div>
+        </div>
+      } @empty {
+        <p class="hint">Aucune illustration en vente pour le moment.</p>
+      }
+    </div>
+  }
+</ion-content>

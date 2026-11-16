@@ -1,16 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start"><ion-back-button defaultHref="/cards"></ion-back-button></ion-buttons>
-    <ion-title>Packs</ion-title>
+    <ion-buttons slot="start"><ion-back-button [defaultHref]="levelPack() ? '/shop' : '/cards'"></ion-back-button></ion-buttons>
+    <ion-title>{{ levelPack() ? 'Pack de niveau ' + levelPack() : 'Pack du jour' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   @if (phase() !== 'reveal') {
     <section class="start">
+      @if (progress(); as p) { <app-level-bar [progress]="p" /> }
+
       <div class="pack" [class.opening]="phase() === 'opening'">
-        <span>✦</span>
-        <small>Pack du jour</small>
+        <span>{{ levelPack() ? '🎁' : '✦' }}</span>
+        <small>{{ levelPack() ? 'Récompense de niveau ' + levelPack() : 'Pack du jour' }}</small>
       </div>
 
       @if (wallet(); as w) {
@@ -23,15 +25,20 @@
 
       @if (error()) { <p class="error">{{ error() }}</p> }
 
-      <ion-button expand="block" [disabled]="phase() === 'opening' || !wallet()?.dailyPackAvailable" (click)="open()">
+      <ion-button expand="block"
+                  [disabled]="phase() === 'opening' || !wallet() || (!levelPack() && !wallet()?.dailyPackAvailable)"
+                  (click)="open()">
         @if (phase() === 'opening') {
           <ion-spinner name="dots"></ion-spinner>
+        } @else if (levelPack()) {
+          Ouvrir le pack
         } @else if (wallet()?.dailyPackAvailable) {
           Ouvrir mon pack quotidien
         } @else {
           Pack du jour déjà ouvert
         }
       </ion-button>
+      <ion-button expand="block" fill="clear" routerLink="/shop">Boutique</ion-button>
       <ion-button expand="block" fill="clear" routerLink="/cards">Voir ma collection</ion-button>
     </section>
   } @else if (result(); as r) {
@@ -89,8 +96,27 @@
       } @else {
         <div class="summary">
           @if (r.coinsGained > 0) { <p>+{{ r.coinsGained }} 🪙 pièces gagnées</p> }
-          <ion-button expand="block" routerLink="/cards">Voir ma collection</ion-button>
-          <ion-button expand="block" fill="clear" (click)="finish()">Fermer</ion-button>
+          <p class="xp">+{{ r.xpGained }} XP</p>
+          <app-level-bar [progress]="r.progress" />
+
+          @if (leveledUp()) {
+            <div class="levelup">
+              🎉 Niveau {{ r.progress.level }} atteint !
+              <small>Un nouveau pack vous attend dans la boutique.</small>
+            </div>
+          }
+
+          @if (levelPack()) {
+            <ion-button expand="block" (click)="finish()">Retour à la boutique</ion-button>
+          } @else {
+            @if (r.progress.unclaimedPacks > 0) {
+              <ion-button expand="block" color="success" routerLink="/shop">
+                🎁 {{ r.progress.unclaimedPacks }} pack(s) à ouvrir en boutique
+              </ion-button>
+            }
+            <ion-button expand="block" routerLink="/cards">Voir ma collection</ion-button>
+            <ion-button expand="block" fill="clear" (click)="finish()">Fermer</ion-button>
+          }
         </div>
       }
     </section>

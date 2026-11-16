@@ -42,4 +42,5 @@ export const routes: Routes = [
     canMatch: [adminGuard],
     loadChildren: () => import('./pages/admin/admin.routes').then(m => m.ADMIN_ROUTES),
   },
+  { path: 'shop', canActivate: [authGuard], loadComponent: () => import('./pages/shop/shop.page').then(m => m.ShopPage) },
 ];
