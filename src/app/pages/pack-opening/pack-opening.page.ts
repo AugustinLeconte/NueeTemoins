@@ -14,7 +14,7 @@ import { DrawnItem, PackResult, PlayerCard, PlayerProgress, Wallet } from '../..
   selector: 'app-pack-opening',
   standalone: true,
   imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton,
-            IonButton, IonBadge, IonSpinner, IonProgressBar, CardViewComponent, LevelBarComponent],
+            IonButton, IonBadge, IonSpinner, IonProgressBar, CardViewComponent],
   templateUrl: './pack-opening.page.html',
   styleUrls: ['./pack-opening.page.scss'],
 })

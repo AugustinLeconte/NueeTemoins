@@ -8,8 +8,6 @@
 <ion-content class="ion-padding">
   @if (phase() !== 'reveal') {
     <section class="start">
-      @if (progress(); as p) { <app-level-bar [progress]="p" /> }
-
       <div class="pack" [class.opening]="phase() === 'opening'">
         <span>{{ levelPack() ? '🎁' : '✦' }}</span>
         <small>{{ levelPack() ? 'Récompense de niveau ' + levelPack() : 'Pack du jour' }}</small>
@@ -97,7 +95,6 @@
         <div class="summary">
           @if (r.coinsGained > 0) { <p>+{{ r.coinsGained }} 🪙 pièces gagnées</p> }
           <p class="xp">+{{ r.xpGained }} XP</p>
-          <app-level-bar [progress]="r.progress" />
 
           @if (leveledUp()) {
             <div class="levelup">

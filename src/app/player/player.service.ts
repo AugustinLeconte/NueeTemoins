@@ -1,32 +1,46 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { PackOffer, PackResult, PlayerCard, PlayerProgress, ShopItem, UpgradeResult, Wallet } from './player.model';
+import { Achievement, PackOffer, PackResult, PlayerCard, PlayerProgress, ShopItem, UpgradeResult, Wallet } from './player.model';
 import { environment } from '../../environments/environment';
+import { AchievementToastService } from '../achievements/achievement-toast.service';
+import { tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PlayerService {
   private http = inject(HttpClient);
   private base = `${environment.api}me`;
+  private toasts = inject(AchievementToastService);
 
-  progress() { return this.http.get<PlayerProgress>(`${this.base}/progress`); }
-  wallet() { return this.http.get<Wallet>(`${this.base}/wallet`); }
-  collection() { return this.http.get<PlayerCard[]>(`${this.base}/collection`); }
+  public progress() { return this.http.get<PlayerProgress>(`${this.base}/progress`); }
+  public wallet() { return this.http.get<Wallet>(`${this.base}/wallet`); }
+  public collection() { return this.http.get<PlayerCard[]>(`${this.base}/collection`); }
+  public achievements() { return this.http.get<Achievement[]>(`${this.base}/achievements`); }
 
-  equip(cardPublicId: string, artPublicId: string) {
+  public equip(cardPublicId: string, artPublicId: string) {
     return this.http.put<void>(`${this.base}/cards/${cardPublicId}/equipped-art`, { artPublicId });
   }
 
-  upgrade(cardPublicId: string) {
-    return this.http.post<UpgradeResult>(`${this.base}/cards/${cardPublicId}/upgrade`, {});
+  public upgrade(cardPublicId: string) {
+    return this.http.post<UpgradeResult>(`${this.base}/cards/${cardPublicId}/upgrade`, {})
+      .pipe(tap(r => this.toasts.show(r.newAchievements)));
   }
 
-  openDaily() { return this.http.post<PackResult>(`${this.base}/packs/daily`, {}); }
-
-  packOffers() { return this.http.get<PackOffer[]>(`${this.base}/shop/packs`); }
-  openLevelPack(level: number) {
-    return this.http.post<PackResult>(`${this.base}/shop/packs/${level}/open`, {});
+  public openDaily() {
+    return this.http.post<PackResult>(`${this.base}/packs/daily`, {})
+      .pipe(tap(r => this.toasts.show(r.newAchievements)));
   }
 
-  shop() { return this.http.get<ShopItem[]>(`${this.base}/shop`); }
-  buy(artPublicId: string) { return this.http.post<Wallet>(`${this.base}/shop/arts/${artPublicId}/buy`, {}); }
+  public packOffers() { return this.http.get<PackOffer[]>(`${this.base}/shop/packs`); }
+
+  public openLevelPack(level: number) {
+    return this.http.post<PackResult>(`${this.base}/shop/packs/${level}/open`, {})
+      .pipe(tap(r => this.toasts.show(r.newAchievements)));
+  }
+
+  public shop() { return this.http.get<ShopItem[]>(`${this.base}/shop`); }
+
+  public buy(artPublicId: string) {
+    return this.http.post<Wallet>(`${this.base}/shop/arts/${artPublicId}/buy`, {})
+      .pipe(tap(r => this.toasts.show(r.newAchievements)));
+  }
 }

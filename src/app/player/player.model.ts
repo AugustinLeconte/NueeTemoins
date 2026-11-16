@@ -4,16 +4,15 @@ export interface Wallet {
   coins: number;
   packsSinceRare: number;
   dailyPackAvailable: boolean;
+  newAchievements?: string[];
 }
 
 export interface PlayerCard {
   card: Card;
   level: number;
-  /** fragments de CE saint (doublons) */
   fragments: number;
   equippedArt: CardArt;
   ownedArts: CardArt[];
-  /** null si niveau maximum */
   nextUpgradeCost: number | null;
 }
 
@@ -33,9 +32,7 @@ export interface PlayerProgress {
   level: number;
   xp: number;
   xpIntoLevel: number;
-  /** null au niveau maximum */
   xpForNextLevel: number | null;
-  /** packs de niveau débloqués mais pas encore ouverts */
   unclaimedPacks: number;
 }
 
@@ -48,6 +45,7 @@ export interface PackResult {
   xpGained: number;
   levelBefore: number;
   progress: PlayerProgress;
+  newAchievements?: string[];
 }
 
 export interface PackOffer {
@@ -64,10 +62,19 @@ export interface UpgradeResult {
   xpGained: number;
   playerLevelUp: boolean;
   progress: PlayerProgress;
+  newAchievements?: string[];
 }
 
 export interface ShopItem {
   art: CardArt;
   price: number;
   owned: boolean;
+}
+
+export interface Achievement {
+  code: string;
+  unlocked: boolean;
+  unlockedAt: string | null;
+  progress: number;
+  target: number;
 }

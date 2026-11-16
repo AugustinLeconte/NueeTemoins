@@ -29,6 +29,30 @@
       </dl>
     </section>
 
+    <section class="achievements">
+      <h3>
+        {{ 'achievements.title' | transloco }}
+        <small>{{ unlockedCount() }}/{{ achievements().length }}</small>
+      </h3>
+      <ul>
+        @for (a of achievements(); track a.code) {
+          <li [class.locked]="!a.unlocked">
+            <span class="icon">{{ a.unlocked ? '🏆' : '🔒' }}</span>
+            <div class="txt">
+              <strong>{{ 'achievements.items.' + a.code + '.name' | transloco }}</strong>
+              <small>{{ 'achievements.items.' + a.code + '.desc' | transloco }}</small>
+              @if (!a.unlocked) {
+                <ion-progress-bar [value]="a.progress / a.target"></ion-progress-bar>
+              }
+            </div>
+            @if (!a.unlocked) {
+              <small class="count">{{ a.progress }}/{{ a.target }}</small>
+            }
+          </li>
+        }
+      </ul>
+    </section>
+
     <ion-button expand="block" color="danger" fill="outline" [disabled]="loggingOut()" (click)="logout()">
       @if (loggingOut()) { <ion-spinner name="dots"></ion-spinner> } @else { Se déconnecter }
     </ion-button>

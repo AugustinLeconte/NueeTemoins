@@ -31,5 +31,47 @@
       "signupFailed": "Inscription impossible",
       "pseudoTaken": "Ce pseudo est déjà pris"
     }
+  },
+  "achievements": {
+    "title": "Succès",
+    "unlocked": "Succès débloqué !",
+    "items": {
+      "LEVEL_1": {
+        "name": "Premiers pas",
+        "desc": "Atteins le niveau 1"
+      },
+      "LEVEL_10": {
+        "name": "Apprenti",
+        "desc": "Atteins le niveau 10"
+      },
+      "LEVEL_25": {
+        "name": "Confirmé",
+        "desc": "Atteins le niveau 25"
+      },
+      "LEVEL_50": {
+        "name": "Maître",
+        "desc": "Atteins le niveau 50"
+      },
+      "CARDS_10": {
+        "name": "Collectionneur",
+        "desc": "Possède 10 saints"
+      },
+      "ARTS_5_ON_ONE_CARD": {
+        "name": "Admirateur",
+        "desc": "Possède 5 illustrations d'un même saint"
+      },
+      "COINS_100": {
+        "name": "Pécule",
+        "desc": "Possède 100 pièces"
+      },
+      "SHOP_FIRST_PURCHASE": {
+        "name": "Premier achat",
+        "desc": "Achète une illustration dans la boutique"
+      },
+      "SHOP_20_PURCHASES": {
+        "name": "Client fidèle",
+        "desc": "Achète 20 illustrations dans la boutique"
+      }
+    }
   }
 }
