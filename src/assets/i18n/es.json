@@ -106,10 +106,24 @@
   }
     }
   },
+  "filters": {
+    "search": "Buscar un santo (nombre, descripción…)",
+    "families": "Familias",
+    "month": "Mes de la fiesta",
+    "day": "Día",
+    "all": "Todos",
+    "owned": "Obtenidos",
+    "missing": "Faltantes",
+    "today": "Fiesta hoy",
+    "reset": "Restablecer",
+    "title": "Filtros",
+    "show": "Ver {{count}} santos"
+  },
   "card-list": {
     "collection": "Mi colección",
     "no-cards": "No hay cartas por el momento.",
-    "loadError": "Imposible cargar las cartas."
+    "loadError": "Imposible cargar las cartas.",
+    "no-results": "Ningún santo coincide con estos filtros."
   },
   "saints": "santos",
   "packs": {

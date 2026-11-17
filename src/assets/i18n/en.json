@@ -106,10 +106,24 @@
   }
     }
   },
+  "filters": {
+    "search": "Search a saint (name, description…)",
+    "families": "Families",
+    "month": "Feast month",
+    "day": "Day",
+    "all": "All",
+    "owned": "Owned",
+    "missing": "Missing",
+    "today": "Feast day today",
+    "reset": "Reset",
+    "title": "Filters",
+    "show": "Show {{count}} saints"
+  },
   "card-list": {
     "collection": "My collection",
     "no-cards": "No cards for now.",
-    "loadError": "Unable to load cards."
+    "loadError": "Unable to load cards.",
+     "no-results": "No saint matches these filters."
   },
   "saints": "saints",
   "packs": {

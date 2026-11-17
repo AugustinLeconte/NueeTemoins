@@ -12,12 +12,57 @@
     <p class="error">{{ error() | transloco }}</p>
   } @else {
     <div class="top">
-      <ion-chip><ion-label>{{ ownedCount() }} / {{ cards().length }} {{ 'saints' | transloco}}</ion-label></ion-chip>
-      <ion-button size="small" routerLink="/packs">{{"packs.open" | transloco}}</ion-button>
+      <ion-chip>
+        <ion-label>
+          @if (hasFilters()) { {{ filteredCards().length }} }
+          @else {{{ ownedCount() }} } / {{ cards().length }} {{ 'saints' | transloco }}
+        </ion-label>
+      </ion-chip>
+      <ion-button size="small" routerLink="/packs">{{ "packs.open" | transloco }}</ion-button>
     </div>
 
+  <ion-segment [value]="ownership()" (ionChange)="onOwnership($event)">
+    <ion-segment-button value="all"><ion-label>{{ 'filters.all' | transloco }}</ion-label></ion-segment-button>
+    <ion-segment-button value="owned"><ion-label>{{ 'filters.owned' | transloco }}</ion-label></ion-segment-button>
+    <ion-segment-button value="missing"><ion-label>{{ 'filters.missing' | transloco }}</ion-label></ion-segment-button>
+  </ion-segment>
+
+  <div class="search-row">
+    <ion-searchbar
+      [value]="search()" [debounce]="200"
+      [placeholder]="'filters.search' | transloco"
+      (ionInput)="onSearch($event)"></ion-searchbar>
+
+    <ion-button class="filter-btn" fill="outline" (click)="openFilters()">
+      <ion-icon slot="icon-only" name="options-outline"></ion-icon>
+      @if (activeCount() > 0) { <span class="badge">{{ activeCount() }}</span> }
+    </ion-button>
+  </div>
+
+  @if (hasFilters()) {
+    <div class="chips">
+      @for (id of selectedFamilies(); track id) {
+        <ion-chip color="primary" (click)="removeFamily(id)">
+          <ion-label>{{ familyName(id) }}</ion-label>
+          <ion-icon name="close-circle"></ion-icon>
+        </ion-chip>
+      }
+
+      @if (month() !== null) {
+        <ion-chip color="primary" (click)="clearDate()">
+          <ion-label>{{ dateLabel() }}</ion-label>
+          <ion-icon name="close-circle"></ion-icon>
+        </ion-chip>
+      }
+
+      <ion-chip class="reset" (click)="resetFilters()">
+        <ion-label>{{ 'filters.reset' | transloco }}</ion-label>
+      </ion-chip>
+    </div>
+  }
+
     <div class="grid">
-      @for (c of cards(); track c.publicId) {
+       @for (c of filteredCards(); track c.publicId) {
         <div class="cell" (click)="openDetail(c)">
           <app-card-view
             [families]="c.families" [rarity]="artOf(c)?.rarity ?? 'COMMON'"
@@ -27,7 +72,7 @@
           @if (canUpgrade(c)) { <span class="up" title="Montée de niveau disponible">⬆</span> }
         </div>
       } @empty {
-        <p>{{'card-list.no-cards' | transloco}}</p>
+        <p>{{ (hasFilters() ? 'card-list.no-results' : 'card-list.no-cards') | transloco }}</p>
       }
     </div>
   }

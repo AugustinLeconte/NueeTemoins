@@ -106,10 +106,24 @@
   }
     }
   },
+   "filters": {
+    "search": "Rechercher un saint (nom, description…)",
+    "families": "Familles",
+    "month": "Mois de fête",
+    "day": "Jour",
+    "all": "Tous",
+    "owned": "Possédés",
+    "missing": "Manquants",
+    "today": "Fêtés aujourd'hui",
+    "reset": "Réinitialiser",
+    "title": "Filtres",
+    "show": "Voir {{count}} saints"
+  },
   "card-list": {
     "collection": "Ma collection",
     "no-cards": "Aucune carte pour le moment.",
-    "loadError": "Impossible de charger les cartes."
+    "loadError": "Impossible de charger les cartes.",
+    "no-results": "Aucun saint ne correspond à ces filtres."
   },
   "saints": "saints",
   "packs": {
