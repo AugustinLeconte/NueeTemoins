@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar><ion-title>{{ 'wordle.title' | transloco }}</ion-title></ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (state(); as s) {
+    <div class="board" [style.--cols]="s.wordLength">
+      @for (row of board(); track $index) {
+        <div class="row">
+          @for (cell of row; track $index) {
+            <div class="cell" [attr.data-state]="cell.state">{{ cell.letter }}</div>
+          }
+        </div>
+      }
+    </div>
+
+    @if (finished()) {
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ (s.status === 'WON' ? 'wordle.won' : 'wordle.lost') | transloco }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{ 'wordle.wordWas' | transloco }} <strong>{{ s.solution }}</strong>
+          · {{ 'wordle.xpGained' | transloco: { xp: s.xpAwarded } }}
+        </ion-card-content>
+      </ion-card>
+
+      <ion-list>
+        <ion-list-header>{{ 'wordle.leaderboard' | transloco }}</ion-list-header>
+        @for (e of leaderboard(); track e.rank) {
+          <ion-item>
+            <ion-label>{{ e.rank }}. {{ e.player }}</ion-label>
+            <ion-note slot="end">
+              {{ e.won ? e.attempts + '/' + s.maxAttempts : '✗' }} · {{ 'wordle.xpShort' | transloco: { xp: e.xp } }}
+            </ion-note>
+          </ion-item>
+        }
+      </ion-list>
+    } @else {
+      <div class="keyboard">
+        @for (line of layout(); track line; let last = $last) {
+          <div class="krow">
+            @if (last) { <button class="key wide" (click)="press('ENTER')" [attr.aria-label]="'wordle.enter' | transloco">↵</button> }
+            @for (k of line.split(''); track k) {
+              <button class="key" [attr.data-state]="keyStates()[k]" (click)="press(k)">{{ k }}</button>
+            }
+            @if (last) { <button class="key wide" (click)="press('DEL')" [attr.aria-label]="'wordle.delete' | transloco">⌫</button> }
+          </div>
+        }
+      </div>
+    }
+  }
+</ion-content>
+
+<app-navbar></app-navbar>

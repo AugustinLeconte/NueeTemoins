@@ -23,9 +23,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/card-list/card-list.page').then((m) => m.CardListPage),
     canActivate: [authGuard],
   },
-  { path: 'packs', loadComponent: () => import('./pages/pack-opening/pack-opening.page').then((m) => m.PackOpeningPage),
+  {
+    path: 'packs',
+    loadComponent: () => import('./pages/pack-opening/pack-opening.page').then((m) => m.PackOpeningPage),
     canActivate: [authGuard],
-
   },
   {
     path: 'profile',
@@ -35,7 +36,16 @@ export const routes: Routes = [
   {
     path: 'admin',
     canMatch: [adminGuard],
-    loadChildren: () => import('./pages/admin/admin.routes').then(m => m.ADMIN_ROUTES),
+    loadChildren: () => import('./pages/admin/admin.routes').then((m) => m.ADMIN_ROUTES),
   },
-  { path: 'shop', canActivate: [authGuard], loadComponent: () => import('./pages/shop/shop.page').then(m => m.ShopPage) },
+  {
+    path: 'shop',
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/shop/shop.page').then((m) => m.ShopPage),
+  },
+  {
+    path: 'minigames',
+    canActivate: [authGuard],
+      loadChildren: () => import('./pages/minigames/minigames.routes').then((m) => m.MINIGAMES_ROUTES),
+  },
 ];

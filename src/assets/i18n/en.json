@@ -37,10 +37,6 @@
     "title": "Achievements",
     "unlocked": "Achievement unlocked!",
     "items": {
-      "LEVEL_1": {
-        "name": "First steps",
-        "desc": "Reach level 1"
-      },
       "LEVEL_10": {
         "name": "Apprentice",
         "desc": "Reach level 10"
@@ -72,7 +68,42 @@
       "SHOP_20_PURCHASES": {
         "name": "Loyal customer",
         "desc": "Buy 20 artworks in the shop"
-      }
+      }, "LEVEL_2": {
+    "name": "First steps",
+    "desc": "Reach level 2"
+  },
+  "MINIGAME_FIRST_WIN": {
+    "name": "First victory",
+    "desc": "Win your first mini-game"
+  },
+  "MINIGAME_10_WINS": {
+    "name": "Dedicated player",
+    "desc": "Win 10 mini-games"
+  },
+  "MINIGAME_50_WINS": {
+    "name": "Mini-game champion",
+    "desc": "Win 50 mini-games"
+  },
+  "MINIGAME_PERFECT": {
+    "name": "Stroke of genius",
+    "desc": "Win a mini-game perfectly (e.g. guess the word on the first try)"
+  },
+  "MINIGAME_STREAK_3": {
+    "name": "Regular",
+    "desc": "Play mini-games 3 days in a row"
+  },
+  "MINIGAME_STREAK_7": {
+    "name": "Never misses a day",
+    "desc": "Play mini-games 7 days in a row"
+  },
+  "MINIGAME_STREAK_30": {
+    "name": "Unconditional",
+    "desc": "Play mini-games 30 days in a row"
+  },
+  "MINIGAME_3_GAMES": {
+    "name": "Jack of all trades",
+    "desc": "Win 3 different mini-games"
+  }
     }
   },
   "card-list": {
@@ -170,6 +201,23 @@
       "adWait": "Wait a bit before the next ad.",
       "adLimitReached": "Ad limit reached for today.",
       "adUnavailable": "Reward unavailable for now."
+    }
+  }, "wordle": {
+    "title": "Word of the day",
+    "won": "Well done!",
+    "lost": "Better luck tomorrow…",
+    "wordWas": "The word was",
+    "xpGained": "+{{ xp }} XP",
+    "xpShort": "{{ xp }} XP",
+    "leaderboard": "Today's leaderboard",
+    "enter": "Enter",
+    "delete": "Delete",
+    "errors": {
+      "WRONG_LENGTH": "Not enough letters",
+      "UNKNOWN_WORD": "Unknown word",
+      "ALREADY_FINISHED": "Game already finished",
+      "FINISH_FIRST": "Finish your game to see the leaderboard",
+      "ERROR": "Something went wrong"
     }
   }
 }

@@ -37,10 +37,6 @@
     "title": "Logros",
     "unlocked": "¡Logro desbloqueado!",
     "items": {
-      "LEVEL_1": {
-        "name": "Primeros pasos",
-        "desc": "Alcanza el nivel 1"
-      },
       "LEVEL_10": {
         "name": "Aprendiz",
         "desc": "Alcanza el nivel 10"
@@ -72,7 +68,42 @@
       "SHOP_20_PURCHASES": {
         "name": "Cliente fiel",
         "desc": "Compra 20 ilustraciones en la tienda"
-      }
+      }, "LEVEL_2": {
+    "name": "Primeros pasos",
+    "desc": "Alcanza el nivel 2"
+  },
+  "MINIGAME_FIRST_WIN": {
+    "name": "Primera victoria",
+    "desc": "Gana tu primer minijuego"
+  },
+  "MINIGAME_10_WINS": {
+    "name": "Jugador constante",
+    "desc": "Gana 10 minijuegos"
+  },
+  "MINIGAME_50_WINS": {
+    "name": "Campeón de minijuegos",
+    "desc": "Gana 50 minijuegos"
+  },
+  "MINIGAME_PERFECT": {
+    "name": "Golpe de genio",
+    "desc": "Gana un minijuego a la perfección (p. ej. palabra al primer intento)"
+  },
+  "MINIGAME_STREAK_3": {
+    "name": "Regular",
+    "desc": "Juega a los minijuegos 3 días seguidos"
+  },
+  "MINIGAME_STREAK_7": {
+    "name": "Fiel a la cita",
+    "desc": "Juega a los minijuegos 7 días seguidos"
+  },
+  "MINIGAME_STREAK_30": {
+    "name": "Incondicional",
+    "desc": "Juega a los minijuegos 30 días seguidos"
+  },
+  "MINIGAME_3_GAMES": {
+    "name": "Todoterreno",
+    "desc": "Gana en 3 minijuegos diferentes"
+  }
     }
   },
   "card-list": {
@@ -170,6 +201,23 @@
       "adWait": "Espera un poco antes del siguiente anuncio.",
       "adLimitReached": "Límite de anuncios alcanzado por hoy.",
       "adUnavailable": "Recompensa no disponible por el momento."
+    }
+  }, "wordle": {
+    "title": "Palabra del día",
+    "won": "¡Bravo!",
+    "lost": "Mañana será…",
+    "wordWas": "La palabra era",
+    "xpGained": "+{{ xp }} XP",
+    "xpShort": "{{ xp }} XP",
+    "leaderboard": "Clasificación del día",
+    "enter": "Validar",
+    "delete": "Borrar",
+    "errors": {
+      "WRONG_LENGTH": "Faltan letras",
+      "UNKNOWN_WORD": "Palabra desconocida",
+      "ALREADY_FINISHED": "Partida ya terminada",
+      "FINISH_FIRST": "Termina tu partida para ver la clasificación",
+      "ERROR": "Ha ocurrido un error"
     }
   }
 }
