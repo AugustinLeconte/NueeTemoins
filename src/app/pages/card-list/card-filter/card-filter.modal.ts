@@ -91,7 +91,6 @@ export class CardFilterModal {
 
   @Input() families: { publicId: string; name: string }[] = [];
   @Input() months: { value: number; label: string }[] = [];
-  /** nombre de cartes obtenues avec ces filtres (fourni par la page) */
   @Input() countFn: (f: FilterValue) => number = () => 0;
   @Input() set value(v: FilterValue) {
     this.selected.set(v.families);

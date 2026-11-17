@@ -4,6 +4,7 @@
     "email": "Email",
     "password": "Mot de passe",
     "passwordMin": "Mot de passe (8 caractères min.)",
+    "loading": "Chargement…",
     "login": {
       "title": "Connexion",
       "submit": "Se connecter",
@@ -27,10 +28,23 @@
     },
     "errors": {
       "generic": "Une erreur est survenue",
-      "invalidCredentials": "Email ou mot de passe incorrect",
-      "loginFailed": "Connexion impossible",
-      "signupFailed": "Inscription impossible",
-      "pseudoTaken": "Ce pseudo est déjà pris"
+      "pseudoTaken": "Ce pseudo est déjà pris",
+      "invalidCredentials": "Email ou mot de passe incorrect.",
+      "useGoogle": "Ce compte a été créé avec Google. Utilise le bouton « Continuer avec Google ».",
+      "emailNotVerified": "Ton email n'est pas encore vérifié. Vérifie ta boîte mail (et tes spams).",
+      "emailTaken": "Un compte existe déjà avec cet email. Connecte-toi ou utilise un autre email.",
+      "passwordTooShort": "Le mot de passe est trop court (8 caractères minimum).",
+      "passwordTooLong": "Le mot de passe est trop long.",
+      "invalidEmail": "L'adresse email n'est pas valide.",
+      "invalidData": "Les informations saisies ne sont pas valides. Vérifie l'email et le mot de passe.",
+      "signupDisabled": "Les inscriptions sont momentanément fermées.",
+      "tooManyRequests": "Trop de tentatives. Réessaie dans quelques minutes.",
+      "sessionExpired": "Ta session a expiré. Reconnecte-toi.",
+      "forbidden": "Accès refusé. Contacte le support si le problème persiste.",
+      "network": "Impossible de joindre le serveur. Vérifie ta connexion internet.",
+      "server": "Le service est momentanément indisponible. Réessaie dans quelques instants.",
+      "loginFailed": "Connexion impossible (réf. : {{ref}}). Réessaie ou contacte le support.",
+      "signupFailed": "Inscription impossible (réf. : {{ref}}). Réessaie ou contacte le support."
     }
   },
   "achievements": {

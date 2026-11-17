@@ -34,7 +34,7 @@ type Ownership = 'all' | 'owned' | 'missing';
   standalone: true,
   imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonSpinner,
             IonChip, IonLabel, CardViewComponent, UserAvatarComponent, NavbarComponent, TranslocoPipe, IonSearchbar,
-          IonSelect, IonSelectOption, IonSegment, IonSegmentButton, CardFilterModal, IonIcon],
+           IonSegment, IonSegmentButton, IonIcon],
   templateUrl: './card-list.page.html',
   styleUrls: ['./card-list.page.scss'],
 })

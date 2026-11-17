@@ -4,6 +4,7 @@
     "email": "Email",
     "password": "Password",
     "passwordMin": "Password (8 chars min.)",
+    "loading": "Loading…",
     "login": {
       "title": "Log in",
       "submit": "Sign in",
@@ -27,10 +28,23 @@
     },
     "errors": {
       "generic": "An error occurred",
-      "invalidCredentials": "Incorrect email or password",
-      "loginFailed": "Login failed",
-      "signupFailed": "Sign up failed",
-      "pseudoTaken": "This username is already taken"
+      "pseudoTaken": "This username is already taken",
+      "invalidCredentials": "Incorrect email or password.",
+      "useGoogle": "This account was created with Google. Use the \"Continue with Google\" button.",
+      "emailNotVerified": "Your email isn't verified yet. Check your inbox (and spam folder).",
+      "emailTaken": "An account already exists with this email. Sign in or use another email.",
+      "passwordTooShort": "Password is too short (8 characters minimum).",
+      "passwordTooLong": "Password is too long.",
+      "invalidEmail": "The email address is not valid.",
+      "invalidData": "The information entered is not valid. Check your email and password.",
+      "signupDisabled": "Sign-ups are temporarily closed.",
+      "tooManyRequests": "Too many attempts. Please try again in a few minutes.",
+      "sessionExpired": "Your session has expired. Please sign in again.",
+      "forbidden": "Access denied. Contact support if the problem persists.",
+      "network": "Can't reach the server. Check your internet connection.",
+      "server": "The service is temporarily unavailable. Please try again in a moment.",
+      "loginFailed": "Unable to sign in (ref: {{ref}}). Try again or contact support.",
+      "signupFailed": "Unable to sign up (ref: {{ref}}). Try again or contact support."
     }
   },
   "achievements": {

@@ -1,9 +1,18 @@
   <h1>{{ 'auth.login.title' | transloco }}</h1>
-  <form [formGroup]="form" (ngSubmit)="submit()">
+  <form [formGroup]="form" (ngSubmit)="submit()" [attr.aria-busy]="loading()">
     <input type="email" formControlName="email" [placeholder]="'auth.email' | transloco" autocomplete="email" />
     <input type="password" formControlName="password" [placeholder]="'auth.password' | transloco" autocomplete="current-password" />
-    @if (error) { <p class="error">{{ error | transloco }}</p> }
-    <button type="submit" [disabled]="form.invalid || loading">{{ 'auth.login.submit' | transloco }}</button>
+    @if (error(); as err) {
+      <p class="error" role="alert">{{ err.key | transloco: err.params }}</p>
+    }
+    <button type="submit" [disabled]="form.invalid || loading()">@if (loading()) {
+      <span class="spinner" aria-hidden="true"></span>
+      <span>{{ 'auth.loading' | transloco }}</span>
+    } @else {
+      {{ 'auth.login.submit' | transloco }}
+    }</button>
   </form>
-  <button type="button" (click)="google()">{{ 'auth.login.google' | transloco }}</button>
+  <button type="button" (click)="google()" [disabled]="loading()">
+    {{ 'auth.login.google' | transloco }}
+  </button>
   <p>{{ 'auth.login.noAccount' | transloco }} <a routerLink="/signup">{{ 'auth.login.signupLink' | transloco }}</a></p>
