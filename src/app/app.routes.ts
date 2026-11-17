@@ -46,6 +46,10 @@ export const routes: Routes = [
   {
     path: 'minigames',
     canActivate: [authGuard],
-      loadChildren: () => import('./pages/minigames/minigames.routes').then((m) => m.MINIGAMES_ROUTES),
+    loadChildren: () => import('./pages/minigames/minigames.routes').then((m) => m.MINIGAMES_ROUTES),
+  },
+  {
+    path: 'friends',
+    loadComponent: () => import('./pages/friends/friends.page').then((m) => m.FriendsPage),
   },
 ];

@@ -247,5 +247,7 @@
       "FINISH_FIRST": "Termina tu partida para ver la clasificación",
       "ERROR": "Ha ocurrido un error"
     }
+  }, "friends" : {
+    "title": "Amiguos"
   }
 }

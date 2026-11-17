@@ -247,5 +247,25 @@
       "FINISH_FIRST": "Termine ta partie pour voir le classement",
       "ERROR": "Une erreur est survenue"
     }
+  }, "friends": {
+    "title": "Amis",
+    "list": "Mes amis",
+    "incoming": "Demandes reçues",
+    "outgoing": "Demandes envoyées",
+    "cancel": "Annuler",
+    "empty": "Tu n'as pas encore d'amis. Ajoute-en grâce à leur pseudo !",
+    "loading-error": "Impossible de charger tes amis.",
+    "add": {
+      "title": "Ajouter un ami",
+      "placeholder": "Pseudo",
+      "button": "Ajouter",
+      "sent": "Demande envoyée !"
+    },
+    "errors": {
+      "self": "Tu ne peux pas t'ajouter toi-même.",
+      "not-found": "Aucun joueur avec ce pseudo.",
+      "already": "Vous êtes déjà amis ou une demande est déjà en cours.",
+      "generic": "Une erreur est survenue, réessaie."
+    }
   }
 }

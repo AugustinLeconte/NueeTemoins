@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'friends.title' | transloco }}</ion-title>
+    <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <section class="add">
+    <h3>{{ 'friends.add.title' | transloco }}</h3>
+    <div class="row">
+      <ion-input
+        fill="outline"
+        maxlength="30"
+        [placeholder]="'friends.add.placeholder' | transloco"
+        [value]="pseudo()"
+        (ionInput)="onInput($any($event.target).value ?? '')"
+        (keyup.enter)="send()"></ion-input>
+      <ion-button [disabled]="sending() || !pseudo().trim()" (click)="send()">
+        @if (sending()) { <ion-spinner name="dots"></ion-spinner> }
+        @else { {{ 'friends.add.button' | transloco }} }
+      </ion-button>
+    </div>
+    @if (suggestions().length) {
+        <ion-list class="suggestions">
+          @for (s of suggestions(); track s) {
+            <ion-item button detail="false" (click)="pick(s)">
+              <ion-label>{{ s }}</ion-label>
+            </ion-item>
+          }
+        </ion-list>
+      }
+    @if (feedback(); as f) {
+      <p [class]="f.type">{{ f.key | transloco }}</p>
+    }
+  </section>
+
+  @if (loading()) {
+    <div class="center"><ion-spinner></ion-spinner></div>
+  } @else if (error()) {
+    <p class="error">{{ error() | transloco }}</p>
+  } @else {
+
+    @if (incoming().length) {
+      <section>
+        <h3>{{ 'friends.incoming' | transloco }} ({{ incoming().length }})</h3>
+        <ion-list>
+          @for (f of incoming(); track f.id) {
+            <ion-item>
+              <ion-label>{{ f.pseudo }}</ion-label>
+              <ion-button slot="end" fill="clear" color="success" [disabled]="busyId() === f.id" (click)="accept(f)">
+                <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+              </ion-button>
+              <ion-button slot="end" fill="clear" color="danger" [disabled]="busyId() === f.id" (click)="remove(f)">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+              </ion-button>
+            </ion-item>
+          }
+        </ion-list>
+      </section>
+    }
+
+    @if (outgoing().length) {
+      <section>
+        <h3>{{ 'friends.outgoing' | transloco }}</h3>
+        <ion-list>
+          @for (f of outgoing(); track f.id) {
+            <ion-item>
+              <ion-label>{{ f.pseudo }}</ion-label>
+              <ion-button slot="end" fill="clear" color="medium" [disabled]="busyId() === f.id" (click)="remove(f)">
+                {{ 'friends.cancel' | transloco }}
+              </ion-button>
+            </ion-item>
+          }
+        </ion-list>
+      </section>
+    }
+
+    <section>
+      <h3>{{ 'friends.list' | transloco }} ({{ friends().length }})</h3>
+      @if (friends().length === 0) {
+        <p class="empty">{{ 'friends.empty' | transloco }}</p>
+      } @else {
+        <ion-list>
+          @for (f of friends(); track f.id) {
+            <ion-item>
+              <ion-label>{{ f.pseudo }}</ion-label>
+              <ion-button slot="end" fill="clear" color="danger" [disabled]="busyId() === f.id" (click)="remove(f)">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+              </ion-button>
+            </ion-item>
+          }
+        </ion-list>
+      }
+    </section>
+  }
+</ion-content>
+
+<app-navbar></app-navbar>

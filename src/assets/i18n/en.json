@@ -247,5 +247,7 @@
       "FINISH_FIRST": "Finish your game to see the leaderboard",
       "ERROR": "Something went wrong"
     }
+  }, "friends" : {
+    "title": "Friends"
   }
 }

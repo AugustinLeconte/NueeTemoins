@@ -17,7 +17,8 @@ export class NavbarComponent {
       'custom-packs': 'assets/icons/poker-cards-svgrepo-com.svg',
       'custom-shop': 'assets/icons/shop-cart-svgrepo-com.svg',
       'custom-logo': 'assets/icons/logo.svg',
-      'custom-wordle': 'assets/icons/wordlesolver-svgrepo-com.svg'
+      'custom-wordle': 'assets/icons/wordlesolver-svgrepo-com.svg',
+      'custom-friends': 'assets/icons/friends-svgrepo-com.svg'
     });
   }
 }

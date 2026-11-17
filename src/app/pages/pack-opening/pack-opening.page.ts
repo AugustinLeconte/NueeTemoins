@@ -3,19 +3,22 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
-         IonBadge, IonSpinner, IonProgressBar } from '@ionic/angular';
+         IonBadge, IonSpinner, IonProgressBar,
+         IonButtons} from '@ionic/angular';
 import { Card } from '../../cards/card.model';
 import { CardViewComponent } from '../../cards/card-view/card-view.component';
 import { PlayerService } from '../../player/player.service';
 import { DrawnItem, PackResult, PlayerCard, PlayerProgress, Wallet } from '../../player/player.model';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { UserAvatarComponent } from '../../shared/user-avatar/user-avatar.component';
 
 @Component({
   selector: 'app-pack-opening',
   standalone: true,
   imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent,
-            IonButton, IonBadge, IonSpinner, IonProgressBar, CardViewComponent, NavbarComponent, TranslocoPipe],
+            IonButton, IonBadge, IonSpinner, IonProgressBar, CardViewComponent, NavbarComponent, TranslocoPipe,
+          IonButtons, UserAvatarComponent],
   templateUrl: './pack-opening.page.html',
   styleUrls: ['./pack-opening.page.scss'],
 })

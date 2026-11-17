@@ -5,7 +5,8 @@ import { forkJoin } from 'rxjs';
 import { Capacitor } from '@capacitor/core';
 import { AdMob, RewardAdPluginEvents } from '@capacitor-community/admob';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
-         IonBadge, IonSpinner, IonChip, IonLabel } from '@ionic/angular';
+         IonBadge, IonSpinner, IonChip, IonLabel,
+         IonButtons} from '@ionic/angular';
 import { CardViewComponent } from '../../cards/card-view/card-view.component';
 import { PlayerService } from '../../player/player.service';
 import { PackOffer, Wallet } from '../../player/player.model';
@@ -14,14 +15,15 @@ import { ShopService } from './shop.service';
 import { FreeOffers, ShopItem } from './shop.model';
 import { AdProvider } from '../../ads/ad-provider';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { UserAvatarComponent } from '../../shared/user-avatar/user-avatar.component';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
   imports: [
     IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
-    IonBadge, IonSpinner, IonChip, IonLabel,
-    CardViewComponent, NavbarComponent, TranslocoPipe
+    IonBadge, IonSpinner, IonChip, IonLabel, IonButtons,
+    CardViewComponent, NavbarComponent, TranslocoPipe, UserAvatarComponent
   ],
   templateUrl: './shop.page.html',
   styleUrls: ['./shop.page.scss'],

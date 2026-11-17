@@ -1,0 +1,18 @@
+.add .row { display: flex; gap: 8px; align-items: center; }
+.add ion-input { flex: 1; }
+.success { color: var(--ion-color-success); }
+.error   { color: var(--ion-color-danger); }
+.empty   { color: var(--ion-color-medium); }
+.suggestions { margin-top: 4px; border-radius: 8px; overflow: hidden; }
+
+//ESPACE POUR LA NAVBAR
+ion-content {
+  --padding-bottom: 80px;
+}
+
+@media (min-width: 992px) {
+  :host {
+    display: block;
+    padding-left: 220px;
+  }
+}

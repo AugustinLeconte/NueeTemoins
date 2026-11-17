@@ -3,6 +3,7 @@
     <ion-title>
       {{ levelPack() ? ('packs.title.level' | transloco: { level: levelPack() }) : ('packs.title.default' | transloco) }}
     </ion-title>
+    <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
   </ion-toolbar>
 </ion-header>
 

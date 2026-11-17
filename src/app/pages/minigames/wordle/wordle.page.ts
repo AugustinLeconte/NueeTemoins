@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit, computed, inject, signal } from '@angular/core';
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonNote, IonTitle, IonToolbar, ToastController } from '@ionic/angular';
+import { IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonNote, IonTitle, IonToolbar, ToastController } from '@ionic/angular';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco'; // ancienne version : '@ngneat/transloco'
 import { firstValueFrom } from 'rxjs';
 import { GameState, LeaderboardEntry, LetterState, WordleService } from './wordle.service';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
+import { UserAvatarComponent } from '../../../shared/user-avatar/user-avatar.component';
 
 interface Cell { letter: string; state: LetterState | 'EMPTY' | 'TYPING'; }
 
@@ -25,7 +26,7 @@ const STATUS_TO_ERROR: Record<number, string> = { 400: 'WRONG_LENGTH', 409: 'ALR
   standalone: true,
   imports: [CommonModule, TranslocoPipe, IonHeader, IonToolbar, IonTitle,
     IonContent, IonCard, IonCardHeader, IonCardTitle,
-    IonCardContent, IonList, IonListHeader, IonItem, IonLabel, IonNote, NavbarComponent],
+    IonCardContent, IonList, IonListHeader, IonItem, IonLabel, IonNote, NavbarComponent, UserAvatarComponent, IonButtons],
   templateUrl: './wordle.page.html',
   styleUrls: ['./wordle.page.scss'],
 })
