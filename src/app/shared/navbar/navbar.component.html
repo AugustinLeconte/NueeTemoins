@@ -28,6 +28,9 @@
     <a routerLink="/friends" routerLinkActive="active" class="nav-item">
       <ion-icon name="custom-friends"></ion-icon>
       <ion-label>{{'friends.title' | transloco}}</ion-label>
+      @if (notifs.friendRequests() > 0) {
+        <ion-badge color="danger">{{ notifs.friendRequests() }}</ion-badge>
+      }
     </a>
   </div>
 </nav>

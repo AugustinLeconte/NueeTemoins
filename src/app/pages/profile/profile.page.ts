@@ -12,6 +12,7 @@ import { Achievement, PlayerProgress } from '../../player/player.model';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { LevelBarComponent } from '../../player/level-bar/level-bar.component';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { NotificationsService } from '../../notifications/notifications.service';
 
 @Component({
   selector: 'app-profile',
@@ -25,6 +26,7 @@ export class ProfilePage {
   private profiles = inject(ProfileService);
   private router = inject(Router);
   private player = inject(PlayerService);
+  private notifs = inject(NotificationsService);
 
   public loading = signal(true);
   public loggingOut = signal(false);
@@ -34,7 +36,6 @@ export class ProfilePage {
   public achievements = signal<Achievement[]>([]);
   public unlockedCount = computed(() => this.achievements().filter(a => a.unlocked).length);
   public progress = signal<PlayerProgress | null>(null);
-
   async ngOnInit() {
     try {
       const [user, profile, achievements, progress] = await Promise.all([
@@ -73,6 +74,7 @@ export class ProfilePage {
     this.loggingOut.set(true);
     await this.auth.signOut();
     this.profiles.clear();
+    this.notifs.stop();
     this.router.navigateByUrl('/login', { replaceUrl: true });
   }
 }

@@ -9,6 +9,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { UserAvatarComponent } from '../../shared/user-avatar/user-avatar.component';
 import { Friend, FriendsService } from './friends.service';
+import { NotificationsService } from '../../notifications/notifications.service';
 
 @Component({
   selector: 'app-friends',
@@ -20,6 +21,7 @@ import { Friend, FriendsService } from './friends.service';
 })
 export class FriendsPage {
   private api = inject(FriendsService);
+  private notifs = inject(NotificationsService);
 
   loading = signal(true);
   error = signal('');
@@ -46,6 +48,7 @@ export class FriendsPage {
       this.friends.set(o.friends);
       this.incoming.set(o.incoming);
       this.outgoing.set(o.outgoing);
+      this.notifs.friendRequests.set(o.incoming.length);
       this.error.set('');
     } catch {
       this.error.set('friends.loading-error');
