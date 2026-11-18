@@ -1,0 +1,15 @@
+<ion-list class="leaderboard" lines="full">
+  <ion-list-header>
+    <ion-label>{{ 'minigames.leaderboard' | transloco }}</ion-label>
+  </ion-list-header>
+  @for (e of rows(); track e.rank) {
+    <ion-item lines="none">
+      <span slot="start" class="rank">{{ e.rank }}</span>
+      <ion-label class="player">{{ e.player }}</ion-label>
+      <ion-note slot="end" class="score">
+        {{ e.attempts }} {{ unitKey() | transloco }} · {{ time(e.durationMs) }} ·
+        {{ 'minigames.xpShort' | transloco: { xp: e.xp } }}
+      </ion-note>
+    </ion-item>
+  }
+</ion-list>

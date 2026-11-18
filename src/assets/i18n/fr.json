@@ -82,45 +82,46 @@
       "SHOP_20_PURCHASES": {
         "name": "Client fidèle",
         "desc": "Achète 20 illustrations dans la boutique"
-      }, "LEVEL_2": {
-    "name": "Premiers pas",
-    "desc": "Atteins le niveau 2"
-  },
-  "MINIGAME_FIRST_WIN": {
-    "name": "Première victoire",
-    "desc": "Gagne ta première partie de mini-jeu"
-  },
-  "MINIGAME_10_WINS": {
-    "name": "Joueur assidu",
-    "desc": "Gagne 10 parties de mini-jeux"
-  },
-  "MINIGAME_50_WINS": {
-    "name": "Champion des mini-jeux",
-    "desc": "Gagne 50 parties de mini-jeux"
-  },
-  "MINIGAME_PERFECT": {
-    "name": "Coup de génie",
-    "desc": "Réussis un mini-jeu à la perfection (ex. mot trouvé du premier coup)"
-  },
-  "MINIGAME_STREAK_3": {
-    "name": "Régulier",
-    "desc": "Joue aux mini-jeux 3 jours de suite"
-  },
-  "MINIGAME_STREAK_7": {
-    "name": "Fidèle au rendez-vous",
-    "desc": "Joue aux mini-jeux 7 jours de suite"
-  },
-  "MINIGAME_STREAK_30": {
-    "name": "Inconditionnel",
-    "desc": "Joue aux mini-jeux 30 jours de suite"
-  },
-  "MINIGAME_3_GAMES": {
-    "name": "Touche-à-tout",
-    "desc": "Gagne à 3 mini-jeux différents"
-  }
+      },
+      "LEVEL_2": {
+        "name": "Premiers pas",
+        "desc": "Atteins le niveau 2"
+      },
+      "MINIGAME_FIRST_WIN": {
+        "name": "Première victoire",
+        "desc": "Gagne ta première partie de mini-jeu"
+      },
+      "MINIGAME_10_WINS": {
+        "name": "Joueur assidu",
+        "desc": "Gagne 10 parties de mini-jeux"
+      },
+      "MINIGAME_50_WINS": {
+        "name": "Champion des mini-jeux",
+        "desc": "Gagne 50 parties de mini-jeux"
+      },
+      "MINIGAME_PERFECT": {
+        "name": "Coup de génie",
+        "desc": "Réussis un mini-jeu à la perfection (ex. mot trouvé du premier coup)"
+      },
+      "MINIGAME_STREAK_3": {
+        "name": "Régulier",
+        "desc": "Joue aux mini-jeux 3 jours de suite"
+      },
+      "MINIGAME_STREAK_7": {
+        "name": "Fidèle au rendez-vous",
+        "desc": "Joue aux mini-jeux 7 jours de suite"
+      },
+      "MINIGAME_STREAK_30": {
+        "name": "Inconditionnel",
+        "desc": "Joue aux mini-jeux 30 jours de suite"
+      },
+      "MINIGAME_3_GAMES": {
+        "name": "Touche-à-tout",
+        "desc": "Gagne à 3 mini-jeux différents"
+      }
     }
   },
-   "filters": {
+  "filters": {
     "search": "Rechercher un saint (nom, description…)",
     "families": "Familles",
     "month": "Mois de fête",
@@ -186,12 +187,12 @@
       "newPackInShop": "Un nouveau pack est à récupérer dans la boutique."
     },
     "errors": {
-    "notUnlocked": "Ce pack n'est pas encore débloqué.",
-    "levelAlreadyOpened": "Ce pack de niveau a déjà été ouvert.",
-    "dailyAlreadyOpened": "Vous avez déjà ouvert votre pack du jour. Revenez demain !",
-    "noArtwork": "Aucune illustration n'est disponible pour le moment.",
-    "openFailed": "Impossible d'ouvrir le pack."
-  }
+      "notUnlocked": "Ce pack n'est pas encore débloqué.",
+      "levelAlreadyOpened": "Ce pack de niveau a déjà été ouvert.",
+      "dailyAlreadyOpened": "Vous avez déjà ouvert votre pack du jour. Revenez demain !",
+      "noArtwork": "Aucune illustration n'est disponible pour le moment.",
+      "openFailed": "Impossible d'ouvrir le pack."
+    }
   },
   "profile": {
     "title": "Mon profil",
@@ -250,26 +251,6 @@
       "claimFailed": "Impossible de récupérer ce pack."
     }
   },
-  "wordle": {
-    "title": "Mot du jour",
-    "won": "Bravo !",
-    "lost": "Perdu…",
-    "wordWas": "Le mot était",
-    "xpGained": "+{{ xp }} XP",
-    "xpShort": "{{ xp }} XP",
-    "leaderboard": "Classement du jour",
-    "enter": "Valider",
-    "delete": "Effacer",
-    "description": "Devinez le mot caché en {{max}} essais maximum. Le mot final à un lien avec le catholicisme. Il peut être un nom propre. Chaque mot contient {{length}} lettres. Après chaque tentative, les couleurs indiquent si une lettre est bien placée (vert), présente ailleurs dans le mot (jaune) ou absente (gris).",
-    "nextWord": "Prochain mot dans",
-    "errors": {
-      "WRONG_LENGTH": "Pas assez de lettres",
-      "UNKNOWN_WORD": "Mot inconnu",
-      "ALREADY_FINISHED": "Partie déjà terminée",
-      "FINISH_FIRST": "Termine ta partie pour voir le classement",
-      "ERROR": "Une erreur est survenue"
-    }
-  },
   "friends": {
     "title": "Amis",
     "list": "Mes amis",
@@ -289,6 +270,55 @@
       "not-found": "Aucun joueur avec ce pseudo.",
       "already": "Vous êtes déjà amis ou une demande est déjà en cours.",
       "generic": "Une erreur est survenue, réessaie."
+    }
+  },
+  "minigames": {
+    "leaderboard": "Classement du jour",
+    "xpGained": "+{{ xp }} XP",
+    "xpShort": "{{ xp }} XP",
+    "time": "Temps",
+    "next": "Prochain défi dans",
+    "errors": {
+      "WRONG_LENGTH": "Pas assez de lettres",
+      "UNKNOWN_WORD": "Mot inconnu",
+      "UNKNOWN_CARD": "Choisis un saint dans la liste",
+      "ALREADY_GUESSED": "Tu as déjà essayé ce saint",
+      "ALREADY_FINISHED": "Tu as déjà terminé ce jeu aujourd'hui",
+      "FINISH_FIRST": "Termine ta partie pour voir le classement",
+      "INVALID_TILE": "Cette carte n'est pas jouable",
+      "ERROR": "Une erreur est survenue"
+    },
+    "wordle": {
+      "title": "Mot du jour",
+      "won": "Bravo !",
+      "lost": "Perdu…",
+      "wordWas": "Le mot était",
+      "enter": "Valider",
+      "delete": "Effacer",
+      "description": "Devinez le mot caché en {{max}} essais maximum. Le mot final a un lien avec le catholicisme. Il peut être un nom propre. Chaque mot contient {{length}} lettres. Après chaque tentative, les couleurs indiquent si une lettre est bien placée (vert), présente ailleurs dans le mot (jaune) ou absente (gris).",
+      "nextWord": "Prochain mot dans"
+    },
+    "guessCard": {
+      "title": "Devine la carte",
+      "description": "Une carte de saint est très zoomée : devine de qui il s'agit en {{guesses}} essais maximum. Chaque erreur dézoome la carte et coûte 5 XP. Niveau 1 : zoom. Niveau 2 : la carte est en plus grisée. Niveau 3 : elle est en plus retournée.",
+      "level": "Niv. {{n}}",
+      "placeholder": "Nom du saint…",
+      "guess": "Valider",
+      "found": "Bien joué ! C'était {{name}} (+{{xp}} XP)",
+      "missed": "Raté… c'était {{name}}",
+      "next": "Niveau suivant",
+      "done": "Terminé !",
+      "summary": "{{found}}/{{total}} cartes trouvées",
+      "guessesShort": "essais"
+    },
+    "memory": {
+      "title": "Memory",
+      "description": "Retrouve les {{pairs}} paires de cartes. Elles viennent de la même famille ou ont des liens entre elles. Moins tu fais de coups, plus tu gagnes d'XP ; à égalité, le plus rapide passe devant.",
+      "moves": "Coups",
+      "pairs": "Paires",
+      "won": "Bravo !",
+      "wonDetail": "Terminé en {{moves}} coups",
+      "movesShort": "coups"
     }
   }
 }

@@ -13,26 +13,80 @@
   color: var(--ion-color-medium-shade);
 }
 
-.board { display: grid; gap: 6px; justify-content: center; margin: 12px 0; }
-.row { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 52px)); gap: 6px; }
-.cell {
-  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
-  font-size: 1.6rem; font-weight: 700; border: 2px solid var(--ion-color-medium);
-  border-radius: 6px; text-transform: uppercase;
-  &[data-state='TYPING'] { border-color: var(--ion-color-dark); }
-  &[data-state='CORRECT'] { background: #538d4e; border-color: #538d4e; color: #fff; }
-  &[data-state='PRESENT'] { background: #b59f3b; border-color: #b59f3b; color: #fff; }
-  &[data-state='ABSENT']  { background: #3a3a3c; border-color: #3a3a3c; color: #fff; }
+.board {
+  display: grid;
+  gap: 6px;
+  justify-content: center;
+  margin: 12px 0;
 }
-.keyboard { display: flex; flex-direction: column; gap: 6px; align-items: center; margin-top: 16px; }
-.krow { display: flex; gap: 4px; }
+.row {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 52px));
+  gap: 6px;
+}
+.cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  border: 2px solid var(--ion-color-medium);
+  border-radius: 6px;
+  text-transform: uppercase;
+  &[data-state='TYPING'] {
+    border-color: var(--ion-color-dark);
+  }
+  &[data-state='CORRECT'] {
+    background: #538d4e;
+    border-color: #538d4e;
+    color: #fff;
+  }
+  &[data-state='PRESENT'] {
+    background: #b59f3b;
+    border-color: #b59f3b;
+    color: #fff;
+  }
+  &[data-state='ABSENT'] {
+    background: #3a3a3c;
+    border-color: #3a3a3c;
+    color: #fff;
+  }
+}
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  margin-top: 16px;
+}
+.krow {
+  display: flex;
+  gap: 4px;
+}
 .key {
-  min-width: 30px; height: 46px; padding: 0 6px; border: 0; border-radius: 5px;
-  background: var(--ion-color-light-shade); font-weight: 600;
-  &.wide { min-width: 48px; }
-  &[data-state='CORRECT'] { background: #538d4e; color: #fff; }
-  &[data-state='PRESENT'] { background: #b59f3b; color: #fff; }
-  &[data-state='ABSENT']  { background: #3a3a3c; color: #fff; }
+  min-width: 30px;
+  height: 46px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--ion-color-light-shade);
+  font-weight: 600;
+  &.wide {
+    min-width: 48px;
+  }
+  &[data-state='CORRECT'] {
+    background: #538d4e;
+    color: #fff;
+  }
+  &[data-state='PRESENT'] {
+    background: #b59f3b;
+    color: #fff;
+  }
+  &[data-state='ABSENT'] {
+    background: #3a3a3c;
+    color: #fff;
+  }
 }
 
 //ESPACE POUR LA NAVBAR
@@ -51,9 +105,14 @@ ion-content {
     justify-content: center;
   }
 
-  .intro { font-size: 1rem; margin-bottom: 20px; }
+  .intro {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
 
-  .keyboard { margin-top: 48px; }
+  .keyboard {
+    margin-top: 48px;
+  }
 }
 
 .game > .leaderboard,
@@ -72,11 +131,21 @@ ion-content {
   margin: 16px 0 4px;
   text-align: center;
 
-  .result-title { font-size: 1.3rem; color: #538d4e; }
-  &.lost .result-title { color: var(--ion-color-danger); }
+  .result-title {
+    font-size: 1.3rem;
+    color: #538d4e;
+  }
+  &.lost .result-title {
+    color: var(--ion-color-danger);
+  }
 
-  .result-word { color: var(--ion-color-medium-tint); }
-  .result-word strong { color: var(--ion-text-color); letter-spacing: 1px; }
+  .result-word {
+    color: var(--ion-color-medium-tint);
+  }
+  .result-word strong {
+    color: var(--ion-text-color);
+    letter-spacing: 1px;
+  }
 
   .result-xp {
     padding: 2px 8px;
@@ -97,36 +166,5 @@ ion-content {
   strong {
     font-variant-numeric: tabular-nums; // évite que les chiffres "sautent"
     color: var(--ion-text-color);
-  }
-}
-
-.leaderboard {
-  padding: 0;
-
-  ion-list-header { padding-inline: 4px; min-height: 36px; }
-
-  ion-item {
-    --background: transparent;
-    --padding-start: 4px;
-    --inner-padding-end: 4px;
-  }
-
-  .rank {
-    width: 24px;
-    margin-inline-end: 8px;
-    text-align: center;
-    font-weight: 700;
-    color: var(--ion-color-medium);
-  }
-
-  .player {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .score {
-    white-space: nowrap;
-    font-size: 0.85rem;
   }
 }

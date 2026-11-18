@@ -22,7 +22,9 @@ export class NavbarComponent {
       'custom-shop': 'assets/icons/shop-cart-svgrepo-com.svg',
       'custom-logo': 'assets/icons/logo.svg',
       'custom-wordle': 'assets/icons/wordlesolver-svgrepo-com.svg',
-      'custom-friends': 'assets/icons/friends-svgrepo-com.svg'
+      'custom-friends': 'assets/icons/icons8-friends.svg',
+      'custom-memory': 'assets/icons/icons8-memory-game.svg',
+      'custom-guess-card': 'assets/icons/icons8-card-game.svg',
     });
   }
 }

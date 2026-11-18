@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar
+    ><ion-title>{{ 'minigames.guessCard.title' | transloco }}</ion-title>
+    <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (state(); as s) {
+  <div class="game">
+    <p class="intro">{{ 'minigames.guessCard.description' | transloco: { guesses: s.maxGuesses } }}</p>
+
+    <div class="levels">
+      @for (r of s.rounds; track r.level) {
+      <button
+        class="level"
+        [attr.data-state]="r.status"
+        [class.active]="r.level === shown()?.level"
+        [disabled]="r.status === 'LOCKED'"
+        (click)="viewLevel.set(r.level)"
+      >
+        {{ 'minigames.guessCard.level' | transloco: { n: r.level } }} @if (r.status === 'WON') {
+        <small>+{{ r.xp }}</small> } @else if (r.status === 'LOST') { <small>✗</small> }
+      </button>
+      }
+    </div>
+
+    @if (shown(); as r) {
+    <div class="frame">
+      <div class="rot" [style.transform]="'rotate(' + r.rotation + 'deg)'">
+        <img
+          [src]="r.imageUrl"
+          alt=""
+          [style.transform]="'scale(' + r.zoom + ')'"
+          [style.transform-origin]="r.originX + '% ' + r.originY + '%'"
+          [style.filter]="r.grayscale ? 'grayscale(1)' : 'none'"
+        />
+      </div>
+    </div>
+
+    <div class="lives">
+      @for (i of [0, 1, 2]; track i) { <span class="life" [class.lost]="i < r.wrongCount"></span> }
+    </div>
+
+    @if (r.status === 'IN_PROGRESS') {
+    <div class="answer">
+      <input
+        class="input"
+        type="text"
+        autocomplete="off"
+        [value]="query()"
+        [placeholder]="'minigames.guessCard.placeholder' | transloco"
+        (input)="onInput($any($event.target).value)"
+        (keydown.enter)="submit()"
+      />
+      @if (suggestions().length) {
+      <ul class="suggest">
+        @for (n of suggestions(); track n.id) {
+        <li><button type="button" (click)="pick(n)">{{ n.name }}</button></li>
+        }
+      </ul>
+      }
+      <button class="submit" [disabled]="busy() || !query()" (click)="submit()">
+        {{ 'minigames.guessCard.guess' | transloco }}
+      </button>
+    </div>
+    } @else {
+    <p class="round-result" [class.lost]="r.status === 'LOST'">
+      {{ (r.status === 'WON' ? 'minigames.guessCard.found' : 'minigames.guessCard.missed') | transloco: { name:
+      r.answer?.name, xp: r.xp } }}
+    </p>
+    @if (!finished() && r.level !== s.currentLevel) {
+    <button class="submit" (click)="viewLevel.set(null)">{{ 'minigames.guessCard.next' | transloco }}</button>
+    } } @if (r.wrong.length) {
+    <div class="wrong">@for (w of r.wrong; track w.id) { <span class="chip">✗ {{ w.name }}</span> }</div>
+    } } @if (finished()) {
+    <app-minigame-result
+      [won]="found() > 0"
+      [xp]="s.xpAwarded"
+      [durationMs]="s.durationMs"
+      [title]="'minigames.guessCard.done' | transloco"
+      [detail]="'minigames.guessCard.summary' | transloco: { found: found(), total: s.rounds.length }"
+    />
+    <app-minigame-leaderboard [rows]="leaderboard()" unitKey="minigames.guessCard.guessesShort" />
+    }
+  </div>
+  }
+</ion-content>
+
+<app-navbar></app-navbar>

@@ -1,0 +1,9 @@
+<div class="result" [class.lost]="!won()">
+  <strong class="result-title">{{ title() }}</strong>
+  <span class="result-word">{{ detail() }}</span>
+  <span class="result-xp">{{ 'minigames.xpGained' | transloco: { xp: xp() } }}</span>
+</div>
+<p class="countdown">
+  {{ 'minigames.time' | transloco }} <strong>{{ time(durationMs()) }}</strong> · {{ 'minigames.next' | transloco }}
+  <strong>{{ countdown() }}</strong>
+</p>

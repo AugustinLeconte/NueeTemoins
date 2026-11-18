@@ -82,42 +82,43 @@
       "SHOP_20_PURCHASES": {
         "name": "Loyal customer",
         "desc": "Buy 20 artworks in the shop"
-      }, "LEVEL_2": {
-    "name": "First steps",
-    "desc": "Reach level 2"
-  },
-  "MINIGAME_FIRST_WIN": {
-    "name": "First victory",
-    "desc": "Win your first mini-game"
-  },
-  "MINIGAME_10_WINS": {
-    "name": "Dedicated player",
-    "desc": "Win 10 mini-games"
-  },
-  "MINIGAME_50_WINS": {
-    "name": "Mini-game champion",
-    "desc": "Win 50 mini-games"
-  },
-  "MINIGAME_PERFECT": {
-    "name": "Stroke of genius",
-    "desc": "Win a mini-game perfectly (e.g. guess the word on the first try)"
-  },
-  "MINIGAME_STREAK_3": {
-    "name": "Regular",
-    "desc": "Play mini-games 3 days in a row"
-  },
-  "MINIGAME_STREAK_7": {
-    "name": "Never misses a day",
-    "desc": "Play mini-games 7 days in a row"
-  },
-  "MINIGAME_STREAK_30": {
-    "name": "Unconditional",
-    "desc": "Play mini-games 30 days in a row"
-  },
-  "MINIGAME_3_GAMES": {
-    "name": "Jack of all trades",
-    "desc": "Win 3 different mini-games"
-  }
+      },
+      "LEVEL_2": {
+        "name": "First steps",
+        "desc": "Reach level 2"
+      },
+      "MINIGAME_FIRST_WIN": {
+        "name": "First victory",
+        "desc": "Win your first mini-game"
+      },
+      "MINIGAME_10_WINS": {
+        "name": "Dedicated player",
+        "desc": "Win 10 mini-games"
+      },
+      "MINIGAME_50_WINS": {
+        "name": "Mini-game champion",
+        "desc": "Win 50 mini-games"
+      },
+      "MINIGAME_PERFECT": {
+        "name": "Stroke of genius",
+        "desc": "Win a mini-game perfectly (e.g. guess the word on the first try)"
+      },
+      "MINIGAME_STREAK_3": {
+        "name": "Regular",
+        "desc": "Play mini-games 3 days in a row"
+      },
+      "MINIGAME_STREAK_7": {
+        "name": "Never misses a day",
+        "desc": "Play mini-games 7 days in a row"
+      },
+      "MINIGAME_STREAK_30": {
+        "name": "Unconditional",
+        "desc": "Play mini-games 30 days in a row"
+      },
+      "MINIGAME_3_GAMES": {
+        "name": "Jack of all trades",
+        "desc": "Win 3 different mini-games"
+      }
     }
   },
   "filters": {
@@ -137,7 +138,7 @@
     "collection": "My collection",
     "no-cards": "No cards for now.",
     "loadError": "Unable to load cards.",
-     "no-results": "No saint matches these filters."
+    "no-results": "No saint matches these filters."
   },
   "saints": "saints",
   "packs": {
@@ -186,12 +187,12 @@
       "newPackInShop": "A new pack is waiting to be claimed in the shop."
     },
     "errors": {
-    "notUnlocked": "This pack isn't unlocked yet.",
-    "levelAlreadyOpened": "This level pack has already been opened.",
-    "dailyAlreadyOpened": "You've already opened today's pack. Come back tomorrow!",
-    "noArtwork": "No artwork is available right now.",
-    "openFailed": "Couldn't open the pack."
-  }
+      "notUnlocked": "This pack isn't unlocked yet.",
+      "levelAlreadyOpened": "This level pack has already been opened.",
+      "dailyAlreadyOpened": "You've already opened today's pack. Come back tomorrow!",
+      "noArtwork": "No artwork is available right now.",
+      "openFailed": "Couldn't open the pack."
+    }
   },
   "profile": {
     "title": "My profile",
@@ -249,26 +250,57 @@
       "adUnavailable": "Reward unavailable for now.",
       "claimFailed": "Couldn't claim this pack."
     }
-  }, "wordle": {
-    "title": "Word of the day",
-    "won": "Well done!",
-    "lost": "Better luck tomorrow…",
-    "wordWas": "The word was",
+  },
+  "friends": {
+    "title": "Friends"
+  },
+  "minigames": {
+    "leaderboard": "Today's ranking",
     "xpGained": "+{{ xp }} XP",
     "xpShort": "{{ xp }} XP",
-    "leaderboard": "Today's leaderboard",
-    "enter": "Enter",
-    "delete": "Delete",
-    "description": "Guess the hidden word in {{max}} tries at most. The final word is related to Catholicism. It may be a proper noun. Each word has {{length}} letters. After each attempt, the colors show whether a letter is in the right spot (green), elsewhere in the word (yellow), or not in the word (gray).",
-    "nextWord": "Next word in",
+    "time": "Time",
+    "next": "Next challenge in",
     "errors": {
       "WRONG_LENGTH": "Not enough letters",
       "UNKNOWN_WORD": "Unknown word",
-      "ALREADY_FINISHED": "Game already finished",
-      "FINISH_FIRST": "Finish your game to see the leaderboard",
+      "UNKNOWN_CARD": "Pick a saint from the list",
+      "ALREADY_GUESSED": "You already tried this saint",
+      "ALREADY_FINISHED": "You already finished this game today",
+      "FINISH_FIRST": "Finish your game to see the ranking",
+      "INVALID_TILE": "This card can't be played",
       "ERROR": "Something went wrong"
+    },
+    "wordle": {
+      "title": "Word of the day",
+      "won": "Well done!",
+      "lost": "Lost…",
+      "wordWas": "The word was",
+      "enter": "Enter",
+      "delete": "Delete",
+      "description": "Guess the hidden word in {{max}} tries or fewer. The final word is related to Catholicism and can be a proper noun. Each word has {{length}} letters. After each attempt, the colors show whether a letter is in the right place (green), elsewhere in the word (yellow) or not in the word (gray).",
+      "nextWord": "Next word in"
+    },
+    "guessCard": {
+      "title": "Guess the card",
+      "description": "A saint's card is zoomed in a lot: guess who it is in {{guesses}} tries or fewer. Each mistake zooms the card out and costs 5 XP. Level 1: zoom. Level 2: the card is also grayscale. Level 3: it is also rotated.",
+      "level": "Lvl {{n}}",
+      "placeholder": "Saint's name…",
+      "guess": "Submit",
+      "found": "Well done! It was {{name}} (+{{xp}} XP)",
+      "missed": "Missed… it was {{name}}",
+      "next": "Next level",
+      "done": "Finished!",
+      "summary": "{{found}}/{{total}} cards found",
+      "guessesShort": "tries"
+    },
+    "memory": {
+      "title": "Memory",
+      "description": "Find the {{pairs}} pairs of cards. They come from the same family or are linked to each other. The fewer moves you make, the more XP you earn; in case of a tie, the fastest player ranks higher.",
+      "moves": "Moves",
+      "pairs": "Pairs",
+      "won": "Well done!",
+      "wonDetail": "Finished in {{moves}} moves",
+      "movesShort": "moves"
     }
-  }, "friends" : {
-    "title": "Friends"
   }
 }

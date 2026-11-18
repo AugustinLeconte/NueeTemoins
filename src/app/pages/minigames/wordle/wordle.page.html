@@ -1,63 +1,70 @@
 <ion-header>
-  <ion-toolbar><ion-title>{{ 'wordle.title' | transloco }}</ion-title>
-  <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
+  <ion-toolbar
+    ><ion-title>{{ 'minigames.wordle.title' | transloco }}</ion-title>
+    <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   @if (state(); as s) {
-    <div class="game">
-      <p class="intro">{{ 'wordle.description' | transloco: { max: s.maxAttempts, length: s.wordLength } }}</p>
+  <div class="game">
+    <p class="intro">{{ 'minigames.wordle.description' | transloco: { max: s.maxAttempts, length: s.wordLength } }}</p>
 
-      <div class="board" [style.--cols]="s.wordLength">
-        @for (row of board(); track $index) {
-          <div class="row">
-            @for (cell of row; track $index) {
-              <div class="cell" [attr.data-state]="cell.state">{{ cell.letter }}</div>
-            }
-          </div>
+    <div class="board" [style.--cols]="s.wordLength">
+      @for (row of board(); track $index) {
+      <div class="row">
+        @for (cell of row; track $index) {
+        <div class="cell" [attr.data-state]="cell.state">{{ cell.letter }}</div>
         }
       </div>
-
-      @if (finished()) {
-        <div class="result" [class.lost]="s.status !== 'WON'">
-          <strong class="result-title">{{ (s.status === 'WON' ? 'wordle.won' : 'wordle.lost') | transloco }}</strong>
-          <span class="result-word">{{ 'wordle.wordWas' | transloco }} <strong>{{ s.solution }}</strong></span>
-          <span class="result-xp">{{ 'wordle.xpGained' | transloco: { xp: s.xpAwarded } }}</span>
-        </div>
-
-        <p class="countdown">
-          {{ 'wordle.nextWord' | transloco }} <strong>{{ countdown() }}</strong>
-        </p>
-
-        <ion-list class="leaderboard" lines="full">
-          <ion-list-header>
-            <ion-label>{{ 'wordle.leaderboard' | transloco }}</ion-label>
-          </ion-list-header>
-          @for (e of leaderboard(); track e.rank) {
-            <ion-item lines="none">
-              <span slot="start" class="rank">{{ e.rank }}</span>
-              <ion-label class="player">{{ e.player }}</ion-label>
-              <ion-note slot="end" class="score">
-                {{ e.won ? e.attempts + '/' + s.maxAttempts : '✗' }} · {{ 'wordle.xpShort' | transloco: { xp: e.xp } }}
-              </ion-note>
-            </ion-item>
-          }
-        </ion-list>
-      } @else {
-        <div class="keyboard">
-          @for (line of layout(); track line; let last = $last) {
-            <div class="krow">
-              @if (last) { <button class="key wide" (click)="press('ENTER')" [attr.aria-label]="'wordle.enter' | transloco">↵</button> }
-              @for (k of line.split(''); track k) {
-                <button class="key" [attr.data-state]="keyStates()[k]" (click)="press(k)">{{ k }}</button>
-              }
-              @if (last) { <button class="key wide" (click)="press('DEL')" [attr.aria-label]="'wordle.delete' | transloco">⌫</button> }
-            </div>
-          }
-        </div>
       }
     </div>
+
+    @if (finished()) {
+    <div class="result" [class.lost]="s.status !== 'WON'">
+      <strong class="result-title"
+        >{{ (s.status === 'WON' ? 'minigames.wordle.won' : 'minigames.wordle.lost') | transloco }}</strong
+      >
+      <span class="result-word">{{ 'minigames.wordle.wordWas' | transloco }} <strong>{{ s.solution }}</strong></span>
+      <span class="result-xp">{{ 'minigames.xpGained' | transloco: { xp: s.xpAwarded } }}</span>
+    </div>
+
+    <p class="countdown">{{ 'minigames.wordle.nextWord' | transloco }} <strong>{{ countdown() }}</strong></p>
+
+    <ion-list class="leaderboard" lines="full">
+      <ion-list-header>
+        <ion-label>{{ 'minigames.leaderboard' | transloco }}</ion-label>
+      </ion-list-header>
+      @for (e of leaderboard(); track e.rank) {
+      <ion-item lines="none">
+        <span slot="start" class="rank">{{ e.rank }}</span>
+        <ion-label class="player">{{ e.player }}</ion-label>
+        <ion-note slot="end" class="score">
+          {{ e.won ? e.attempts + '/' + s.maxAttempts : '✗' }} · {{ 'minigames.xpShort' | transloco: { xp: e.xp } }}
+        </ion-note>
+      </ion-item>
+      }
+    </ion-list>
+    } @else {
+    <div class="keyboard">
+      @for (line of layout(); track line; let last = $last) {
+      <div class="krow">
+        @if (last) {
+        <button class="key wide" (click)="press('ENTER')" [attr.aria-label]="'minigames.wordle.enter' | transloco">
+          ↵
+        </button>
+        } @for (k of line.split(''); track k) {
+        <button class="key" [attr.data-state]="keyStates()[k]" (click)="press(k)">{{ k }}</button>
+        } @if (last) {
+        <button class="key wide" (click)="press('DEL')" [attr.aria-label]="'minigames.wordle.delete' | transloco">
+          ⌫
+        </button>
+        }
+      </div>
+      }
+    </div>
+    }
+  </div>
   }
 </ion-content>
 

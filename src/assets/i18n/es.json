@@ -82,42 +82,43 @@
       "SHOP_20_PURCHASES": {
         "name": "Cliente fiel",
         "desc": "Compra 20 ilustraciones en la tienda"
-      }, "LEVEL_2": {
-    "name": "Primeros pasos",
-    "desc": "Alcanza el nivel 2"
-  },
-  "MINIGAME_FIRST_WIN": {
-    "name": "Primera victoria",
-    "desc": "Gana tu primer minijuego"
-  },
-  "MINIGAME_10_WINS": {
-    "name": "Jugador constante",
-    "desc": "Gana 10 minijuegos"
-  },
-  "MINIGAME_50_WINS": {
-    "name": "Campeón de minijuegos",
-    "desc": "Gana 50 minijuegos"
-  },
-  "MINIGAME_PERFECT": {
-    "name": "Golpe de genio",
-    "desc": "Gana un minijuego a la perfección (p. ej. palabra al primer intento)"
-  },
-  "MINIGAME_STREAK_3": {
-    "name": "Regular",
-    "desc": "Juega a los minijuegos 3 días seguidos"
-  },
-  "MINIGAME_STREAK_7": {
-    "name": "Fiel a la cita",
-    "desc": "Juega a los minijuegos 7 días seguidos"
-  },
-  "MINIGAME_STREAK_30": {
-    "name": "Incondicional",
-    "desc": "Juega a los minijuegos 30 días seguidos"
-  },
-  "MINIGAME_3_GAMES": {
-    "name": "Todoterreno",
-    "desc": "Gana en 3 minijuegos diferentes"
-  }
+      },
+      "LEVEL_2": {
+        "name": "Primeros pasos",
+        "desc": "Alcanza el nivel 2"
+      },
+      "MINIGAME_FIRST_WIN": {
+        "name": "Primera victoria",
+        "desc": "Gana tu primer minijuego"
+      },
+      "MINIGAME_10_WINS": {
+        "name": "Jugador constante",
+        "desc": "Gana 10 minijuegos"
+      },
+      "MINIGAME_50_WINS": {
+        "name": "Campeón de minijuegos",
+        "desc": "Gana 50 minijuegos"
+      },
+      "MINIGAME_PERFECT": {
+        "name": "Golpe de genio",
+        "desc": "Gana un minijuego a la perfección (p. ej. palabra al primer intento)"
+      },
+      "MINIGAME_STREAK_3": {
+        "name": "Regular",
+        "desc": "Juega a los minijuegos 3 días seguidos"
+      },
+      "MINIGAME_STREAK_7": {
+        "name": "Fiel a la cita",
+        "desc": "Juega a los minijuegos 7 días seguidos"
+      },
+      "MINIGAME_STREAK_30": {
+        "name": "Incondicional",
+        "desc": "Juega a los minijuegos 30 días seguidos"
+      },
+      "MINIGAME_3_GAMES": {
+        "name": "Todoterreno",
+        "desc": "Gana en 3 minijuegos diferentes"
+      }
     }
   },
   "filters": {
@@ -249,26 +250,57 @@
       "adLimitReached": "Límite de anuncios alcanzado por hoy.",
       "adUnavailable": "Recompensa no disponible por el momento."
     }
-  }, "wordle": {
-    "title": "Palabra del día",
-    "won": "¡Bravo!",
-    "lost": "Mañana será…",
-    "wordWas": "La palabra era",
+  },
+  "minigames": {
+    "leaderboard": "Clasificación del día",
     "xpGained": "+{{ xp }} XP",
     "xpShort": "{{ xp }} XP",
-    "leaderboard": "Clasificación del día",
-    "enter": "Validar",
-    "delete": "Borrar",
-    "description": "Adivina la palabra oculta en un máximo de {{max}} intentos. La palabra final está relacionada con el catolicismo. Puede ser un nombre propio. Cada palabra tiene {{length}} letras. Tras cada intento, los colores indican si una letra está bien colocada (verde), está en otra posición de la palabra (amarillo) o no está en la palabra (gris).",
-    "nextWord": "Próxima palabra en",
+    "time": "Tiempo",
+    "next": "Próximo desafío en",
     "errors": {
       "WRONG_LENGTH": "Faltan letras",
       "UNKNOWN_WORD": "Palabra desconocida",
-      "ALREADY_FINISHED": "Partida ya terminada",
+      "UNKNOWN_CARD": "Elige un santo de la lista",
+      "ALREADY_GUESSED": "Ya has probado este santo",
+      "ALREADY_FINISHED": "Ya has terminado este juego hoy",
       "FINISH_FIRST": "Termina tu partida para ver la clasificación",
-      "ERROR": "Ha ocurrido un error"
+      "INVALID_TILE": "Esta carta no se puede jugar",
+      "ERROR": "Se ha producido un error"
+    },
+    "wordle": {
+      "title": "Palabra del día",
+      "won": "¡Bravo!",
+      "lost": "Perdido…",
+      "wordWas": "La palabra era",
+      "enter": "Validar",
+      "delete": "Borrar",
+      "description": "Adivina la palabra oculta en un máximo de {{max}} intentos. La palabra final tiene relación con el catolicismo y puede ser un nombre propio. Cada palabra tiene {{length}} letras. Tras cada intento, los colores indican si una letra está bien colocada (verde), está en otro lugar de la palabra (amarillo) o no está (gris).",
+      "nextWord": "Próxima palabra en"
+    },
+    "guessCard": {
+      "title": "Adivina la carta",
+      "description": "La carta de un santo aparece muy ampliada: adivina de quién se trata en un máximo de {{guesses}} intentos. Cada error aleja el zoom y cuesta 5 XP. Nivel 1: zoom. Nivel 2: además la carta está en gris. Nivel 3: además está girada.",
+      "level": "Nivel {{n}}",
+      "placeholder": "Nombre del santo…",
+      "guess": "Validar",
+      "found": "¡Bien hecho! Era {{name}} (+{{xp}} XP)",
+      "missed": "Fallaste… era {{name}}",
+      "next": "Siguiente nivel",
+      "done": "¡Terminado!",
+      "summary": "{{found}}/{{total}} cartas encontradas",
+      "guessesShort": "intentos"
+    },
+    "memory": {
+      "title": "Memory",
+      "description": "Encuentra las {{pairs}} parejas de cartas. Son de la misma familia o están relacionadas entre sí. Cuantos menos movimientos hagas, más XP ganas; en caso de empate, gana el más rápido.",
+      "moves": "Movimientos",
+      "pairs": "Parejas",
+      "won": "¡Bravo!",
+      "wonDetail": "Terminado en {{moves}} movimientos",
+      "movesShort": "mov."
     }
-  }, "friends" : {
+  },
+  "friends": {
     "title": "Amiguos"
   }
 }

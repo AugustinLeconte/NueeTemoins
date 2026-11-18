@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar
+    ><ion-title>{{ 'minigames.memory.title' | transloco }}</ion-title>
+    <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (state(); as s) {
+  <div class="game">
+    <p class="intro">{{ 'minigames.memory.description' | transloco: { pairs: s.size / 2 } }}</p>
+
+    <p class="stats">
+      {{ 'minigames.memory.moves' | transloco }} <strong>{{ s.moves }}</strong> · {{ 'minigames.memory.pairs' |
+      transloco }}
+      <strong>{{ s.matched.length / 2 }}/{{ s.size / 2 }}</strong>
+    </p>
+
+    <div class="grid">
+      @for (c of cells(); track c.index) {
+      <button
+        class="tile"
+        [attr.data-state]="c.state"
+        [disabled]="c.state !== 'HIDDEN' || busy() || finished()"
+        (click)="flip(c.index)"
+      >
+        @if (c.tile) {
+        <img [src]="c.tile.imageUrl" [alt]="c.tile.name" />
+        <span class="name">{{ c.tile.name }}</span>
+        } @else {
+        <span class="back">✦</span>
+        }
+      </button>
+      }
+    </div>
+
+    @if (finished()) {
+    <app-minigame-result
+      [xp]="s.xpAwarded"
+      [durationMs]="s.durationMs"
+      [title]="'minigames.memory.won' | transloco"
+      [detail]="'minigames.memory.wonDetail' | transloco: { moves: s.moves }"
+    />
+    <app-minigame-leaderboard [rows]="leaderboard()" unitKey="minigames.memory.movesShort" />
+    }
+  </div>
+  }
+</ion-content>
+
+<app-navbar></app-navbar>

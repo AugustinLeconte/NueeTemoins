@@ -1,33 +1,43 @@
 <nav class="responsive-nav">
   <div class="desktop-logo">
     <ion-icon name="custom-logo" color="primary"></ion-icon>
-    <span>{{ "app-name" | transloco}}</span>
+    <span>{{ 'app-name' | transloco }}</span>
   </div>
 
   <div class="nav-links">
     <a routerLink="/cards" routerLinkActive="active" class="nav-item">
       <ion-icon name="custom-collection"></ion-icon>
-      <ion-label>{{'card-list.collection' | transloco}}</ion-label>
+      <ion-label>{{ 'card-list.collection' | transloco }}</ion-label>
     </a>
 
     <a routerLink="/packs" routerLinkActive="active" class="nav-item">
       <ion-icon name="custom-packs"></ion-icon>
-      <ion-label>{{"packs.title.default" | transloco}}</ion-label>
+      <ion-label>{{ 'packs.title.default' | transloco }}</ion-label>
     </a>
 
     <a routerLink="/shop" routerLinkActive="active" class="nav-item">
       <ion-icon name="custom-shop"></ion-icon>
-      <ion-label>{{'shop.title' | transloco}}</ion-label>
+      <ion-label>{{ 'shop.title' | transloco }}</ion-label>
     </a>
 
     <a routerLink="/minigames/wordle" routerLinkActive="active" class="nav-item">
       <ion-icon name="custom-wordle"></ion-icon>
-      <ion-label>{{'wordle.title' | transloco}}</ion-label>
+      <ion-label>{{ 'minigames.wordle.title' | transloco }}</ion-label>
+    </a>
+
+    <a routerLink="/minigames/memory" routerLinkActive="active" class="nav-item">
+      <ion-icon name="custom-memory"></ion-icon>
+      <ion-label>{{ 'minigames.memory.title' | transloco }}</ion-label>
+    </a>
+
+    <a routerLink="/minigames/guess-card" routerLinkActive="active" class="nav-item">
+      <ion-icon name="custom-guess-card"></ion-icon>
+      <ion-label>{{ 'minigames.guessCard.title' | transloco }}</ion-label>
     </a>
 
     <a routerLink="/friends" routerLinkActive="active" class="nav-item">
       <ion-icon name="custom-friends"></ion-icon>
-      <ion-label>{{'friends.title' | transloco}}</ion-label>
+      <ion-label>{{ 'friends.title' | transloco }}</ion-label>
       @if (notifs.friendRequests() > 0) {
         <ion-badge color="danger">{{ notifs.friendRequests() }}</ion-badge>
       }

@@ -1,15 +1,36 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DestroyRef, HostListener, OnInit, computed, inject, signal } from '@angular/core';
-import { IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonNote, IonTitle, IonToolbar, ToastController } from '@ionic/angular';
+import {
+  IonButtons,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonContent,
+  IonHeader,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonListHeader,
+  IonNote,
+  IonTitle,
+  IonToolbar,
+  ToastController,
+} from '@ionic/angular';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco'; // ancienne version : '@ngneat/transloco'
 import { firstValueFrom } from 'rxjs';
 import { GameState, LeaderboardEntry, LetterState, WordleService } from './wordle.service';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { UserAvatarComponent } from '../../../shared/user-avatar/user-avatar.component';
 import { injectCountdown } from '../../../shared/countdown';
+import { MinigameLeaderboardComponent } from '../minigame-leaderboard/minigame-leaderboard.component';
+import { MinigameResultComponent } from '../minigame-result/minigame-result.component';
 
-interface Cell { letter: string; state: LetterState | 'EMPTY' | 'TYPING'; }
+interface Cell {
+  letter: string;
+  state: LetterState | 'EMPTY' | 'TYPING';
+}
 
 const LAYOUTS: Record<string, string[]> = {
   fr: ['AZERTYUIOP', 'QSDFGHJKLM', 'WXCVBN'],
@@ -25,8 +46,22 @@ const STATUS_TO_ERROR: Record<number, string> = { 400: 'WRONG_LENGTH', 409: 'ALR
 @Component({
   selector: 'app-wordle',
   standalone: true,
-  imports: [CommonModule, TranslocoPipe, IonHeader, IonToolbar, IonTitle,
-    IonContent, IonList, IonListHeader, IonItem, IonLabel, IonNote, NavbarComponent, UserAvatarComponent, IonButtons],
+  imports: [
+    CommonModule,
+    TranslocoPipe,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonList,
+    IonListHeader,
+    IonItem,
+    IonLabel,
+    IonNote,
+    NavbarComponent,
+    UserAvatarComponent,
+    IonButtons,
+  ],
   templateUrl: './wordle.page.html',
   styleUrls: ['./wordle.page.scss'],
 })
@@ -58,8 +93,10 @@ export class WordlePage implements OnInit {
         return [...g.word].map((letter, i) => ({ letter, state: g.states[i] }));
       }
       const typing = r === s.guesses.length && !this.finished() ? this.typed() : '';
-      return Array.from({ length: s.wordLength }, (_, i) =>
-        ({ letter: typing[i] ?? '', state: typing[i] ? 'TYPING' : 'EMPTY' } as Cell));
+      return Array.from(
+        { length: s.wordLength },
+        (_, i) => ({ letter: typing[i] ?? '', state: typing[i] ? 'TYPING' : 'EMPTY' }) as Cell,
+      );
     });
   });
 
@@ -76,7 +113,10 @@ export class WordlePage implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.api.today(this.lang).subscribe(s => { this.state.set(s); if (this.isDone(s)) this.loadLeaderboard(); });
+    this.api.today(this.lang).subscribe((s) => {
+      this.state.set(s);
+      if (this.isDone(s)) this.loadLeaderboard();
+    });
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -90,9 +130,9 @@ export class WordlePage implements OnInit {
   press(key: string) {
     const s = this.state();
     if (!s || this.finished() || this.busy()) return;
-    if (key === 'DEL') this.typed.update(t => t.slice(0, -1));
+    if (key === 'DEL') this.typed.update((t) => t.slice(0, -1));
     else if (key === 'ENTER') this.submit();
-    else if (/^[A-ZÑ]$/.test(key) && this.typed().length < s.wordLength) this.typed.update(t => t + key);
+    else if (/^[A-ZÑ]$/.test(key) && this.typed().length < s.wordLength) this.typed.update((t) => t + key);
   }
 
   private submit(): void {
@@ -103,8 +143,10 @@ export class WordlePage implements OnInit {
     }
     this.busy.set(true);
     this.api.guess(this.lang, this.typed()).subscribe({
-      next: ns => {
-        this.state.set(ns); this.typed.set(''); this.busy.set(false);
+      next: (ns) => {
+        this.state.set(ns);
+        this.typed.set('');
+        this.busy.set(false);
         if (this.isDone(ns)) this.loadLeaderboard();
       },
       error: (err: HttpErrorResponse) => {
@@ -115,8 +157,12 @@ export class WordlePage implements OnInit {
     });
   }
 
-  private isDone(s: GameState) { return s.status !== 'IN_PROGRESS'; }
-  private loadLeaderboard() { this.api.leaderboard().subscribe(l => this.leaderboard.set(l)); }
+  private isDone(s: GameState) {
+    return s.status !== 'IN_PROGRESS';
+  }
+  private loadLeaderboard() {
+    this.api.leaderboard().subscribe((l) => this.leaderboard.set(l));
+  }
 
   private async say(code: string): Promise<void> {
     const message = await firstValueFrom(this.i18n.selectTranslate(`wordle.errors.${code}`));
