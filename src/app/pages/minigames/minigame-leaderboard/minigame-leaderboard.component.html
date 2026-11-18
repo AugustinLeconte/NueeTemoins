@@ -7,8 +7,12 @@
       <span slot="start" class="rank">{{ e.rank }}</span>
       <ion-label class="player">{{ e.player }}</ion-label>
       <ion-note slot="end" class="score">
-        {{ e.attempts }} {{ unitKey() | transloco }} · {{ time(e.durationMs) }} ·
-        {{ 'minigames.xpShort' | transloco: { xp: e.xp } }}
+        @if (maxAttempts(); as max) {
+          {{ e.won ? e.attempts + '/' + max : '✗' }}
+        } @else {
+          {{ e.attempts }} {{ unitKey() | transloco }}
+        }
+        · {{ time(e.durationMs) }} · {{ 'minigames.xpShort' | transloco: { xp: e.xp } }}
       </ion-note>
     </ion-item>
   }

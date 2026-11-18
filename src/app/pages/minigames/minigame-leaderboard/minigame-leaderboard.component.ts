@@ -12,6 +12,7 @@ import { fmtDuration, LeaderboardRow } from '../minigame.model';
 })
 export class MinigameLeaderboardComponent {
   rows = input.required<LeaderboardRow[]>();
-  unitKey = input.required<string>();
+  unitKey = input<string>();
+  maxAttempts = input<number | null>(null);
   time = fmtDuration;
 }

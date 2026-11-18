@@ -89,6 +89,12 @@
   }
 }
 
+/* Le mot solution est projeté dans <app-minigame-result> : son style doit donc vivre ici */
+.solution {
+  color: var(--ion-text-color);
+  letter-spacing: 1px;
+}
+
 //ESPACE POUR LA NAVBAR
 ion-content {
   --padding-bottom: 80px;
@@ -112,59 +118,5 @@ ion-content {
 
   .keyboard {
     margin-top: 48px;
-  }
-}
-
-.game > .leaderboard,
-.game > .result,
-.game > .countdown {
-  width: 100%;
-  max-width: 480px;
-}
-
-.result {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: center;
-  gap: 4px 10px;
-  margin: 16px 0 4px;
-  text-align: center;
-
-  .result-title {
-    font-size: 1.3rem;
-    color: #538d4e;
-  }
-  &.lost .result-title {
-    color: var(--ion-color-danger);
-  }
-
-  .result-word {
-    color: var(--ion-color-medium-tint);
-  }
-  .result-word strong {
-    color: var(--ion-text-color);
-    letter-spacing: 1px;
-  }
-
-  .result-xp {
-    padding: 2px 8px;
-    border-radius: 10px;
-    background: rgba(83, 141, 78, 0.2);
-    color: #6fb169;
-    font-size: 0.85rem;
-    font-weight: 600;
-  }
-}
-
-.countdown {
-  margin: 4px 0 20px;
-  text-align: center;
-  font-size: 0.85rem;
-  color: var(--ion-color-medium);
-
-  strong {
-    font-variant-numeric: tabular-nums; // évite que les chiffres "sautent"
-    color: var(--ion-text-color);
   }
 }

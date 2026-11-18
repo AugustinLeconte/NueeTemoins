@@ -4,13 +4,29 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
 export type LetterState = 'CORRECT' | 'PRESENT' | 'ABSENT';
-export interface GuessRow { word: string; states: LetterState[]; }
-export interface GameState {
-  lang: string; wordLength: number; maxAttempts: number;
-  status: 'IN_PROGRESS' | 'WON' | 'LOST';
-  guesses: GuessRow[]; solution: string | null; xpAwarded: number;
+export interface GuessRow {
+  word: string;
+  states: LetterState[];
 }
-export interface LeaderboardEntry { rank: number; player: string; won: boolean; attempts: number; xp: number; }
+export interface GameState {
+  lang: string;
+  wordLength: number;
+  maxAttempts: number;
+  status: 'IN_PROGRESS' | 'WON' | 'LOST';
+  guesses: GuessRow[];
+  solution: string | null;
+  xpAwarded: number;
+  durationMs: number; // nouveau
+}
+// durationMs nouveau : même forme que LeaderboardRow (composant partagé)
+export interface LeaderboardEntry {
+  rank: number;
+  player: string;
+  won: boolean;
+  attempts: number;
+  xp: number;
+  durationMs: number;
+}
 
 @Injectable({ providedIn: 'root' })
 export class WordleService {
