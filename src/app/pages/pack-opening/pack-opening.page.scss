@@ -1,61 +1,131 @@
-.coins { margin: 0; }
-.pity { text-align: left; small { display: block; opacity: .7; margin-bottom: 4px; } }
-.error { color: var(--ion-color-danger); }
+.coins {
+  margin: 0;
+}
+.pity {
+  text-align: left;
+  margin-top: 20px;
+  small {
+    display: block;
+    opacity: 0.7;
+    margin-bottom: 4px;
+  }
+}
+.error {
+  color: var(--ion-color-danger);
+}
 
-.reveal-area { max-width: 640px; margin: 0 auto; }
-.hint { text-align: center; opacity: .7; }
-.slots { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 16px; margin: 12px 0 20px; }
-.face { display: flex; flex-direction: column; gap: 8px; align-items: center; }
-.flip-in { animation: flip-in .55s ease-out; }
-.tags { display: flex; justify-content: center; }
-.summary { text-align: center; }
+.reveal-area {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.hint {
+  text-align: center;
+  opacity: 0.7;
+}
+.slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 16px;
+  margin: 12px 0 20px;
+}
+.face {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+.flip-in {
+  animation: flip-in 0.55s ease-out;
+}
+.tags {
+  display: flex;
+  justify-content: center;
+}
+.summary {
+  text-align: center;
+}
 
 @keyframes flip-in {
-  from { transform: perspective(600px) rotateY(90deg) scale(.85); opacity: 0; }
-  to   { transform: perspective(600px) rotateY(0) scale(1); opacity: 1; }
+  from {
+    transform: perspective(600px) rotateY(90deg) scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: perspective(600px) rotateY(0) scale(1);
+    opacity: 1;
+  }
 }
 @keyframes shake {
-  0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg) scale(1.04); }
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg) scale(1.04);
+  }
 }
-@media (prefers-reduced-motion: reduce) { .pack.opening, .flip-in { animation: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .pack.opening,
+  .flip-in {
+    animation: none;
+  }
+}
 
 .coin-face {
-  width: 100%; aspect-ratio: 63 / 88; border-radius: 5cqw; display: grid; place-content: center;
-  justify-items: center; gap: 2cqw; color: #3b2a00;
+  width: 100%;
+  aspect-ratio: 63 / 88;
+  border-radius: 5cqw;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 2cqw;
+  color: #3b2a00;
   background: radial-gradient(circle at 30% 20%, #fff3b0, #f5c542 55%, #b8860b);
-  box-shadow: 0 0 6cqw rgba(245, 197, 66, .5), 0 8px 24px rgba(0, 0, 0, .35);
-  .coin { font-size: 22cqw; }
-  strong { font-size: 14cqw; }
-  small { font-size: 7cqw; opacity: .8; }
+  box-shadow:
+    0 0 6cqw rgba(245, 197, 66, 0.5),
+    0 8px 24px rgba(0, 0, 0, 0.35);
+  .coin {
+    font-size: 22cqw;
+  }
+  strong {
+    font-size: 14cqw;
+  }
+  small {
+    font-size: 7cqw;
+    opacity: 0.8;
+  }
 }
-.frag { font-size: .75rem; opacity: .8; text-align: center; }
+.frag {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  text-align: center;
+}
 
-.xp { font-weight: 700; margin: 4px 0; }
+.xp {
+  font-weight: 700;
+  margin: 4px 0;
+}
 .levelup {
-  margin: 12px 0; padding: 12px; border-radius: 12px; text-align: center; font-weight: 700;
-  background: linear-gradient(135deg, #fff3b0, #f5c542); color: #3b2a00;
-  small { display: block; font-weight: 400; margin-top: 2px; }
+  margin: 12px 0;
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 700;
+  background: linear-gradient(135deg, #fff3b0, #f5c542);
+  color: #3b2a00;
+  small {
+    display: block;
+    font-weight: 400;
+    margin-top: 2px;
+  }
 }
 
 @mixin card-back {
   position: relative;
   overflow: hidden;
   color: #f5c542;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(245, 197, 66, .22), transparent 62%),
-    repeating-linear-gradient(45deg,  rgba(255, 255, 255, .05) 0 5px, transparent 5px 10px),
-    repeating-linear-gradient(-45deg, rgba(255, 255, 255, .05) 0 5px, transparent 5px 10px),
-    linear-gradient(160deg, #3b2a6b, #1a1230);
 
-  // cadre doré intérieur
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 5%;
-    border: 1.5px solid rgba(245, 197, 66, .55);
-    border-radius: 10px;
-    pointer-events: none;
-  }
+  background: url('/assets/images/card-background.png') center / 180% no-repeat;
 }
 
 .start {
@@ -72,14 +142,14 @@
 
 .intro {
   margin: 0;
-  font-size: .9rem;
+  font-size: 0.9rem;
   line-height: 1.4;
   color: var(--ion-color-medium-shade);
 }
 
 .countdown {
   margin: 0;
-  font-size: .85rem;
+  font-size: 0.85rem;
   color: var(--ion-color-medium);
   strong {
     font-variant-numeric: tabular-nums;
@@ -87,57 +157,167 @@
   }
 }
 
-.stored { margin: 0; font-weight: 600; }
+.stored {
+  margin: 0;
+  font-weight: 600;
+}
 
 .pack {
   @include card-back;
   cursor: pointer;
-  margin: 12px auto; width: 160px; aspect-ratio: 63 / 88; border-radius: 16px;
-  display: grid; place-items: center; align-content: center; gap: 8px;
-  font-size: 3rem; box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
-  small { font-size: .8rem; color: #fff; opacity: .8; }
+  margin: 12px auto;
+  width: 160px;
+  aspect-ratio: 63 / 88;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  font-size: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 
-  // animation d'ouverture : le pack tremble en s'illuminant...
-  &.opening {
-    animation: shake .5s ease-in-out infinite, glow 1s ease-in-out infinite alternate;
+  /* 1. On ajoute une transition fluide pour le zoom global */
+  transition:
+    transform 0.25s ease-in-out,
+    box-shadow 0.25s ease-in-out;
+
+  /* 2. Tout le pack zoome au survol */
+  &:hover {
+    transform: scale(1.05); /* Ajuste la taille du zoom ici (ex: 1.05 ou 1.1) */
+    box-shadow: 0 15px 35px rgba(245, 197, 66, 0.4);
   }
-  // ...puis éclate
-  &.burst { animation: burst .45s ease-in forwards; }
+
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  small {
+    font-size: 0.8rem;
+    color: #fff;
+    opacity: 0.8;
+  }
+
+  &.opening {
+    animation:
+      shake 0.5s ease-in-out infinite,
+      glow 1s ease-in-out infinite alternate;
+  }
+  &.burst {
+    animation: burst 0.45s ease-in forwards;
+  }
+}
+
+.back {
+  @include card-back;
+  width: 100%;
+  aspect-ratio: 63 / 88;
+  border: 0;
+  border-radius: 5cqw;
+  cursor: pointer;
+  font-size: 20cqw;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  /* Transition globale pour les cartes cachées */
+  transition:
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(0.8); /* Zoom global sur la carte cachée */
+    box-shadow: 0 12px 28px rgba(245, 197, 66, 0.35);
+  }
+
+  span {
+    position: relative;
+    z-index: 2;
+  }
+
+  &::before {
+    border-radius: 3cqw;
+  }
+  &:active {
+    transform: scale(0.96);
+  }
 }
 
 .slot {
   container-type: inline-size;
   // les cartes arrivent en cascade
-  animation: deal-in .4s ease-out backwards;
+  animation: deal-in 0.4s ease-out backwards;
   animation-delay: calc(var(--i, 0) * 90ms);
 }
 
 .back {
   @include card-back;
-  width: 100%; aspect-ratio: 63 / 88; border: 0; border-radius: 5cqw; cursor: pointer;
+  width: 100%;
+  aspect-ratio: 63 / 88;
+  border: 0;
+  border-radius: 5cqw;
+  cursor: pointer;
   font-size: 20cqw;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, .35); transition: transform .15s, box-shadow .15s;
-  &::before { border-radius: 3cqw; }
-  &:hover { box-shadow: 0 8px 28px rgba(245, 197, 66, .35); }
-  &:active { transform: scale(.96); }
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+  &::before {
+    border-radius: 3cqw;
+  }
+  &:hover {
+    box-shadow: 0 8px 28px rgba(245, 197, 66, 0.35);
+  }
+  &:active {
+    transform: scale(0.96);
+  }
 }
 
 @keyframes glow {
-  from { box-shadow: 0 10px 30px rgba(0, 0, 0, .35), 0 0 12px rgba(245, 197, 66, .2); }
-  to   { box-shadow: 0 10px 30px rgba(0, 0, 0, .35), 0 0 50px rgba(245, 197, 66, .85); }
+  from {
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.35),
+      0 0 12px rgba(245, 197, 66, 0.2);
+  }
+  to {
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.35),
+      0 0 50px rgba(245, 197, 66, 0.85);
+  }
 }
 @keyframes burst {
-  0%   { transform: scale(1);    filter: brightness(1);   opacity: 1; }
-  40%  { transform: scale(1.12); filter: brightness(2.2); opacity: 1; }
-  100% { transform: scale(1.5);  filter: brightness(3.5); opacity: 0; }
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1.12);
+    filter: brightness(2.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    filter: brightness(3.5);
+    opacity: 0;
+  }
 }
 @keyframes deal-in {
-  from { transform: translateY(24px) scale(.9); opacity: 0; }
-  to   { transform: none; opacity: 1; }
+  from {
+    transform: translateY(24px) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pack.opening, .pack.burst, .slot, .flip-in { animation: none; }
+  .pack.opening,
+  .pack.burst,
+  .slot,
+  .flip-in {
+    animation: none;
+  }
 }
 
 //ESPACE POUR LA NAVBAR
