@@ -10,7 +10,11 @@
 <ion-content class="ion-padding">
   @if (phase() !== 'reveal') {
     <section class="start">
-      <div class="pack" [class.opening]="phase() === 'opening'">
+      <p class="intro">
+        {{ (levelPack() ? 'packs.description.level' : 'packs.description.daily') | transloco }}
+      </p>
+
+      <div class="pack" [class.opening]="phase() === 'opening'" [class.burst]="phase() === 'burst'">
         <span>{{ levelPack() ? '🎁' : '✦' }}</span>
         <small>
           {{ levelPack() ? ('packs.subtitle.level' | transloco: { level: levelPack() }) : ('packs.subtitle.daily' | transloco) }}
@@ -28,9 +32,9 @@
       @if (error()) { <p class="error">{{ error() }}</p> }
 
       <ion-button expand="block"
-                  [disabled]="phase() === 'opening' || !wallet() || (!levelPack() && !wallet()?.dailyPackAvailable)"
+                  [disabled]="phase() !== 'idle' || !wallet() || (!levelPack() && !wallet()?.dailyPackAvailable)"
                   (click)="open()">
-        @if (phase() === 'opening') {
+        @if (phase() !== 'idle') {
           <ion-spinner name="dots"></ion-spinner>
         } @else if (levelPack()) {
           {{ 'packs.actions.openPack' | transloco }}
@@ -40,6 +44,17 @@
           {{ 'packs.actions.dailyOpened' | transloco }}
         }
       </ion-button>
+
+      @if (storedCount() > 0) {
+        <p class="stored">🎁 {{ 'packs.stored' | transloco: { count: storedCount() } }}</p>
+        <ion-button expand="block" color="success" [disabled]="phase() !== 'idle'" (click)="openStored()">
+          {{ 'packs.actions.openStored' | transloco }}
+        </ion-button>
+      }
+
+      @if (!levelPack() && wallet()?.dailyPackAvailable === false && phase() === 'idle') {
+        <p class="countdown">{{ 'packs.nextPack' | transloco }} <strong>{{ countdown() }}</strong></p>
+      }
     </section>
   } @else if (result(); as r) {
     <section class="reveal-area">
@@ -47,7 +62,7 @@
 
       <div class="slots">
         @for (d of r.draws; track $index; let i = $index) {
-          <div class="slot">
+          <div class="slot" [style.--i]="i">
             @if (revealed()[i]) {
               @if (d.type === 'COINS') {
                 <div class="coin-face flip-in">
@@ -115,8 +130,8 @@
 
           @if (levelPack()) {
             <ion-button expand="block" (click)="finish()">
-              {{ 'packs.actions.backToShop' | transloco }}
-            </ion-button>
+                {{ 'packs.actions.continue' | transloco }}
+              </ion-button>
           } @else {
             @if (r.progress.unclaimedPacks > 0) {
               <ion-button expand="block" color="success" routerLink="/shop">

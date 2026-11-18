@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { Capacitor } from '@capacitor/core';
-import { AdMob, RewardAdPluginEvents } from '@capacitor-community/admob';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
          IonBadge, IonSpinner, IonChip, IonLabel,
          IonButtons} from '@ionic/angular';
@@ -41,6 +40,7 @@ export class ShopPage {
   public offers = signal<PackOffer[]>([]);
   public items = signal<ShopItem[]>([]);
   public free = signal<FreeOffers | null>(null);
+  public claimingLevel = signal<number | null>(null);
 
   public buying = signal<string | null>(null);
   public claiming = signal(false);
@@ -48,9 +48,11 @@ export class ShopPage {
 
   public isNative = Capacitor.isNativePlatform();
 
-  available = computed(() => this.offers().filter(o => o.status === 'AVAILABLE'));
-  locked = computed(() => this.offers().filter(o => o.status === 'LOCKED'));
-  openedCount = computed(() => this.offers().filter(o => o.status === 'OPENED').length);
+
+  public claimed = computed(() => this.offers().filter(o => o.status === 'CLAIMED'));
+  public available = computed(() => this.offers().filter(o => o.status === 'AVAILABLE'));
+  public locked = computed(() => this.offers().filter(o => o.status === 'LOCKED'));
+  public openedCount = computed(() => this.offers().filter(o => o.status === 'OPENED').length);
 
   ionViewWillEnter() { this.load(); }
 
@@ -83,8 +85,17 @@ export class ShopPage {
       : this.transloco.translate('shop.packs.standard');
   }
 
-  openPack(o: PackOffer) {
-    this.router.navigate(['/packs'], { queryParams: { level: o.level } });
+  claimPack(o: PackOffer) {
+    if (this.claimingLevel() !== null) return;
+    this.claimingLevel.set(o.level);
+    this.player.claimLevelPack(o.level).subscribe({
+      next: offers => { this.offers.set(offers); this.claimingLevel.set(null); },
+      error: () => {
+        this.claimingLevel.set(null);
+        this.error.set(this.transloco.translate('shop.errors.claimFailed'));
+        this.load();
+      },
+    });
   }
 
   // ----- Illustrations -----

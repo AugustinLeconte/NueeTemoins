@@ -52,7 +52,7 @@ export interface PackOffer {
   level: number;
   packType: 'STANDARD' | 'PREMIUM';
   size: number;
-  status: 'LOCKED' | 'AVAILABLE' | 'OPENED';
+  status: 'LOCKED' | 'AVAILABLE' | 'CLAIMED' | 'OPENED';
 }
 
 export interface UpgradeResult {

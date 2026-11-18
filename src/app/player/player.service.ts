@@ -36,4 +36,8 @@ export class PlayerService {
     return this.http.post<PackResult>(`${this.base}/shop/packs/${level}/open`, {})
       .pipe(tap(r => this.toasts.show(r.newAchievements)));
   }
+
+  public claimLevelPack(level: number) {
+    return this.http.post<PackOffer[]>(`${this.base}/shop/packs/${level}/claim`, {});
+  }
 }

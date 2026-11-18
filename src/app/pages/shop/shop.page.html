@@ -14,7 +14,6 @@
 
     @if (error()) { <p class="error">{{ error() }}</p> }
 
-    <!-- ===== GRATUIT ===== -->
     <section class="category cat-free">
       <header class="cat-header">
         <span class="cat-tag">{{ 'shop.free.tag' | transloco }}</span>
@@ -48,7 +47,6 @@
       }
     </section>
 
-    <!-- ===== PACKS ===== -->
     <section class="category cat-packs">
       <header class="cat-header">
         <span class="cat-tag">{{ 'shop.packs.tag' | transloco }}</span>
@@ -62,7 +60,19 @@
             <strong>{{ packLabel(o) }}</strong>
             <small>{{ 'shop.packs.levelInfo' | transloco: { level: o.level, size: o.size } }}</small>
           </div>
-          <ion-button size="small" (click)="openPack(o)">{{ 'shop.packs.open' | transloco }}</ion-button>
+          <ion-button size="small" [disabled]="claimingLevel() !== null" (click)="claimPack(o)">
+            @if (claimingLevel() === o.level) { <ion-spinner name="dots"></ion-spinner> }
+            @else { {{ 'shop.packs.claim' | transloco }} }
+          </ion-button>
+        </div>
+      }
+      @for (o of claimed(); track o.level) {
+        <div class="offer claimed">
+          <div class="icon">✅</div>
+          <div class="info">
+            <strong>{{ 'shop.packs.claimed' | transloco: { label: packLabel(o), level: o.level } }}</strong>
+            <small>{{ 'shop.packs.claimedHint' | transloco }}</small>
+          </div>
         </div>
       }
       @for (o of locked(); track o.level) {

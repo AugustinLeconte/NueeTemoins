@@ -1,20 +1,3 @@
-.start {     max-width: 420px;
-    margin: 0 auto;
-    text-align: center;
-    flex-direction: column;
-    gap: 12px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center; }
-.pack {
-  margin: 12px auto; width: 160px; aspect-ratio: 63 / 88; border-radius: 16px;
-  display: grid; place-items: center; align-content: center; gap: 8px;
-  background: linear-gradient(160deg, #3b2a6b, #1a1230);
-  color: #f5c542; font-size: 3rem; box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
-  small { font-size: .8rem; color: #fff; opacity: .8; }
-  &.opening { animation: shake .5s ease-in-out infinite; }
-}
 .coins { margin: 0; }
 .pity { text-align: left; small { display: block; opacity: .7; margin-bottom: 4px; } }
 .error { color: var(--ion-color-danger); }
@@ -22,13 +5,6 @@
 .reveal-area { max-width: 640px; margin: 0 auto; }
 .hint { text-align: center; opacity: .7; }
 .slots { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 16px; margin: 12px 0 20px; }
-.slot { container-type: inline-size; }
-.back {
-  width: 100%; aspect-ratio: 63 / 88; border: 0; border-radius: 5cqw; cursor: pointer;
-  background: linear-gradient(160deg, #3b2a6b, #1a1230); color: #f5c542; font-size: 20cqw;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, .35); transition: transform .15s;
-  &:active { transform: scale(.96); }
-}
 .face { display: flex; flex-direction: column; gap: 8px; align-items: center; }
 .flip-in { animation: flip-in .55s ease-out; }
 .tags { display: flex; justify-content: center; }
@@ -59,6 +35,109 @@
   margin: 12px 0; padding: 12px; border-radius: 12px; text-align: center; font-weight: 700;
   background: linear-gradient(135deg, #fff3b0, #f5c542); color: #3b2a00;
   small { display: block; font-weight: 400; margin-top: 2px; }
+}
+
+@mixin card-back {
+  position: relative;
+  overflow: hidden;
+  color: #f5c542;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(245, 197, 66, .22), transparent 62%),
+    repeating-linear-gradient(45deg,  rgba(255, 255, 255, .05) 0 5px, transparent 5px 10px),
+    repeating-linear-gradient(-45deg, rgba(255, 255, 255, .05) 0 5px, transparent 5px 10px),
+    linear-gradient(160deg, #3b2a6b, #1a1230);
+
+  // cadre doré intérieur
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 5%;
+    border: 1.5px solid rgba(245, 197, 66, .55);
+    border-radius: 10px;
+    pointer-events: none;
+  }
+}
+
+.start {
+  max-width: 420px;
+  margin: 0 auto;
+  text-align: center;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro {
+  margin: 0;
+  font-size: .9rem;
+  line-height: 1.4;
+  color: var(--ion-color-medium-shade);
+}
+
+.countdown {
+  margin: 0;
+  font-size: .85rem;
+  color: var(--ion-color-medium);
+  strong {
+    font-variant-numeric: tabular-nums;
+    color: var(--ion-text-color);
+  }
+}
+
+.stored { margin: 0; font-weight: 600; }
+
+.pack {
+  @include card-back;
+  cursor: pointer;
+  margin: 12px auto; width: 160px; aspect-ratio: 63 / 88; border-radius: 16px;
+  display: grid; place-items: center; align-content: center; gap: 8px;
+  font-size: 3rem; box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  small { font-size: .8rem; color: #fff; opacity: .8; }
+
+  // animation d'ouverture : le pack tremble en s'illuminant...
+  &.opening {
+    animation: shake .5s ease-in-out infinite, glow 1s ease-in-out infinite alternate;
+  }
+  // ...puis éclate
+  &.burst { animation: burst .45s ease-in forwards; }
+}
+
+.slot {
+  container-type: inline-size;
+  // les cartes arrivent en cascade
+  animation: deal-in .4s ease-out backwards;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+.back {
+  @include card-back;
+  width: 100%; aspect-ratio: 63 / 88; border: 0; border-radius: 5cqw; cursor: pointer;
+  font-size: 20cqw;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .35); transition: transform .15s, box-shadow .15s;
+  &::before { border-radius: 3cqw; }
+  &:hover { box-shadow: 0 8px 28px rgba(245, 197, 66, .35); }
+  &:active { transform: scale(.96); }
+}
+
+@keyframes glow {
+  from { box-shadow: 0 10px 30px rgba(0, 0, 0, .35), 0 0 12px rgba(245, 197, 66, .2); }
+  to   { box-shadow: 0 10px 30px rgba(0, 0, 0, .35), 0 0 50px rgba(245, 197, 66, .85); }
+}
+@keyframes burst {
+  0%   { transform: scale(1);    filter: brightness(1);   opacity: 1; }
+  40%  { transform: scale(1.12); filter: brightness(2.2); opacity: 1; }
+  100% { transform: scale(1.5);  filter: brightness(3.5); opacity: 0; }
+}
+@keyframes deal-in {
+  from { transform: translateY(24px) scale(.9); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pack.opening, .pack.burst, .slot, .flip-in { animation: none; }
 }
 
 //ESPACE POUR LA NAVBAR

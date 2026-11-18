@@ -142,6 +142,12 @@
   "saints": "santos",
   "packs": {
     "open": "Abrir un sobre",
+    "stored": "Packs por abrir: {{count}}",
+    "description": {
+      "daily": "Abre cada día un pack gratuito para descubrir nuevas ilustraciones de santos y ganar monedas. Los duplicados te dan fragmentos para mejorar tus cartas.",
+      "level": "Este pack se desbloqueó al subir de nivel. Ábrelo para descubrir nuevas cartas y ganar monedas."
+    },
+    "nextPack": "Próximo pack en",
     "title": {
       "default": "Sobres",
       "level": "Sobre de nivel {{ level }}"
@@ -159,7 +165,16 @@
       "revealCard": "Revelar carta",
       "revealAll": "Revelar todo",
       "backToShop": "Volver a la tienda",
-      "unclaimedPacks": "🎁 {{ count }} sobre(s) por abrir en la tienda"
+      "openStored": "Abrir un pack guardado",
+      "continue": "Continuar",
+      "unclaimedPacks": "{{ count }} pack(s) por recoger en la tienda"
+    },
+    "errors": {
+      "notUnlocked": "Este pack aún no está desbloqueado.",
+      "levelAlreadyOpened": "Este pack de nivel ya se ha abierto.",
+      "dailyAlreadyOpened": "Ya has abierto tu pack del día. ¡Vuelve mañana!",
+      "noArtwork": "No hay ninguna ilustración disponible por ahora.",
+      "openFailed": "No se pudo abrir el pack."
     },
     "reveal": {
       "hint": "Toca las cartas para revelarlas",
@@ -174,7 +189,7 @@
     "summary": {
       "coinsGained": "+{{ count }} 🪙 monedas ganadas",
       "xpGained": "+{{ count }} XP",
-      "levelReached": "🎉 ¡Nivel {{ level }} alcanzado!",
+      "levelReached": "¡Nivel {{ level }} alcanzado!",
       "newPackInShop": "Te espera un nuevo sobre en la tienda."
     }
   },
@@ -210,7 +225,10 @@
       "open": "Abrir",
       "unlockAt": "Se desbloquea al nivel {{level}}",
       "noMore": "No hay más sobres próximos.",
-      "openedCount": "{{count}} sobre(s) ya abierto(s) ✓"
+      "openedCount": "{{count}} sobre(s) ya abierto(s) ✓",
+      "claim": "Recoger",
+      "claimed": "{{label}} (nv. {{level}}): ya recogido",
+      "claimedHint": "Ábrelo en la pestaña Packs"
     },
     "arts": {
       "tag": "🖼️ Ilustraciones del día",
@@ -221,6 +239,7 @@
       "empty": "No hay ilustraciones a la venta por el momento."
     },
     "errors": {
+      "claimFailed": "No se pudo recoger este pack.",
       "loadFailed": "Imposible cargar la tienda.",
       "alreadyOwnedOrPoor": "Monedas insuficientes o ilustración ya en propiedad.",
       "buyFailed": "Compra imposible.",
@@ -240,6 +259,8 @@
     "leaderboard": "Clasificación del día",
     "enter": "Validar",
     "delete": "Borrar",
+    "description": "Adivina la palabra oculta en un máximo de {{max}} intentos. La palabra final está relacionada con el catolicismo. Puede ser un nombre propio. Cada palabra tiene {{length}} letras. Tras cada intento, los colores indican si una letra está bien colocada (verde), está en otra posición de la palabra (amarillo) o no está en la palabra (gris).",
+    "nextWord": "Próxima palabra en",
     "errors": {
       "WRONG_LENGTH": "Faltan letras",
       "UNKNOWN_WORD": "Palabra desconocida",

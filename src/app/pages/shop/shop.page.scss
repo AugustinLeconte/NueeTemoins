@@ -46,6 +46,7 @@
   small { color: var(--ion-color-medium); }
 
   &.locked { opacity: .55; border-left-color: var(--ion-color-medium); }
+  &.claimed { opacity: .7; }
 }
 
 .grid {

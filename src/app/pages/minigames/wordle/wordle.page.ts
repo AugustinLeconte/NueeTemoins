@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, HostListener, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, HostListener, OnInit, computed, inject, signal } from '@angular/core';
 import { IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonNote, IonTitle, IonToolbar, ToastController } from '@ionic/angular';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco'; // ancienne version : '@ngneat/transloco'
 import { firstValueFrom } from 'rxjs';
 import { GameState, LeaderboardEntry, LetterState, WordleService } from './wordle.service';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { UserAvatarComponent } from '../../../shared/user-avatar/user-avatar.component';
+import { injectCountdown } from '../../../shared/countdown';
 
 interface Cell { letter: string; state: LetterState | 'EMPTY' | 'TYPING'; }
 
@@ -25,8 +26,7 @@ const STATUS_TO_ERROR: Record<number, string> = { 400: 'WRONG_LENGTH', 409: 'ALR
   selector: 'app-wordle',
   standalone: true,
   imports: [CommonModule, TranslocoPipe, IonHeader, IonToolbar, IonTitle,
-    IonContent, IonCard, IonCardHeader, IonCardTitle,
-    IonCardContent, IonList, IonListHeader, IonItem, IonLabel, IonNote, NavbarComponent, UserAvatarComponent, IonButtons],
+    IonContent, IonList, IonListHeader, IonItem, IonLabel, IonNote, NavbarComponent, UserAvatarComponent, IonButtons],
   templateUrl: './wordle.page.html',
   styleUrls: ['./wordle.page.scss'],
 })
@@ -34,6 +34,7 @@ export class WordlePage implements OnInit {
   private api = inject(WordleService);
   private toast = inject(ToastController);
   private i18n = inject(TranslocoService);
+  private destroyRef = inject(DestroyRef);
 
   /** Langue de l'appli (ex. "fr", "en-US" -> "en"). Le serveur retombe sur l'anglais si non supportée. */
   lang = (this.i18n.getActiveLang() || 'en').slice(0, 2);
@@ -45,6 +46,8 @@ export class WordlePage implements OnInit {
 
   finished = computed(() => (this.state()?.status ?? 'IN_PROGRESS') !== 'IN_PROGRESS');
   layout = computed(() => LAYOUTS[this.state()?.lang ?? this.lang] ?? LAYOUTS['en']);
+
+  countdown = injectCountdown();
 
   board = computed<Cell[][]>(() => {
     const s = this.state();
@@ -69,6 +72,8 @@ export class WordlePage implements OnInit {
     }
     return map;
   });
+
+  constructor() {}
 
   ngOnInit() {
     this.api.today(this.lang).subscribe(s => { this.state.set(s); if (this.isDone(s)) this.loadLeaderboard(); });

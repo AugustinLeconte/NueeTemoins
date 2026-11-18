@@ -142,6 +142,12 @@
   "saints": "saints",
   "packs": {
     "open": "Open a pack",
+    "stored": "Packs to open: {{count}}",
+    "description": {
+      "daily": "Open a free pack every day to discover new saint illustrations and earn coins. Duplicates give you fragments to upgrade your cards.",
+      "level": "This pack was unlocked by reaching a new level. Open it to discover new cards and earn coins."
+    },
+    "nextPack": "Next pack in",
     "title": {
       "default": "Packs",
       "level": "Level {{ level }} pack"
@@ -159,7 +165,9 @@
       "revealCard": "Reveal card",
       "revealAll": "Reveal all",
       "backToShop": "Back to shop",
-      "unclaimedPacks": "🎁 {{ count }} pack(s) to open in the shop"
+      "openStored": "Open a stored pack",
+      "continue": "Continue",
+      "unclaimedPacks": "{{ count }} pack(s) to claim in the shop"
     },
     "reveal": {
       "hint": "Tap cards to reveal them",
@@ -174,9 +182,16 @@
     "summary": {
       "coinsGained": "+{{ count }} 🪙 coins earned",
       "xpGained": "+{{ count }} XP",
-      "levelReached": "🎉 Level {{ level }} reached!",
-      "newPackInShop": "A new pack is waiting for you in the shop."
-    }
+      "levelReached": "Level {{ level }} reached!",
+      "newPackInShop": "A new pack is waiting to be claimed in the shop."
+    },
+    "errors": {
+    "notUnlocked": "This pack isn't unlocked yet.",
+    "levelAlreadyOpened": "This level pack has already been opened.",
+    "dailyAlreadyOpened": "You've already opened today's pack. Come back tomorrow!",
+    "noArtwork": "No artwork is available right now.",
+    "openFailed": "Couldn't open the pack."
+  }
   },
   "profile": {
     "title": "My profile",
@@ -210,7 +225,10 @@
       "open": "Open",
       "unlockAt": "Unlocks at level {{level}}",
       "noMore": "No upcoming packs.",
-      "openedCount": "{{count}} pack(s) already opened ✓"
+      "openedCount": "{{count}} pack(s) already opened ✓",
+      "claim": "Claim",
+      "claimed": "{{label}} (lvl {{level}}): already claimed",
+      "claimedHint": "Open it from the Packs tab"
     },
     "arts": {
       "tag": "🖼️ Daily artworks",
@@ -228,7 +246,8 @@
       "adNotCompleted": "No reward: watch the ad all the way through.",
       "adWait": "Wait a bit before the next ad.",
       "adLimitReached": "Ad limit reached for today.",
-      "adUnavailable": "Reward unavailable for now."
+      "adUnavailable": "Reward unavailable for now.",
+      "claimFailed": "Couldn't claim this pack."
     }
   }, "wordle": {
     "title": "Word of the day",
@@ -240,6 +259,8 @@
     "leaderboard": "Today's leaderboard",
     "enter": "Enter",
     "delete": "Delete",
+    "description": "Guess the hidden word in {{max}} tries at most. The final word is related to Catholicism. It may be a proper noun. Each word has {{length}} letters. After each attempt, the colors show whether a letter is in the right spot (green), elsewhere in the word (yellow), or not in the word (gray).",
+    "nextWord": "Next word in",
     "errors": {
       "WRONG_LENGTH": "Not enough letters",
       "UNKNOWN_WORD": "Unknown word",

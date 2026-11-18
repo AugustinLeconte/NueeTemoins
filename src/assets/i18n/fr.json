@@ -142,6 +142,12 @@
   "saints": "saints",
   "packs": {
     "open": "Ouvrir un pack",
+    "stored": "Packs à ouvrir : {{count}}",
+    "description": {
+      "daily": "Ouvrez chaque jour un pack gratuit pour découvrir de nouvelles illustrations de saints et gagner des pièces. Les doublons vous donnent des fragments pour améliorer vos cartes.",
+      "level": "Ce pack a été débloqué en gagnant un niveau. Ouvrez-le pour découvrir de nouvelles cartes et gagner des pièces."
+    },
+    "nextPack": "Prochain pack dans",
     "title": {
       "default": "Packs",
       "level": "Pack de niveau {{ level }}"
@@ -153,13 +159,15 @@
     "coins": "Pièces :",
     "pity": "Garantie : une illustration rare ou mieux après {{ pity }} packs sans ({{ current }}/{{ pity }})",
     "actions": {
+      "openStored": "Ouvrir un pack en stock",
+      "continue": "Continuer",
       "openPack": "Ouvrir le pack",
       "openDaily": "Ouvrir mon pack quotidien",
       "dailyOpened": "Pack du jour déjà ouvert",
       "revealCard": "Révéler la carte",
       "revealAll": "Tout révéler",
       "backToShop": "Retour à la boutique",
-      "unclaimedPacks": "🎁 {{ count }} pack(s) à ouvrir en boutique"
+      "unclaimedPacks": "{{ count }} pack(s) à récupérer en boutique"
     },
     "reveal": {
       "hint": "Touchez les cartes pour les révéler",
@@ -174,9 +182,16 @@
     "summary": {
       "coinsGained": "+{{ count }} 🪙 pièces gagnées",
       "xpGained": "+{{ count }} XP",
-      "levelReached": "🎉 Niveau {{ level }} atteint !",
-      "newPackInShop": "Un nouveau pack vous attend dans la boutique."
-    }
+      "levelReached": "Niveau {{ level }} atteint !",
+      "newPackInShop": "Un nouveau pack est à récupérer dans la boutique."
+    },
+    "errors": {
+    "notUnlocked": "Ce pack n'est pas encore débloqué.",
+    "levelAlreadyOpened": "Ce pack de niveau a déjà été ouvert.",
+    "dailyAlreadyOpened": "Vous avez déjà ouvert votre pack du jour. Revenez demain !",
+    "noArtwork": "Aucune illustration n'est disponible pour le moment.",
+    "openFailed": "Impossible d'ouvrir le pack."
+  }
   },
   "profile": {
     "title": "Mon profil",
@@ -210,7 +225,10 @@
       "open": "Ouvrir",
       "unlockAt": "Se débloque au niveau {{level}}",
       "noMore": "Aucun pack à venir.",
-      "openedCount": "{{count}} pack(s) déjà ouvert(s) ✓"
+      "openedCount": "{{count}} pack(s) déjà ouvert(s) ✓",
+      "claim": "Récupérer",
+      "claimed": "{{label}} (niv. {{level}}) : déjà récupéré",
+      "claimedHint": "À ouvrir dans l'onglet Packs"
     },
     "arts": {
       "tag": "Illustrations du jour",
@@ -228,9 +246,11 @@
       "adNotCompleted": "Aucune récompense : regardez la pub jusqu’au bout.",
       "adWait": "Patientez un peu avant la prochaine pub.",
       "adLimitReached": "Limite de pubs atteinte pour aujourd’hui.",
-      "adUnavailable": "Récompense indisponible pour le moment."
+      "adUnavailable": "Récompense indisponible pour le moment.",
+      "claimFailed": "Impossible de récupérer ce pack."
     }
-  },   "wordle": {
+  },
+  "wordle": {
     "title": "Mot du jour",
     "won": "Bravo !",
     "lost": "Perdu…",
@@ -240,6 +260,8 @@
     "leaderboard": "Classement du jour",
     "enter": "Valider",
     "delete": "Effacer",
+    "description": "Devinez le mot caché en {{max}} essais maximum. Le mot final à un lien avec le catholicisme. Il peut être un nom propre. Chaque mot contient {{length}} lettres. Après chaque tentative, les couleurs indiquent si une lettre est bien placée (vert), présente ailleurs dans le mot (jaune) ou absente (gris).",
+    "nextWord": "Prochain mot dans",
     "errors": {
       "WRONG_LENGTH": "Pas assez de lettres",
       "UNKNOWN_WORD": "Mot inconnu",
@@ -247,7 +269,8 @@
       "FINISH_FIRST": "Termine ta partie pour voir le classement",
       "ERROR": "Une erreur est survenue"
     }
-  }, "friends": {
+  },
+  "friends": {
     "title": "Amis",
     "list": "Mes amis",
     "incoming": "Demandes reçues",
