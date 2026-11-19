@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{'profile.title' | transloco}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (loading()) {
+  <div class="center"><ion-spinner></ion-spinner></div>
+  } @else if (error()) {
+  <p class="error">{{ error() | transloco }}</p>
+  } @else {
+  <section class="card">
+    <div class="avatar">
+      @if (user()?.image) {
+      <img [src]="user()!.image" alt="" referrerpolicy="no-referrer" />
+      } @else {
+      <span>{{ initial() }}</span>
+      }
+    </div>
+    <h2>{{ profile()?.pseudo }}</h2>
+
+    <dl>
+      <div>
+        <dt>{{'auth.email' | transloco}}</dt>
+        <dd>{{ user()?.email }}</dd>
+      </div>
+      <div>
+        <dt>{{'auth.onboarding.pseudo' | transloco}}</dt>
+        <dd>{{ user()?.name }}</dd>
+      </div>
+      <div>
+        <dt>{{'auth.onboarding.country' | transloco}}</dt>
+        <dd>{{ countryName(profile()!.country) }}</dd>
+      </div>
+      <div>
+        <dt>{{'auth.onboarding.language' | transloco}}</dt>
+        <dd>{{ languageName(profile()!.language) }}</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="patron">
+    <app-patron-picker [current]="profile()?.patronCardId ?? null" (changed)="onPatronChanged($event)" />
+  </section>
+
+  <section class="level">@if (progress(); as p) { <app-level-bar class="grow" [progress]="p" /> }</section>
+
+  <section class="achievements">
+    <h3>
+      {{ 'achievements.title' | transloco }}
+      <small>{{ unlockedCount() }}/{{ achievements().length }}</small>
+    </h3>
+    <ul>
+      @for (a of achievements(); track a.code) {
+      <li [class.locked]="!a.unlocked">
+        <span class="icon">{{ a.unlocked ? '🏆' : '🔒' }}</span>
+        <div class="txt">
+          <strong>{{ 'achievements.items.' + a.code + '.name' | transloco }}</strong>
+          <small>{{ 'achievements.items.' + a.code + '.desc' | transloco }}</small>
+          @if (!a.unlocked) {
+          <ion-progress-bar [value]="a.progress / a.target"></ion-progress-bar>
+          }
+        </div>
+        @if (!a.unlocked) {
+        <small class="count">{{ a.progress }}/{{ a.target }}</small>
+        }
+      </li>
+      }
+    </ul>
+  </section>
+
+  <ion-button expand="block" color="danger" fill="outline" [disabled]="loggingOut()" (click)="logout()">
+    @if (loggingOut()) { <ion-spinner name="dots"></ion-spinner> } @else { {{'profile.logout' | transloco}} }
+  </ion-button>
+  }
+</ion-content>
+
+<app-navbar></app-navbar>

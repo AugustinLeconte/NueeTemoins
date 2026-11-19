@@ -135,7 +135,7 @@
     "show": "Voir {{count}} saints"
   },
   "card-list": {
-    "collection": "Ma collection",
+    "collection": "Collection",
     "no-cards": "Aucune carte pour le moment.",
     "loadError": "Impossible de charger les cartes.",
     "no-results": "Aucun saint ne correspond à ces filtres."
@@ -197,6 +197,17 @@
   "profile": {
     "title": "Mon profil",
     "loading-error": "Impossible de charger votre profil.",
+    "patron": {
+      "title": "Saint patron",
+      "placeholder": "Nom du saint…",
+      "save": "Valider",
+      "remove": "Supprimer",
+      "none": "Aucun"
+    },
+    "public": {
+      "level": "Niveau",
+      "not-found": "Aucun joueur avec ce pseudo."
+    },
     "level": {
       "shortCode": "Niv.",
       "experience": "XP",
@@ -320,5 +331,8 @@
       "wonDetail": "Terminé en {{moves}} coups",
       "movesShort": "coups"
     }
+  },
+  "nav": {
+    "more": "Plus"
   }
 }

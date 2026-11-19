@@ -31,7 +31,11 @@ export const routes: Routes = [
   {
     path: 'profile',
     canActivate: [authGuard],
-    loadComponent: () => import('./pages/profile/profile.page').then((m) => m.ProfilePage),
+    loadComponent: () => import('./pages/profile/private-profile/profile.page').then((m) => m.ProfilePage),
+  },
+  {
+    path: 'player/:pseudo',
+    loadComponent: () => import('./pages/profile/public-profile/public-profile.page').then((m) => m.PublicProfilePage),
   },
   {
     path: 'admin',
@@ -51,5 +55,9 @@ export const routes: Routes = [
   {
     path: 'friends',
     loadComponent: () => import('./pages/friends/friends.page').then((m) => m.FriendsPage),
+  },
+  {
+    path: 'public-profile',
+    loadComponent: () => import('./pages/profile/public-profile/public-profile.page').then((m) => m.PublicProfilePage),
   },
 ];

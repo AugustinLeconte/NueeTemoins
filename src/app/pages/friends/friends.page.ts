@@ -1,8 +1,20 @@
 import { Component, inject, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, firstValueFrom } from 'rxjs';
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem,
-         IonLabel, IonList, IonSpinner, IonTitle, IonToolbar } from '@ionic/angular';
+import {
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonSpinner,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { checkmark, close } from 'ionicons/icons';
 import { TranslocoPipe } from '@jsverse/transloco';
@@ -10,14 +22,31 @@ import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { UserAvatarComponent } from '../../shared/user-avatar/user-avatar.component';
 import { Friend, FriendsService } from './friends.service';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-friends',
   standalone: true,
   templateUrl: './friends.page.html',
   styleUrls: ['./friends.page.scss'],
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, IonIcon, IonInput,
-            IonItem, IonLabel, IonList, IonSpinner, NavbarComponent, UserAvatarComponent, TranslocoPipe],
+  imports: [
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    IonButtons,
+    IonButton,
+    IonIcon,
+    IonInput,
+    IonItem,
+    IonLabel,
+    IonList,
+    IonSpinner,
+    NavbarComponent,
+    UserAvatarComponent,
+    TranslocoPipe,
+    RouterLink,
+  ],
 })
 export class FriendsPage {
   private api = inject(FriendsService);
@@ -38,9 +67,13 @@ export class FriendsPage {
   private searchTimer?: ReturnType<typeof setTimeout>;
   private searchSeq = 0;
 
-  constructor() { addIcons({ checkmark, close }); }
+  constructor() {
+    addIcons({ checkmark, close });
+  }
 
-  ionViewWillEnter() { this.load(); }
+  ionViewWillEnter() {
+    this.load();
+  }
 
   private async load() {
     try {
@@ -61,18 +94,27 @@ export class FriendsPage {
     this.pseudo.set(value);
     clearTimeout(this.searchTimer);
     const q = value.trim();
-    if (q.length < 2) { this.searchSeq++; this.suggestions.set([]); return; }
+    if (q.length < 2) {
+      this.searchSeq++;
+      this.suggestions.set([]);
+      return;
+    }
 
     this.searchTimer = setTimeout(async () => {
       const seq = ++this.searchSeq;
       try {
         const res = await firstValueFrom(this.api.search(q));
         if (seq === this.searchSeq) this.suggestions.set(res);
-      } catch { this.suggestions.set([]); }
+      } catch {
+        this.suggestions.set([]);
+      }
     }, 250);
   }
 
-  pick(p: string) { this.pseudo.set(p); this.suggestions.set([]); }
+  pick(p: string) {
+    this.pseudo.set(p);
+    this.suggestions.set([]);
+  }
 
   async send() {
     const pseudo = this.pseudo().trim();
@@ -99,8 +141,12 @@ export class FriendsPage {
     }
   }
 
-  accept(f: Friend) { return this.act(f.id, () => this.api.accept(f.id)); }
-  remove(f: Friend) { return this.act(f.id, () => this.api.remove(f.id)); }
+  accept(f: Friend) {
+    return this.act(f.id, () => this.api.accept(f.id));
+  }
+  remove(f: Friend) {
+    return this.act(f.id, () => this.api.remove(f.id));
+  }
 
   private async act(id: number, call: () => Observable<unknown>) {
     this.busyId.set(id);

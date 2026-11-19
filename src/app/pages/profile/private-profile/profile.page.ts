@@ -2,24 +2,36 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { firstValueFrom, forkJoin } from 'rxjs'; // Ajout de forkJoin si tu souhaites charger en parallèle
 import { HttpErrorResponse } from '@angular/common/http';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons,
-         IonBackButton, IonSpinner,
-         IonProgressBar} from '@ionic/angular';
-import { AuthService } from '../../auth/auth.service';
-import { ProfileService } from '../../auth/profile.service';
-import { PlayerService } from '../../player/player.service';
-import { Achievement, PlayerProgress } from '../../player/player.model';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonSpinner, IonProgressBar } from '@ionic/angular';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { LevelBarComponent } from '../../player/level-bar/level-bar.component';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
-import { NotificationsService } from '../../notifications/notifications.service';
+import { LevelBarComponent } from '../../../player/level-bar/level-bar.component';
+import { NavbarComponent } from '../../../shared/navbar/navbar.component';
+import { AuthService } from '../../../auth/auth.service';
+import { PlayerService } from '../../../player/player.service';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { Achievement, PlayerProgress } from '../../../player/player.model';
+import { ProfileService } from '../profile.service';
+import { PatronPickerComponent } from '../patron-picker/patron-picker.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonSpinner, TranslocoPipe, IonProgressBar, LevelBarComponent, NavbarComponent, TranslocoPipe],
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    IonSpinner,
+    TranslocoPipe,
+    IonProgressBar,
+    LevelBarComponent,
+    NavbarComponent,
+    TranslocoPipe,
+    PatronPickerComponent,
+  ],
 })
 export class ProfilePage {
   private auth = inject(AuthService);
@@ -32,9 +44,11 @@ export class ProfilePage {
   public loggingOut = signal(false);
   public error = signal('');
   public user = signal<{ name: string; email: string; image?: string | null } | null>(null);
-  public profile = signal<{ pseudo: string; country: string; language: string } | null>(null);
+  public profile = signal<{ pseudo: string; country: string; language: string; patronCardId?: string | null } | null>(
+    null,
+  );
   public achievements = signal<Achievement[]>([]);
-  public unlockedCount = computed(() => this.achievements().filter(a => a.unlocked).length);
+  public unlockedCount = computed(() => this.achievements().filter((a) => a.unlocked).length);
   public progress = signal<PlayerProgress | null>(null);
   async ngOnInit() {
     try {
@@ -42,7 +56,7 @@ export class ProfilePage {
         this.auth.getUser(),
         firstValueFrom(this.profiles.get()),
         firstValueFrom(this.player.achievements()).catch(() => [] as Achievement[]),
-        firstValueFrom(this.player.progress()).catch(() => null as PlayerProgress | null)
+        firstValueFrom(this.player.progress()).catch(() => null as PlayerProgress | null),
       ]);
 
       this.user.set(user);
@@ -76,5 +90,9 @@ export class ProfilePage {
     this.profiles.clear();
     this.notifs.stop();
     this.router.navigateByUrl('/login', { replaceUrl: true });
+  }
+
+  onPatronChanged(id: string | null) {
+    this.profile.update((p) => p && { ...p, patronCardId: id });
   }
 }

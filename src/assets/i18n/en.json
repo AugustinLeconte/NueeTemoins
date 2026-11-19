@@ -197,6 +197,17 @@
   "profile": {
     "title": "My profile",
     "loading-error": "Unable to load your profile.",
+    "patron": {
+      "title": "Patron saint",
+      "placeholder": "Saint's name…",
+      "save": "Save",
+      "remove": "Remove",
+      "none": "None"
+    },
+    "public": {
+      "level": "Level",
+      "not-found": "No player found with this username."
+    },
     "level": {
       "shortCode": "Lvl.",
       "experience": "XP",
@@ -302,5 +313,8 @@
       "wonDetail": "Finished in {{moves}} moves",
       "movesShort": "moves"
     }
+  },
+  "nav": {
+    "more": "More"
   }
 }

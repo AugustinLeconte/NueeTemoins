@@ -197,6 +197,17 @@
   "profile": {
     "title": "Mi perfil",
     "loading-error": "Imposible cargar tu perfil.",
+    "patron": {
+      "title": "Santo patrón",
+      "placeholder": "Nombre del santo…",
+      "save": "Guardar",
+      "remove": "Eliminar",
+      "none": "Ninguno"
+    },
+    "public": {
+      "level": "Nivel",
+      "not-found": "No se encontró ningún jugador con este nombre de usuario."
+    },
     "level": {
       "shortCode": "Niv.",
       "experience": "XP",
@@ -302,5 +313,8 @@
   },
   "friends": {
     "title": "Amiguos"
+  },
+  "nav": {
+    "more": "Más"
   }
 }

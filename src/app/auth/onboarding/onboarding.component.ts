@@ -3,15 +3,14 @@ import { Component, computed, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { ProfileService } from '../profile.service';
 import { LanguageService } from '../../i18n/language.service';
+import { ProfileService } from '../../pages/profile/profile.service';
 
 @Component({
   selector: 'app-onboarding',
   templateUrl: './onboarding.component.html',
   styleUrls: ['../auth-form.scss'],
-  imports: [ReactiveFormsModule, TranslocoPipe
-  ],
+  imports: [ReactiveFormsModule, TranslocoPipe],
 })
 export class OnboardingComponent {
   private fb = inject(FormBuilder);

@@ -1,9 +1,15 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
+import { Achievement } from '../../player/player.model';
 
-export interface Profile { pseudo: string; country: string; language: string }
+export interface Profile {
+  pseudo: string;
+  country: string;
+  language: string;
+  patronCardId?: string | null;
+}
 
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
@@ -26,7 +32,10 @@ export class ProfileService {
     if (cached && !force) return cached;
 
     this.inflight ??= firstValueFrom(this.get())
-      .then(p => { this._current.set(p); return p; })
+      .then((p) => {
+        this._current.set(p);
+        return p;
+      })
       .finally(() => (this.inflight = undefined));
     return this.inflight;
   }
@@ -34,5 +43,9 @@ export class ProfileService {
   clear() {
     this._current.set(null);
     this.inflight = undefined;
+  }
+
+  setPatron(cardId: string | null) {
+    return this.http.put<void>(`${environment.api}profile/patron`, { cardId });
   }
 }

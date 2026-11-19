@@ -1,0 +1,45 @@
+<h3>{{ 'profile.patron.title' | transloco }}</h3>
+
+@if (current()) {
+  <div class="current">
+    <strong>{{ currentName() }}</strong>
+    <button
+      type="button"
+      class="remove"
+      [disabled]="saving()"
+      [attr.aria-label]="'profile.patron.remove' | transloco"
+      (click)="clear()"
+    >
+      ✕
+    </button>
+  </div>
+} @else {
+  <p class="none">{{ 'profile.patron.none' | transloco }}</p>
+
+  <div class="answer">
+    <input
+      class="input"
+      type="text"
+      autocomplete="off"
+      [value]="query()"
+      [placeholder]="'profile.patron.placeholder' | transloco"
+      (input)="onInput($any($event.target).value)"
+      (keydown.enter)="save()"
+    />
+    @if (suggestions().length) {
+      <ul class="suggest">
+        @for (n of suggestions(); track n.id) {
+          <li>
+            <button type="button" (click)="pick(n)">{{ n.name }}</button>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+
+  <div class="actions">
+    <button class="submit" [disabled]="saving() || !selected()" (click)="save()">
+      {{ 'profile.patron.save' | transloco }}
+    </button>
+  </div>
+}

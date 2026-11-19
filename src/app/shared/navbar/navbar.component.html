@@ -4,42 +4,62 @@
   </div>
 
   <div class="nav-links">
-    <a routerLink="/cards" routerLinkActive="active" class="nav-item">
+    <!-- Entrées principales (toujours visibles) -->
+    <a routerLink="/cards" routerLinkActive="active" class="nav-item" (click)="closeMore()">
       <ion-icon name="custom-collection"></ion-icon>
       <ion-label>{{ 'card-list.collection' | transloco }}</ion-label>
     </a>
 
-    <a routerLink="/packs" routerLinkActive="active" class="nav-item">
+    <a routerLink="/packs" routerLinkActive="active" class="nav-item" (click)="closeMore()">
       <ion-icon name="custom-packs"></ion-icon>
       <ion-label>{{ 'packs.title.default' | transloco }}</ion-label>
     </a>
 
-    <a routerLink="/shop" routerLinkActive="active" class="nav-item">
+    <a routerLink="/shop" routerLinkActive="active" class="nav-item" (click)="closeMore()">
       <ion-icon name="custom-shop"></ion-icon>
       <ion-label>{{ 'shop.title' | transloco }}</ion-label>
     </a>
 
-    <a routerLink="/minigames/wordle" routerLinkActive="active" class="nav-item">
-      <ion-icon name="custom-wordle"></ion-icon>
-      <ion-label>{{ 'minigames.wordle.title' | transloco }}</ion-label>
-    </a>
-
-    <a routerLink="/minigames/memory" routerLinkActive="active" class="nav-item">
-      <ion-icon name="custom-memory"></ion-icon>
-      <ion-label>{{ 'minigames.memory.title' | transloco }}</ion-label>
-    </a>
-
-    <a routerLink="/minigames/guess-card" routerLinkActive="active" class="nav-item">
-      <ion-icon name="custom-guess-card"></ion-icon>
-      <ion-label>{{ 'minigames.guessCard.title' | transloco }}</ion-label>
-    </a>
-
-    <a routerLink="/friends" routerLinkActive="active" class="nav-item">
+    <a routerLink="/friends" routerLinkActive="active" class="nav-item" (click)="closeMore()">
       <ion-icon name="custom-friends"></ion-icon>
       <ion-label>{{ 'friends.title' | transloco }}</ion-label>
       @if (notifs.friendRequests() > 0) {
         <ion-badge color="danger">{{ notifs.friendRequests() }}</ion-badge>
       }
     </a>
+
+    <!-- Bouton "Plus" (mobile uniquement) -->
+    <button
+      type="button"
+      class="nav-item more-btn"
+      [class.active]="moreOpen() || isSecondaryActive()"
+      (click)="toggleMore()"
+    >
+      <ion-icon name="ellipsis-horizontal"></ion-icon>
+      <ion-label>{{ 'nav.more' | transloco }}</ion-label>
+    </button>
+
+    <!-- Entrées secondaires : popup sur mobile, liste normale sur desktop -->
+    <div class="secondary-links" [class.open]="moreOpen()">
+      <a routerLink="/minigames/wordle" routerLinkActive="active" class="nav-item" (click)="closeMore()">
+        <ion-icon name="custom-wordle"></ion-icon>
+        <ion-label>{{ 'minigames.wordle.title' | transloco }}</ion-label>
+      </a>
+
+      <a routerLink="/minigames/memory" routerLinkActive="active" class="nav-item" (click)="closeMore()">
+        <ion-icon name="custom-memory"></ion-icon>
+        <ion-label>{{ 'minigames.memory.title' | transloco }}</ion-label>
+      </a>
+
+      <a routerLink="/minigames/guess-card" routerLinkActive="active" class="nav-item" (click)="closeMore()">
+        <ion-icon name="custom-guess-card"></ion-icon>
+        <ion-label>{{ 'minigames.guessCard.title' | transloco }}</ion-label>
+      </a>
+    </div>
   </div>
+
+  <!-- Fond cliquable pour fermer le popup (mobile) -->
+  @if (moreOpen()) {
+    <div class="more-backdrop" (click)="closeMore()"></div>
+  }
 </nav>

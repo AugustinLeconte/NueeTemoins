@@ -18,10 +18,14 @@
   .nav-links {
     display: flex;
     width: 100%;
+    height: 100%;
     justify-content: space-around;
+    // Sur mobile, "display: contents" évite que le groupe secondaire
+    // casse la mise en page ; il est de toute façon en position: absolute
   }
 
   .nav-item {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,8 +37,21 @@
     flex: 1;
     height: 100%;
 
+    // reset pour le <button>
+    background: none;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+
     ion-icon {
       font-size: 1.4rem;
+    }
+
+    ion-badge {
+      position: absolute;
+      top: 6px;
+      right: calc(50% - 22px);
+      font-size: 0.6rem;
     }
 
     &.active {
@@ -42,9 +59,63 @@
       font-weight: 600;
     }
   }
+
+  // ---------- Popup "Plus" (mobile) ----------
+  .secondary-links {
+    display: none;
+    position: absolute;
+    right: 8px;
+    bottom: calc(100% + 8px);
+    min-width: 220px;
+    padding: 6px;
+    flex-direction: column;
+    background: var(--ion-color-light, #f4f5f8);
+    border: 1px solid var(--ion-color-light-shade, #d7d8dc);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    z-index: 1001;
+
+    &.open {
+      display: flex;
+      animation: popIn 0.15s ease-out;
+    }
+
+    .nav-item {
+      flex: unset;
+      flex-direction: row;
+      justify-content: flex-start;
+      height: 48px;
+      padding: 0 14px;
+      gap: 14px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+
+      &.active {
+        background: rgba(var(--ion-color-primary-rgb, 56, 128, 255), 0.15);
+      }
+    }
+  }
+
+  .more-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: transparent;
+  }
 }
 
-// Mode Desktop (>= 992px)
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// ---------- Mode Desktop (>= 992px) ----------
 @media (min-width: 992px) {
   .responsive-nav {
     top: 0;
@@ -73,18 +144,41 @@
     .nav-links {
       flex-direction: column;
       justify-content: flex-start;
+      height: auto;
       gap: 8px;
       padding: 0 12px;
     }
 
-    .nav-item {
+    // Le bouton "Plus" n'a aucun sens sur desktop
+    .more-btn,
+    .more-backdrop {
+      display: none;
+    }
+
+    // Le groupe secondaire redevient une simple liste dans la sidebar
+    .secondary-links {
+      display: flex;
+      position: static;
+      min-width: 0;
+      padding: 0;
+      gap: 8px;
+      background: none;
+      border: none;
+      box-shadow: none;
+      border-radius: 0;
+      animation: none;
+    }
+
+    .nav-item,
+    .secondary-links .nav-item {
       flex-direction: row;
       justify-content: flex-start;
       height: 50px;
       padding: 0 16px;
-      border-zradius: 10px;
+      border-radius: 10px;
       gap: 15px;
       flex: unset;
+      font-size: 0.75rem;
 
       ion-icon {
         margin: 0;
@@ -92,6 +186,11 @@
 
       ion-label {
         font-size: 0.95rem;
+      }
+
+      ion-badge {
+        position: static;
+        margin-left: auto;
       }
 
       &:hover {

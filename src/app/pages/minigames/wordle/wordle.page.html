@@ -10,6 +10,10 @@
   <div class="game">
     <p class="intro">{{ 'minigames.wordle.description' | transloco: { max: s.maxAttempts, length: s.wordLength } }}</p>
 
+    @if (!finished()) {
+    <p class="timer">⏱ {{ fmt(elapsedMs()) }}</p>
+    }
+
     <div class="board" [style.--cols]="s.wordLength">
       @for (row of board(); track $index) {
       <div class="row">

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, HostListener, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, HostListener, OnInit, computed, inject, signal } from '@angular/core';
 import { IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, ToastController } from '@ionic/angular';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco'; // ancienne version : '@ngneat/transloco'
 import { firstValueFrom } from 'rxjs';
@@ -47,8 +47,11 @@ export class WordlePage implements OnInit {
   private api = inject(WordleService);
   private toast = inject(ToastController);
   private i18n = inject(TranslocoService);
+  private destroyRef = inject(DestroyRef);
 
-  /** Langue de l'appli (ex. "fr", "en-US" -> "en"). Le serveur retombe sur l'anglais si non supportée. */
+  private now = signal(Date.now());
+  private syncedAt = signal(Date.now());
+
   lang = (this.i18n.getActiveLang() || 'en').slice(0, 2);
 
   state = signal<GameState | null>(null);
@@ -86,8 +89,11 @@ export class WordlePage implements OnInit {
   });
 
   ngOnInit() {
+    const timer = setInterval(() => this.now.set(Date.now()), 1000);
+    this.destroyRef.onDestroy(() => clearInterval(timer));
+
     this.api.today(this.lang).subscribe((s) => {
-      this.state.set(s);
+      this.setState(s);
       if (this.isDone(s)) this.loadLeaderboard();
     });
   }
@@ -140,5 +146,23 @@ export class WordlePage implements OnInit {
   private async say(code: string): Promise<void> {
     const message = await firstValueFrom(this.i18n.selectTranslate(`minigames.errors.${code}`));
     (await this.toast.create({ message, duration: 1500, position: 'top' })).present();
+  }
+
+  elapsedMs = computed(() => {
+    const s = this.state();
+    if (!s) return 0;
+    if (this.finished()) return s.durationMs;
+    return s.durationMs + Math.min(this.now() - this.syncedAt(), 60_000);
+  });
+
+  private setState(s: GameState) {
+    this.state.set(s);
+    this.syncedAt.set(Date.now());
+    this.now.set(Date.now());
+  }
+
+  fmt(ms: number): string {
+    const t = Math.floor(ms / 1000);
+    return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
   }
 }

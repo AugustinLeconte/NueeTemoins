@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/"></ion-back-button></ion-buttons>
+    <ion-title>{{ data()?.pseudo }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (loading()) {
+  <div class="center"><ion-spinner></ion-spinner></div>
+  } @else if (error()) {
+  <p class="error">{{ error() | transloco }}</p>
+  } @else if (data(); as d) {
+  <section class="card">
+    <div class="avatar"><span>{{ d.pseudo.charAt(0).toUpperCase() }}</span></div>
+    <h2>{{ d.pseudo }}</h2>
+    @if (d.patron; as p) {
+    <div class="patron">
+      @if (p.imageUrl) { <img [src]="p.imageUrl" [alt]="p.name" /> }
+      <small>{{ 'profile.patron.title' | transloco }}</small>
+      <strong>{{ p.name }}</strong>
+    </div>
+    }
+    <dl>
+      <div>
+        <dt>{{ 'auth.onboarding.country' | transloco }}</dt>
+        <dd>{{ countryName(d.country) }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'profile.public.level' | transloco }}</dt>
+        <dd>{{ d.level }}</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="achievements">
+    <h3>{{ 'achievements.title' | transloco }} <small>{{ d.achievements.length }}</small></h3>
+    <ul>
+      @for (a of d.achievements; track a.code) {
+      <li>
+        <span class="icon">🏆</span>
+        <div class="txt">
+          <strong>{{ 'achievements.items.' + a.code + '.name' | transloco }}</strong>
+          <small>{{ 'achievements.items.' + a.code + '.desc' | transloco }}</small>
+        </div>
+      </li>
+      }
+    </ul>
+  </section>
+  }
+</ion-content>
+<app-navbar></app-navbar>

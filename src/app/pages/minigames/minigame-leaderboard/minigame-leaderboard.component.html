@@ -5,7 +5,7 @@
   @for (e of rows(); track e.rank) {
     <ion-item lines="none">
       <span slot="start" class="rank">{{ e.rank }}</span>
-      <ion-label class="player">{{ e.player }}</ion-label>
+      <ion-label class="player link" [routerLink]="link(e.player)">{{ e.player }}</ion-label>
       <ion-note slot="end" class="score">
         @if (maxAttempts(); as max) {
           {{ e.won ? e.attempts + '/' + max : '✗' }}
