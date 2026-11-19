@@ -315,6 +315,29 @@
     "title": "Amiguos"
   },
   "nav": {
+    "home": "Inicio",
     "more": "Más"
+  },
+  "saint": {
+    "title": "Santo del día",
+    "unavailable": "Santo del día no disponible",
+    "learnMore": "Saber más"
+  },
+  "tutorial": {
+    "speaker": "San Pedro",
+    "skip": "Omitir",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "done": "¡Vamos!",
+    "replay": "Volver a ver el tutorial",
+    "steps": {
+      "welcome": "¡La paz sea contigo! Soy san Pedro, guardián de las llaves. Déjame enseñarte el lugar.",
+      "collection": "Aquí está tu colección: todas las cartas que has conseguido.",
+      "packs": "Abre sobres para descubrir nuevas cartas.",
+      "shop": "Pasa por la tienda para ampliar tu colección.",
+      "friends": "Añade amigos para compartir la aventura.",
+      "minigames": "Y para relajarte, aquí te esperan minijuegos.",
+      "outro": "¡Eso es todo! Buen camino, y que la suerte te acompañe."
+    }
   }
 }

@@ -1,0 +1,128 @@
+// tutorial-overlay.component.scss
+:host {
+  display: contents;
+}
+
+.tour-root {
+  position: fixed;
+  inset: 0;
+  z-index: 10000; // au-dessus de la navbar et du popup "Plus" ; bloque aussi les clics
+}
+
+.spotlight {
+  position: fixed;
+  border-radius: 14px;
+  pointer-events: none;
+  box-shadow:
+    0 0 0 3px var(--ion-color-primary),
+    0 0 0 100vmax rgba(0, 0, 0, 0.75);
+  transition:
+    top 0.35s ease,
+    left 0.35s ease,
+    width 0.35s ease,
+    height 0.35s ease;
+}
+
+.bubble {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(340px, calc(100vw - 32px));
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--ion-card-background, #1e1e1e);
+  color: var(--ion-text-color, #fff);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  animation: pop 0.3s ease-out;
+}
+
+.avatar {
+  width: 50px;
+  height: 95px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  animation: _ngcontent-ng-c3572417090_bob 2.2s ease-in-out infinite;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+.speaker {
+  display: block;
+  font-size: 13px;
+  color: var(--ion-color-primary);
+}
+.text {
+  margin: 4px 0 12px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.progress {
+  margin-left: auto;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.skip {
+  background: none;
+  color: inherit;
+  opacity: 0.6;
+  padding-left: 0;
+}
+.ghost {
+  background: rgba(255, 255, 255, 0.1);
+  color: inherit;
+}
+.primary {
+  background: var(--ion-color-primary);
+  color: var(--ion-color-primary-contrast);
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    scale: 0.9;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble,
+  .avatar {
+    animation: none;
+  }
+  .spotlight {
+    transition: none;
+  }
+}

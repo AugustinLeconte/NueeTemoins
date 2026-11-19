@@ -315,6 +315,29 @@
     }
   },
   "nav": {
+    "home": "Home",
     "more": "More"
+  },
+  "saint": {
+    "title": "Saint of the day",
+    "unavailable": "Saint of the day unavailable",
+    "learnMore": "Learn more"
+  },
+  "tutorial": {
+    "speaker": "Saint Peter",
+    "skip": "Skip",
+    "prev": "Back",
+    "next": "Next",
+    "done": "Let's go!",
+    "replay": "Replay tutorial",
+    "steps": {
+      "welcome": "Peace be with you! I'm Saint Peter, keeper of the keys. Let me show you around.",
+      "collection": "This is your collection: every card you've obtained.",
+      "packs": "Open packs to discover new cards.",
+      "shop": "Stop by the shop to grow your collection.",
+      "friends": "Add friends to share the adventure.",
+      "minigames": "And to unwind, mini-games are waiting for you here.",
+      "outro": "That's everything! Safe travels, and may luck be with you."
+    }
   }
 }

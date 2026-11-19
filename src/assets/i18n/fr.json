@@ -333,6 +333,29 @@
     }
   },
   "nav": {
+    "home": "Accueil",
     "more": "Plus"
+  },
+  "saint": {
+    "title": "Saint du jour",
+    "unavailable": "Saint du jour indisponible",
+    "learnMore": "En savoir plus"
+  },
+  "tutorial": {
+    "speaker": "Saint Pierre",
+    "skip": "Passer",
+    "prev": "Précédent",
+    "next": "Suivant",
+    "done": "C'est parti !",
+    "replay": "Revoir le tutoriel",
+    "steps": {
+      "welcome": "Que la paix soit avec toi ! Je suis saint Pierre, gardien des clés. Laisse-moi te faire visiter les lieux.",
+      "collection": "Ici, c'est ta collection : toutes les cartes que tu as obtenues.",
+      "packs": "Ouvre des paquets pour découvrir de nouvelles cartes.",
+      "shop": "Passe à la boutique pour enrichir ta collection.",
+      "friends": "Ajoute des amis pour partager l'aventure.",
+      "minigames": "Et pour te détendre, des mini-jeux t'attendent ici.",
+      "outro": "Voilà, tu sais tout ! Bonne route, et que la chance soit avec toi."
+    }
   }
 }

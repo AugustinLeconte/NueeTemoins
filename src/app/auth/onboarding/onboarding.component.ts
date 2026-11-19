@@ -46,7 +46,7 @@ export class OnboardingComponent {
     this.loading = true;
     this.error = '';
     this.profiles.create(this.form.getRawValue()).subscribe({
-      next: () => this.router.navigate(['/cards']),
+      next: () => this.router.navigate(['/home']),
       error: (e: HttpErrorResponse) => {
         this.loading = false;
         this.error = e.status === 409 ? 'auth.errors.pseudoTaken' : 'auth.errors.generic';

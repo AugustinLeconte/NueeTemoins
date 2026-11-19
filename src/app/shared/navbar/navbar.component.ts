@@ -1,10 +1,11 @@
-import { Component, HostListener, inject, signal } from '@angular/core';
+import { Component, effect, HostListener, inject, signal, untracked } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { IonIcon, IonLabel, IonBadge } from '@ionic/angular';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { addIcons } from 'ionicons';
 import { ellipsisHorizontal } from 'ionicons/icons';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { TutorialService } from '../../tutorial/tutorial.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,12 +14,13 @@ import { NotificationsService } from '../../notifications/notifications.service'
   imports: [RouterLink, RouterLinkActive, IonIcon, IonLabel, TranslocoPipe, IonBadge],
 })
 export class NavbarComponent {
-  protected notifs = inject(NotificationsService); // protected : utilisé dans le template
+  protected notifs = inject(NotificationsService);
   private router = inject(Router);
+  private tutorial = inject(TutorialService);
 
   moreOpen = signal(false);
 
-  private secondaryRoutes = ['/minigames/wordle', '/minigames/memory', '/minigames/guess-card'];
+  private secondaryRoutes = ['/minigames/wordle', '/minigames/memory', '/minigames/guess-card', '/shop'];
 
   constructor() {
     this.notifs.start();
@@ -31,6 +33,11 @@ export class NavbarComponent {
       'custom-friends': 'assets/icons/icons8-friends.svg',
       'custom-memory': 'assets/icons/icons8-memory-game.svg',
       'custom-guess-card': 'assets/icons/icons8-card-game.svg',
+    });
+
+    effect(() => {
+      const force = this.tutorial.forceMore();
+      untracked(() => this.moreOpen.set(force));
     });
   }
 

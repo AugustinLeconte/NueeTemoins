@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-saint-banner />
+
+  <div class="replay-wrapper">
+    <ion-button fill="clear" size="small" (click)="tutorial.replay()">
+      <ion-icon slot="start" name="help-circle-outline"></ion-icon>
+      {{ 'tutorial.replay' | transloco }}
+    </ion-button>
+  </div>
+</ion-content>
+
+<app-navbar></app-navbar>
+<app-tutorial-overlay />

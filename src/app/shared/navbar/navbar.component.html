@@ -1,26 +1,26 @@
 <nav class="responsive-nav">
-  <div class="desktop-logo">
+  <a class="desktop-logo" routerLink="/home" (click)="closeMore()" aria-label="Accueil">
     <img src="assets/images/banner.png" alt="App Logo" class="logo-img" />
-  </div>
+  </a>
 
   <div class="nav-links">
     <!-- Entrées principales (toujours visibles) -->
-    <a routerLink="/cards" routerLinkActive="active" class="nav-item" (click)="closeMore()">
+    <a routerLink="/home" routerLinkActive="active" class="nav-item home-btn" (click)="closeMore()">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label>{{ 'nav.home' | transloco }}</ion-label>
+    </a>
+
+    <a routerLink="/cards" data-tour="collection" routerLinkActive="active" class="nav-item" (click)="closeMore()">
       <ion-icon name="custom-collection"></ion-icon>
       <ion-label>{{ 'card-list.collection' | transloco }}</ion-label>
     </a>
 
-    <a routerLink="/packs" routerLinkActive="active" class="nav-item" (click)="closeMore()">
+    <a routerLink="/packs" data-tour="packs" routerLinkActive="active" class="nav-item" (click)="closeMore()">
       <ion-icon name="custom-packs"></ion-icon>
       <ion-label>{{ 'packs.title.default' | transloco }}</ion-label>
     </a>
 
-    <a routerLink="/shop" routerLinkActive="active" class="nav-item" (click)="closeMore()">
-      <ion-icon name="custom-shop"></ion-icon>
-      <ion-label>{{ 'shop.title' | transloco }}</ion-label>
-    </a>
-
-    <a routerLink="/friends" routerLinkActive="active" class="nav-item" (click)="closeMore()">
+    <a routerLink="/friends" data-tour="friends" routerLinkActive="active" class="nav-item" (click)="closeMore()">
       <ion-icon name="custom-friends"></ion-icon>
       <ion-label>{{ 'friends.title' | transloco }}</ion-label>
       @if (notifs.friendRequests() > 0) {
@@ -41,19 +41,42 @@
 
     <!-- Entrées secondaires : popup sur mobile, liste normale sur desktop -->
     <div class="secondary-links" [class.open]="moreOpen()">
-      <a routerLink="/minigames/wordle" routerLinkActive="active" class="nav-item" (click)="closeMore()">
+      <a
+        routerLink="/minigames/wordle"
+        data-tour="wordle"
+        routerLinkActive="active"
+        class="nav-item"
+        (click)="closeMore()"
+      >
         <ion-icon name="custom-wordle"></ion-icon>
         <ion-label>{{ 'minigames.wordle.title' | transloco }}</ion-label>
       </a>
 
-      <a routerLink="/minigames/memory" routerLinkActive="active" class="nav-item" (click)="closeMore()">
+      <a
+        routerLink="/minigames/memory"
+        data-tour="memory"
+        routerLinkActive="active"
+        class="nav-item"
+        (click)="closeMore()"
+      >
         <ion-icon name="custom-memory"></ion-icon>
         <ion-label>{{ 'minigames.memory.title' | transloco }}</ion-label>
       </a>
 
-      <a routerLink="/minigames/guess-card" routerLinkActive="active" class="nav-item" (click)="closeMore()">
+      <a
+        routerLink="/minigames/guess-card"
+        routerLinkActive="active"
+        data-tour="guess-card"
+        class="nav-item"
+        (click)="closeMore()"
+      >
         <ion-icon name="custom-guess-card"></ion-icon>
         <ion-label>{{ 'minigames.guessCard.title' | transloco }}</ion-label>
+      </a>
+
+      <a routerLink="/shop" data-tour="shop" routerLinkActive="active" class="nav-item" (click)="closeMore()">
+        <ion-icon name="custom-shop"></ion-icon>
+        <ion-label>{{ 'shop.title' | transloco }}</ion-label>
       </a>
     </div>
   </div>

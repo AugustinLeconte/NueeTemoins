@@ -1,0 +1,31 @@
+<!-- tutorial-overlay.component.html -->
+@if (tutorial.current(); as step) {
+  <div class="tour-root" role="dialog" aria-live="polite">
+    <div class="spotlight" [style]="spotlightStyle()"></div>
+
+    @for (s of [step]; track s.id) {
+      <div class="bubble" [style]="bubbleStyle()">
+        <img class="avatar" src="assets/images/saint-pierre-tuto.png" alt="" />
+        <div class="content">
+          <strong class="speaker">{{ 'tutorial.speaker' | transloco }}</strong>
+          <p class="text">{{ 'tutorial.steps.' + s.id | transloco }}</p>
+
+          <div class="footer">
+            <button type="button" class="skip" (click)="tutorial.finish()">
+              {{ 'tutorial.skip' | transloco }}
+            </button>
+            <span class="progress">{{ tutorial.index() + 1 }}/{{ tutorial.total() }}</span>
+            @if (!tutorial.isFirst()) {
+              <button type="button" class="ghost" (click)="tutorial.prev()">
+                {{ 'tutorial.prev' | transloco }}
+              </button>
+            }
+            <button type="button" class="primary" (click)="tutorial.next()">
+              {{ (tutorial.isLast() ? 'tutorial.done' : 'tutorial.next') | transloco }}
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}

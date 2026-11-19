@@ -7,7 +7,7 @@ import { AuthShellComponent } from './auth/auth-shell/auth-shell.component';
 import { adminGuard } from './pages/admin/admin.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'cards', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: '',
     component: AuthShellComponent,
@@ -59,5 +59,10 @@ export const routes: Routes = [
   {
     path: 'public-profile',
     loadComponent: () => import('./pages/profile/public-profile/public-profile.page').then((m) => m.PublicProfilePage),
+  },
+  {
+    path: 'home',
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/home/home.page').then((m) => m.HomePage),
   },
 ];
