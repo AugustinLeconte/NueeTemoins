@@ -1,17 +1,34 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { firstValueFrom, forkJoin } from 'rxjs'; // Ajout de forkJoin si tu souhaites charger en parallèle
 import { HttpErrorResponse } from '@angular/common/http';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonSpinner, IonProgressBar } from '@ionic/angular';
-import { TranslocoPipe } from '@jsverse/transloco';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonSpinner,
+  IonProgressBar,
+  AlertController,
+  IonList,
+  IonListHeader,
+  IonItem,
+  IonBadge,
+  IonSelectOption,
+  IonSelect,
+  IonLabel,
+} from '@ionic/angular';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { LevelBarComponent } from '../../../player/level-bar/level-bar.component';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { AuthService } from '../../../auth/auth.service';
 import { PlayerService } from '../../../player/player.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { Achievement, PlayerProgress } from '../../../player/player.model';
-import { ProfileService } from '../profile.service';
+import { Profile, ProfileService } from '../profile.service';
 import { PatronPickerComponent } from '../patron-picker/patron-picker.component';
+import { ThemeService } from '../theme.service';
 
 @Component({
   selector: 'app-profile',
@@ -31,6 +48,14 @@ import { PatronPickerComponent } from '../patron-picker/patron-picker.component'
     NavbarComponent,
     TranslocoPipe,
     PatronPickerComponent,
+    IonList,
+    IonListHeader,
+    IonItem,
+    IonLabel,
+    IonSelect,
+    IonSelectOption,
+    IonBadge,
+    RouterLink,
   ],
 })
 export class ProfilePage {
@@ -39,22 +64,28 @@ export class ProfilePage {
   private router = inject(Router);
   private player = inject(PlayerService);
   private notifs = inject(NotificationsService);
+  private alerts = inject(AlertController);
+  private t = inject(TranslocoService);
+  public theme = inject(ThemeService);
 
   public loading = signal(true);
   public loggingOut = signal(false);
   public error = signal('');
   public user = signal<{ name: string; email: string; image?: string | null } | null>(null);
-  public profile = signal<{ pseudo: string; country: string; language: string; patronCardId?: string | null } | null>(
-    null,
-  );
+  public profile = signal<Profile | null>(null);
+  public deleting = signal(false);
+  public deleteError = signal(false);
   public achievements = signal<Achievement[]>([]);
   public unlockedCount = computed(() => this.achievements().filter((a) => a.unlocked).length);
   public progress = signal<PlayerProgress | null>(null);
+  public termsPending = computed(() => this.profiles.current()?.termsAccepted === false);
+
   async ngOnInit() {
     try {
       const [user, profile, achievements, progress] = await Promise.all([
         this.auth.getUser(),
-        firstValueFrom(this.profiles.get()),
+        this.profiles.load(true),
+        //firstValueFrom(this.profiles.get()),
         firstValueFrom(this.player.achievements()).catch(() => [] as Achievement[]),
         firstValueFrom(this.player.progress()).catch(() => null as PlayerProgress | null),
       ]);
@@ -94,5 +125,32 @@ export class ProfilePage {
 
   onPatronChanged(id: string | null) {
     this.profile.update((p) => p && { ...p, patronCardId: id });
+  }
+
+  async confirmDelete() {
+    const alert = await this.alerts.create({
+      header: this.t.translate('profile.delete.title'),
+      message: this.t.translate('profile.delete.message'),
+      buttons: [
+        { text: this.t.translate('profile.delete.cancel'), role: 'cancel' },
+        { text: this.t.translate('profile.delete.confirm'), role: 'destructive', handler: () => this.deleteAccount() },
+      ],
+    });
+    await alert.present();
+  }
+
+  private async deleteAccount() {
+    this.deleting.set(true);
+    this.deleteError.set(false);
+    try {
+      await firstValueFrom(this.profiles.deleteAccount());
+      await this.auth.signOut().catch(() => {});
+      this.profiles.clear();
+      this.notifs.stop();
+      this.router.navigateByUrl('/login', { replaceUrl: true });
+    } catch {
+      this.deleteError.set(true);
+      this.deleting.set(false);
+    }
   }
 }

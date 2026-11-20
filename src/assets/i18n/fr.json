@@ -24,7 +24,8 @@
       "pseudo": "Pseudonyme",
       "country": "Pays",
       "language": "Langue",
-      "submit": "Continuer"
+      "submit": "Continuer",
+      "terms": { "prefix": "J’ai lu et j’accepte les", "link": "conditions d’utilisation" }
     },
     "errors": {
       "generic": "Une erreur est survenue",
@@ -196,6 +197,7 @@
   },
   "profile": {
     "title": "Mon profil",
+    "termsPending": "Merci de valider les conditions d’utilisation",
     "loading-error": "Impossible de charger votre profil.",
     "patron": {
       "title": "Saint patron",
@@ -203,6 +205,14 @@
       "save": "Valider",
       "remove": "Supprimer",
       "none": "Aucun"
+    },
+    "delete": {
+      "button": "Supprimer mon compte",
+      "title": "Supprimer votre compte ?",
+      "message": "Toutes vos données (profil, progression, succès, amis) seront définitivement supprimées. Cette action est irréversible.",
+      "cancel": "Annuler",
+      "confirm": "Supprimer définitivement",
+      "error": "La suppression a échoué. Réessayez ou contactez-nous."
     },
     "public": {
       "level": "Niveau",
@@ -356,6 +366,186 @@
       "friends": "Ajoute des amis pour partager l'aventure.",
       "minigames": "Et pour te détendre, des mini-jeux t'attendent ici.",
       "outro": "Voilà, tu sais tout ! Bonne route, et que la chance soit avec toi."
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "theme": { "label": "Thème", "system": "Automatique", "light": "Clair", "dark": "Sombre" }
+  },
+  "legal": {
+    "updated": "Dernière mise à jour : 20 novembre 2026",
+    "terms": {
+      "title": "Conditions d’utilisation",
+      "accept": "J’ai lu et j’accepte les conditions d’utilisation",
+      "validate": "Valider",
+      "sections": [
+        {
+          "title": "1. Objet",
+          "text": [
+            "Les présentes conditions encadrent l’utilisation de Nuée de Témoins (« le Service »), édité par LECONTE Augustin. En créant un compte, vous les acceptez."
+          ]
+        },
+        {
+          "title": "2. Compte",
+          "text": [
+            "Vous êtes responsable de votre compte et de votre pseudo. Les pseudos injurieux, usurpant l’identité d’un tiers ou contraires à la loi peuvent être modifiés ou supprimés."
+          ]
+        },
+        {
+          "title": "3. Vos données",
+          "text": [
+            "Les données que vous nous confiez (adresse e-mail, nom, photo de profil, pseudo, pays, langue, progression, succès, amis, saint patron) servent uniquement au fonctionnement du Service.",
+            "Elles ne sont ni vendues, ni cédées, ni exploitées à d’autres fins commerciales. Le détail figure dans la Politique de confidentialité."
+          ]
+        },
+        {
+          "title": "4. Publicité",
+          "text": [
+            "Le Service est gratuit et financé par de la publicité. Les annonces sont fournies par Adsense. Nous ne leur transmettons pas vos données de profil. Selon vos choix de consentement, la régie peut utiliser des identifiants pour personnaliser les annonces."
+          ]
+        },
+        {
+          "title": "5. Contenus et propriété intellectuelle",
+          "text": [
+            "Le Service, son code et ses éléments graphiques sont protégés. Certaines données et icônes proviennent de sites tiers, cités dans la page Crédits."
+          ]
+        },
+        {
+          "title": "6. Suppression du compte",
+          "text": [
+            "Vous pouvez supprimer votre compte à tout moment depuis votre page de profil. Vos données sont alors effacées."
+          ]
+        },
+        {
+          "title": "7. Disponibilité et responsabilité",
+          "text": [
+            "Le Service est fourni « en l’état », sans garantie de disponibilité continue. Nous pouvons le modifier ou l’interrompre."
+          ]
+        },
+        {
+          "title": "8. Modification des conditions",
+          "text": ["Si ces conditions changent de façon importante, vous serez invité à les valider de nouveau."]
+        },
+        {
+          "title": "9. Droit applicable et contact",
+          "text": ["Ces conditions sont soumises au droit français. Contact : augustin@familleleconte.fr."]
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Politique de confidentialité",
+      "sections": [
+        {
+          "title": "Responsable du traitement",
+          "text": ["LECONTE Augustin, 26260 BREN , augustin@familleleconte.fr."]
+        },
+        {
+          "title": "Données collectées",
+          "items": [
+            "Compte : adresse e-mail, nom et photo de profil (selon votre méthode de connexion).",
+            "Profil : pseudo, pays, langue, saint patron.",
+            "Activité de jeu : progression, niveau, succès, relations d’amitié.",
+            "Données techniques : journaux de connexion (adresse IP, date) nécessaires à la sécurité."
+          ]
+        },
+        {
+          "title": "Finalités et bases légales",
+          "items": [
+            "Fournir le Service et gérer votre compte (exécution du contrat).",
+            "Assurer la sécurité et prévenir les abus (intérêt légitime).",
+            "Afficher de la publicité (votre consentement, lorsqu’il est requis)."
+          ]
+        },
+        {
+          "title": "Utilisation des données",
+          "text": [
+            "Vos données ne sont pas vendues et ne sont pas utilisées pour du profilage commercial. Elles ne servent qu’au fonctionnement du Service."
+          ]
+        },
+        {
+          "title": "Destinataires",
+          "text": [
+            "Vos données sont hébergées par Netlify (France). Le fournisseur d’authentification Néon traite votre connexion. La régie publicitaire Adsense peut traiter des identifiants publicitaires selon vos choix de consentement."
+          ]
+        },
+        {
+          "title": "Durée de conservation",
+          "text": [
+            "Les données de compte sont conservées tant que votre compte existe, puis supprimées lors de la suppression du compte. Les journaux techniques sont conservés 12 mois au maximum."
+          ]
+        },
+        {
+          "title": "Stockage local",
+          "text": [
+            "L’application utilise le stockage de votre appareil pour votre session et vos préférences (thème, langue). Ces éléments sont strictement nécessaires au fonctionnement du Service."
+          ]
+        },
+        {
+          "title": "Vos droits",
+          "text": [
+            "Vous disposez des droits d’accès, de rectification, d’effacement, de limitation, de portabilité et d’opposition. Vous pouvez supprimer votre compte depuis votre profil ou nous écrire à augustin@familleleconte.fr. Vous pouvez aussi introduire une réclamation auprès de la CNIL (cnil.fr)."
+          ]
+        },
+        {
+          "title": "Mineurs",
+          "text": ["Le Service s’adresse aux personnes de 15 ans et plus. En dessous, l’accord d’un parent est requis."]
+        }
+      ]
+    },
+    "dataSafety": {
+      "title": "Sécurité des données",
+      "sections": [
+        {
+          "title": "Données collectées",
+          "items": ["Adresse e-mail, nom, photo de profil", "Pseudo, pays, langue", "Progression, succès, amis"]
+        },
+        {
+          "title": "Données non collectées",
+          "items": [
+            "Localisation précise",
+            "Contacts, messages, photos de votre appareil",
+            "Données financières ou de santé"
+          ]
+        },
+        {
+          "title": "Partage",
+          "text": [
+            "Vos données ne sont ni vendues ni partagées à des fins commerciales. Seuls nos prestataires techniques (hébergement, authentification) y accèdent pour faire fonctionner le Service. La régie publicitaire peut recevoir des identifiants publicitaires selon votre consentement."
+          ]
+        },
+        {
+          "title": "Protection",
+          "items": [
+            "Échanges chiffrés (HTTPS)",
+            "Accès aux données restreint et authentifié",
+            "Aucun mot de passe stocké en clair"
+          ]
+        },
+        {
+          "title": "Suppression",
+          "text": ["Vous pouvez supprimer votre compte et toutes vos données depuis la page de profil, à tout moment."]
+        }
+      ]
+    },
+    "credits": {
+      "title": "Crédits",
+      "sections": [
+        {
+          "title": "Icônes et illustrations",
+          "text": ["Merci aux créateurs dont les œuvres illustrent l’application."],
+          "links": [
+            { "label": "SVG Repo – svgrepo.com", "url": "https://www.svgrepo.com" },
+            { "label": "Icons8 – icons8.com", "url": "https://icons8.com" }
+          ]
+        },
+        {
+          "title": "Saints et fêtes du jour",
+          "text": [
+            "Les informations sur les saints proviennent de Nominis, site de la Conférence des évêques de France."
+          ],
+          "links": [{ "label": "Nominis – nominis.cef.fr", "url": "https://nominis.cef.fr" }]
+        }
+      ]
     }
   }
 }

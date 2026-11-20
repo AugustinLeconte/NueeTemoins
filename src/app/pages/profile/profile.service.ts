@@ -1,15 +1,17 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Achievement } from '../../player/player.model';
 
 export interface Profile {
   pseudo: string;
   country: string;
   language: string;
   patronCardId?: string | null;
+  termsAccepted: boolean;
 }
+
+export type ProfileCreate = Pick<Profile, 'pseudo' | 'country' | 'language'> & { acceptTerms: boolean };
 
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
@@ -19,8 +21,14 @@ export class ProfileService {
   readonly current = this._current.asReadonly();
   private inflight?: Promise<Profile>;
 
-  create(profile: Profile) {
+  create(profile: ProfileCreate) {
     return this.http.post(`${environment.api}profile`, profile);
+  }
+
+  acceptTerms() {
+    return this.http
+      .put<void>(`${environment.api}profile/terms`, {})
+      .pipe(tap(() => this._current.update((p) => p && { ...p, termsAccepted: true })));
   }
 
   get() {
@@ -47,5 +55,9 @@ export class ProfileService {
 
   setPatron(cardId: string | null) {
     return this.http.put<void>(`${environment.api}profile/patron`, { cardId });
+  }
+
+  deleteAccount() {
+    return this.http.delete<void>(`${environment.api}profile`);
   }
 }

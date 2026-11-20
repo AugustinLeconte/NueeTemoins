@@ -1,14 +1,27 @@
-  <h1>{{ 'auth.onboarding.title' | transloco }}</h1>
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <input formControlName="pseudo" [placeholder]="'auth.onboarding.pseudo' | transloco" />
-    <select formControlName="country">
-      <option value="" disabled>{{ 'auth.onboarding.country' | transloco }}</option>
-      @for (c of countries(); track c.code) { <option [value]="c.code">{{ c.name }}</option> }
-    </select>
-    <select formControlName="language">
-      <option value="" disabled>{{ 'auth.onboarding.language' | transloco }}</option>
-      @for (l of languages; track l.code) { <option [value]="l.code">{{ l.label }}</option> }
-    </select>
-    @if (error) { <p class="error">{{ error | transloco }}</p> }
-    <button type="submit" [disabled]="form.invalid || loading">{{ 'auth.onboarding.submit' | transloco }}</button>
-  </form>
+<h1>{{ 'auth.onboarding.title' | transloco }}</h1>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <input formControlName="pseudo" [placeholder]="'auth.onboarding.pseudo' | transloco" />
+  <select formControlName="country">
+    <option value="" disabled>{{ 'auth.onboarding.country' | transloco }}</option>
+    @for (c of countries(); track c.code) {
+      <option [value]="c.code">{{ c.name }}</option>
+    }
+  </select>
+  <select formControlName="language">
+    <option value="" disabled>{{ 'auth.onboarding.language' | transloco }}</option>
+    @for (l of languages; track l.code) {
+      <option [value]="l.code">{{ l.label }}</option>
+    }
+  </select>
+  <label class="terms">
+    <input type="checkbox" formControlName="acceptTerms" />
+    <span>
+      {{ 'auth.onboarding.terms.prefix' | transloco }}
+      <a routerLink="/legal/terms" target="_blank">{{ 'auth.onboarding.terms.link' | transloco }}</a>
+    </span>
+  </label>
+  @if (error) {
+    <p class="error">{{ error | transloco }}</p>
+  }
+  <button type="submit" [disabled]="form.invalid || loading">{{ 'auth.onboarding.submit' | transloco }}</button>
+</form>

@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/profile"></ion-back-button></ion-buttons>
+    <ion-title>{{ 'legal.' + key + '.title' | transloco }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <article class="legal">
+    <p class="updated">{{ 'legal.updated' | transloco }}</p>
+
+    @for (s of sections(); track s.title) {
+    <section>
+      <h2>{{ s.title }}</h2>
+      @for (p of s.text ?? []; track $index) {
+      <p>{{ p }}</p>
+      } @if (s.items?.length) {
+      <ul>
+        @for (i of s.items; track $index) {
+        <li>{{ i }}</li>
+        }
+      </ul>
+      } @if (s.links?.length) {
+      <ul>
+        @for (l of s.links; track l.url) {
+        <li><a [href]="l.url" target="_blank" rel="noopener noreferrer">{{ l.label }}</a></li>
+        }
+      </ul>
+      }
+    </section>
+    } @if (canAccept()) {
+    <section class="accept">
+      <label>
+        <ion-checkbox labelPlacement="end" [checked]="checked()" (ionChange)="checked.set($event.detail.checked)">
+          {{ 'legal.terms.accept' | transloco }}
+        </ion-checkbox>
+      </label>
+      <ion-button expand="block" [disabled]="!checked() || saving()" (click)="accept()">
+        {{ 'legal.terms.validate' | transloco }}
+      </ion-button>
+      @if (error()) {
+      <p class="error">{{ 'auth.errors.generic' | transloco }}</p>
+      }
+    </section>
+    }
+  </article>
+</ion-content>

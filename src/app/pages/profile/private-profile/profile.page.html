@@ -11,14 +11,20 @@
   <p class="error">{{ error() | transloco }}</p>
   } @else {
   <section class="card">
-    <div class="avatar">
-      @if (user()?.image) {
-      <img [src]="user()!.image" alt="" referrerpolicy="no-referrer" />
-      } @else {
-      <span>{{ initial() }}</span>
-      }
+    <div class="avatar-wrap">
+      <div class="avatar">
+        @if (user()?.image) {
+        <img [src]="user()!.image" alt="" referrerpolicy="no-referrer" />
+        } @else {
+        <span>{{ initial() }}</span>
+        }
+      </div>
+      @if (termsPending()) { <span class="avatar-badge"></span> }
     </div>
     <h2>{{ profile()?.pseudo }}</h2>
+    @if (termsPending()) {
+    <a class="terms-alert" routerLink="/legal/terms">{{ 'profile.termsPending' | transloco }}</a>
+    }
 
     <dl>
       <div>
@@ -45,6 +51,39 @@
   </section>
 
   <section class="level">@if (progress(); as p) { <app-level-bar class="grow" [progress]="p" /> }</section>
+
+  <section class="menu">
+    <ion-list [inset]="true">
+      <ion-list-header><ion-label>{{ 'settings.title' | transloco }}</ion-label></ion-list-header>
+
+      <ion-item>
+        <ion-select
+          interface="popover"
+          [label]="'settings.theme.label' | transloco"
+          [value]="theme.mode()"
+          (ionChange)="theme.set($event.detail.value)"
+        >
+          <ion-select-option value="system">{{ 'settings.theme.system' | transloco }}</ion-select-option>
+          <ion-select-option value="light">{{ 'settings.theme.light' | transloco }}</ion-select-option>
+          <ion-select-option value="dark">{{ 'settings.theme.dark' | transloco }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item button detail routerLink="/legal/terms">
+        <ion-label>{{ 'legal.terms.title' | transloco }}</ion-label>
+        @if (termsPending()) { <ion-badge color="danger" slot="end">!</ion-badge> }
+      </ion-item>
+      <ion-item button detail routerLink="/legal/privacy"
+        ><ion-label>{{ 'legal.privacy.title' | transloco }}</ion-label></ion-item
+      >
+      <ion-item button detail routerLink="/legal/data-safety"
+        ><ion-label>{{ 'legal.dataSafety.title' | transloco }}</ion-label></ion-item
+      >
+      <ion-item button detail routerLink="/legal/credits"
+        ><ion-label>{{ 'legal.credits.title' | transloco }}</ion-label></ion-item
+      >
+    </ion-list>
+  </section>
 
   <section class="achievements">
     <h3>
@@ -73,7 +112,13 @@
   <ion-button expand="block" color="danger" fill="outline" [disabled]="loggingOut()" (click)="logout()">
     @if (loggingOut()) { <ion-spinner name="dots"></ion-spinner> } @else { {{'profile.logout' | transloco}} }
   </ion-button>
-  }
+
+  <ion-button expand="block" color="danger" fill="clear" [disabled]="deleting()" (click)="confirmDelete()">
+    {{ 'profile.delete.button' | transloco }}
+  </ion-button>
+  @if (deleteError()) {
+  <p class="error">{{ 'profile.delete.error' | transloco }}</p>
+  } }
 </ion-content>
 
 <app-navbar></app-navbar>

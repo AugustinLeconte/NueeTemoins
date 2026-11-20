@@ -1,11 +1,20 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { forkJoin } from 'rxjs';
+import { firstValueFrom, forkJoin } from 'rxjs';
 import { Capacitor } from '@capacitor/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
-         IonBadge, IonSpinner, IonChip, IonLabel,
-         IonButtons} from '@ionic/angular';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonBadge,
+  IonSpinner,
+  IonChip,
+  IonLabel,
+  IonButtons,
+} from '@ionic/angular';
 import { CardViewComponent } from '../../cards/card-view/card-view.component';
 import { PlayerService } from '../../player/player.service';
 import { PackOffer, Wallet } from '../../player/player.model';
@@ -20,9 +29,20 @@ import { UserAvatarComponent } from '../../shared/user-avatar/user-avatar.compon
   selector: 'app-shop',
   standalone: true,
   imports: [
-    IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
-    IonBadge, IonSpinner, IonChip, IonLabel, IonButtons,
-    CardViewComponent, NavbarComponent, TranslocoPipe, UserAvatarComponent
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    IonBadge,
+    IonSpinner,
+    IonChip,
+    IonLabel,
+    IonButtons,
+    CardViewComponent,
+    NavbarComponent,
+    TranslocoPipe,
+    UserAvatarComponent,
   ],
   templateUrl: './shop.page.html',
   styleUrls: ['./shop.page.scss'],
@@ -48,13 +68,14 @@ export class ShopPage {
 
   public isNative = Capacitor.isNativePlatform();
 
+  public claimed = computed(() => this.offers().filter((o) => o.status === 'CLAIMED'));
+  public available = computed(() => this.offers().filter((o) => o.status === 'AVAILABLE'));
+  public locked = computed(() => this.offers().filter((o) => o.status === 'LOCKED'));
+  public openedCount = computed(() => this.offers().filter((o) => o.status === 'OPENED').length);
 
-  public claimed = computed(() => this.offers().filter(o => o.status === 'CLAIMED'));
-  public available = computed(() => this.offers().filter(o => o.status === 'AVAILABLE'));
-  public locked = computed(() => this.offers().filter(o => o.status === 'LOCKED'));
-  public openedCount = computed(() => this.offers().filter(o => o.status === 'OPENED').length);
-
-  ionViewWillEnter() { this.load(); }
+  ionViewWillEnter() {
+    this.load();
+  }
 
   private load() {
     forkJoin({
@@ -63,7 +84,7 @@ export class ShopPage {
       items: this.shop.items(),
       free: this.shop.freeOffers(),
     }).subscribe({
-      next: r => {
+      next: (r) => {
         this.wallet.set(r.wallet);
         this.offers.set(r.offers);
         this.items.set(r.items);
@@ -72,7 +93,10 @@ export class ShopPage {
         this.loading.set(false);
       },
       error: (e: HttpErrorResponse) => {
-        if (e.status === 404) { this.router.navigateByUrl('/onboarding'); return; }
+        if (e.status === 404) {
+          this.router.navigateByUrl('/onboarding');
+          return;
+        }
         this.error.set(this.transloco.translate('shop.errors.loadFailed'));
         this.loading.set(false);
       },
@@ -89,7 +113,10 @@ export class ShopPage {
     if (this.claimingLevel() !== null) return;
     this.claimingLevel.set(o.level);
     this.player.claimLevelPack(o.level).subscribe({
-      next: offers => { this.offers.set(offers); this.claimingLevel.set(null); },
+      next: (offers) => {
+        this.offers.set(offers);
+        this.claimingLevel.set(null);
+      },
       error: () => {
         this.claimingLevel.set(null);
         this.error.set(this.transloco.translate('shop.errors.claimFailed'));
@@ -99,18 +126,25 @@ export class ShopPage {
   }
 
   // ----- Illustrations -----
-  canBuy(it: ShopItem) { return !it.owned && (this.wallet()?.coins ?? 0) >= it.price && !this.buying(); }
+  canBuy(it: ShopItem) {
+    return !it.owned && (this.wallet()?.coins ?? 0) >= it.price && !this.buying();
+  }
 
   buy(it: ShopItem) {
     if (!this.canBuy(it)) return;
     this.buying.set(it.art.publicId);
     this.shop.buy(it.art.publicId).subscribe({
-      next: () => { this.buying.set(null); this.load(); },
+      next: () => {
+        this.buying.set(null);
+        this.load();
+      },
       error: (e: HttpErrorResponse) => {
         this.buying.set(null);
-        this.error.set(e.status === 409
-          ? this.transloco.translate('shop.errors.alreadyOwnedOrPoor')
-          : this.transloco.translate('shop.errors.buyFailed'));
+        this.error.set(
+          e.status === 409
+            ? this.transloco.translate('shop.errors.alreadyOwnedOrPoor')
+            : this.transloco.translate('shop.errors.buyFailed'),
+        );
       },
     });
   }
@@ -120,7 +154,10 @@ export class ShopPage {
     if (this.claiming()) return;
     this.claiming.set(true);
     this.shop.claimDaily().subscribe({
-      next: () => { this.claiming.set(false); this.load(); },
+      next: () => {
+        this.claiming.set(false);
+        this.load();
+      },
       error: () => {
         this.claiming.set(false);
         this.error.set(this.transloco.translate('shop.errors.alreadyClaimed'));
@@ -132,20 +169,26 @@ export class ShopPage {
     if (this.adLoading()) return;
     this.adLoading.set(true);
     try {
-      const rewarded = await this.ads.showRewarded();
-      if (!rewarded) {
-        this.error.set(this.transloco.translate('shop.errors.adNotCompleted'));
+      const result = await this.ads.showRewarded();
+      if (result !== 'rewarded') {
+        this.error.set(
+          this.transloco.translate(result === 'dismissed' ? 'shop.errors.adNotCompleted' : 'shop.errors.adUnavailable'),
+        );
         return;
       }
-      this.shop.claimAd().subscribe({
-        next: () => this.load(),
-        error: (e: HttpErrorResponse) => {
-          let errorKey = 'shop.errors.adUnavailable';
-          if (e.status === 429) errorKey = 'shop.errors.adWait';
-          else if (e.status === 409) errorKey = 'shop.errors.adLimitReached';
-          this.error.set(this.transloco.translate(errorKey));
-        },
-      });
+      await firstValueFrom(this.shop.claimAd());
+      this.load();
+    } catch (e) {
+      const status = (e as HttpErrorResponse).status;
+      this.error.set(
+        this.transloco.translate(
+          status === 429
+            ? 'shop.errors.adWait'
+            : status === 409
+              ? 'shop.errors.adLimitReached'
+              : 'shop.errors.adUnavailable',
+        ),
+      );
     } finally {
       this.adLoading.set(false);
     }

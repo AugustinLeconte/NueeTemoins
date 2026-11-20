@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { AdProvider } from './ad-provider';
+import { AdProvider, RewardResult } from './ad-provider';
 
 declare global {
   interface Window {
@@ -19,7 +19,9 @@ export class WebAdProvider extends AdProvider {
     if (!client) return;
 
     window.adsbygoogle = window.adsbygoogle || [];
-    window.adBreak = window.adConfig = (o: unknown) => { window.adsbygoogle.push(o); };
+    window.adBreak = window.adConfig = (o: unknown) => {
+      window.adsbygoogle.push(o);
+    };
 
     await new Promise<void>((resolve) => {
       const s = document.createElement('script');
@@ -40,16 +42,19 @@ export class WebAdProvider extends AdProvider {
     });
   }
 
-  showRewarded(): Promise<boolean> {
+  showRewarded(): Promise<RewardResult> {
     return new Promise((resolve) => {
       let viewed = false;
       window.adBreak({
         type: 'reward',
         name: 'shop-coins',
         beforeReward: (showAd: () => void) => showAd(),
-        adViewed: () => { viewed = true; },
-        adDismissed: () => { viewed = false; },
-        adBreakDone: () => resolve(viewed),
+        adViewed: () => {
+          viewed = true;
+        },
+        adBreakDone: (info: { breakStatus: string }) => {
+          resolve(viewed ? 'rewarded' : info.breakStatus === 'dismissed' ? 'dismissed' : 'unavailable');
+        },
       });
     });
   }

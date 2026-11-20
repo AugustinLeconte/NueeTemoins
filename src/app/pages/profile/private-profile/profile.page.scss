@@ -139,6 +139,32 @@ ion-button {
   margin: 0 auto 1.5rem;
 }
 
+.avatar-wrap {
+  position: relative;
+}
+.avatar-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--ion-color-danger);
+  border: 2px solid var(--ion-background-color, #fff);
+}
+.terms-alert {
+  color: var(--ion-color-danger);
+  font-size: 0.9rem;
+  text-decoration: underline;
+}
+.menu {
+  max-width: 420px;
+  margin: 0 auto 1.5rem;
+  ion-list {
+    margin-inline: 0;
+  }
+}
+
 //ESPACE POUR LA NAVBAR
 ion-content {
   --padding-bottom: 80px;

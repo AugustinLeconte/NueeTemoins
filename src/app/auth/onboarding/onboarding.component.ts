@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, computed, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { LanguageService } from '../../i18n/language.service';
 import { ProfileService } from '../../pages/profile/profile.service';
@@ -10,7 +10,7 @@ import { ProfileService } from '../../pages/profile/profile.service';
   selector: 'app-onboarding',
   templateUrl: './onboarding.component.html',
   styleUrls: ['../auth-form.scss'],
-  imports: [ReactiveFormsModule, TranslocoPipe],
+  imports: [ReactiveFormsModule, TranslocoPipe, RouterLink],
 })
 export class OnboardingComponent {
   private fb = inject(FormBuilder);
@@ -36,6 +36,7 @@ export class OnboardingComponent {
     pseudo: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
     country: ['', Validators.required],
     language: [this.lang.current(), Validators.required],
+    acceptTerms: [false, Validators.requiredTrue],
   });
 
   constructor() {

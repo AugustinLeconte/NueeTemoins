@@ -6,6 +6,8 @@ import { authGuard } from './auth/auth.guard';
 import { AuthShellComponent } from './auth/auth-shell/auth-shell.component';
 import { adminGuard } from './pages/admin/admin.guard';
 
+const legal = () => import('./pages/legal/legal.page').then((m) => m.LegalPage);
+
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
@@ -65,4 +67,8 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadComponent: () => import('./pages/home/home.page').then((m) => m.HomePage),
   },
+  { path: 'legal/terms', loadComponent: legal, data: { key: 'terms' } },
+  { path: 'legal/privacy', loadComponent: legal, data: { key: 'privacy' } },
+  { path: 'legal/data-safety', loadComponent: legal, data: { key: 'dataSafety' } },
+  { path: 'legal/credits', loadComponent: legal, data: { key: 'credits' } },
 ];

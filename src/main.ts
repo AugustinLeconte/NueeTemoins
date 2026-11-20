@@ -21,6 +21,7 @@ import { AdProvider } from './app/ads/ad-provider';
 import { AdMobProvider } from './app/ads/admob.provider';
 import { WebAdProvider } from './app/ads/web-ad.provider';
 import { Capacitor } from '@capacitor/core';
+import { ThemeService } from './app/pages/profile/theme.service';
 
 addIcons({
   // Icônes Ionicons
@@ -45,6 +46,7 @@ bootstrapApplication(AppComponent, {
     { provide: AdProvider, useClass: Capacitor.isNativePlatform() ? AdMobProvider : WebAdProvider },
     provideAppInitializer(() => {
       inject(AdProvider).init();
+      inject(ThemeService);
     }),
     provideIonicAngular({ animated: false }),
     provideHttpClient(withInterceptors([authInterceptor])),
