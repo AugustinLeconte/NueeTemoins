@@ -1,15 +1,15 @@
 {
-  "app-name": "Cloud of witnesses",
+  "app-name": "Nuée de Témoins",
   "auth": {
     "email": "Email",
     "password": "Password",
-    "passwordMin": "Password (8 chars min.)",
+    "passwordMin": "Password (min. 8 characters)",
     "loading": "Loading…",
     "login": {
       "title": "Log in",
-      "submit": "Sign in",
+      "submit": "Log in",
       "google": "Continue with Google",
-      "noAccount": "No account?",
+      "noAccount": "No account yet?",
       "signupLink": "Sign up"
     },
     "signup": {
@@ -24,119 +24,72 @@
       "pseudo": "Username",
       "country": "Country",
       "language": "Language",
-      "submit": "Continue"
+      "submit": "Continue",
+      "terms": { "prefix": "I have read and accept the", "link": "terms of use" }
     },
     "errors": {
       "generic": "An error occurred",
       "pseudoTaken": "This username is already taken",
       "invalidCredentials": "Incorrect email or password.",
       "useGoogle": "This account was created with Google. Use the \"Continue with Google\" button.",
-      "emailNotVerified": "Your email isn't verified yet. Check your inbox (and spam folder).",
-      "emailTaken": "An account already exists with this email. Sign in or use another email.",
-      "passwordTooShort": "Password is too short (8 characters minimum).",
-      "passwordTooLong": "Password is too long.",
+      "emailNotVerified": "Your email hasn't been verified yet. Check your inbox (and your spam folder).",
+      "emailTaken": "An account already exists with this email. Log in or use another email.",
+      "passwordTooShort": "The password is too short (8 characters minimum).",
+      "passwordTooLong": "The password is too long.",
       "invalidEmail": "The email address is not valid.",
       "invalidData": "The information entered is not valid. Check your email and password.",
       "signupDisabled": "Sign-ups are temporarily closed.",
-      "tooManyRequests": "Too many attempts. Please try again in a few minutes.",
-      "sessionExpired": "Your session has expired. Please sign in again.",
+      "tooManyRequests": "Too many attempts. Try again in a few minutes.",
+      "sessionExpired": "Your session has expired. Please log in again.",
       "forbidden": "Access denied. Contact support if the problem persists.",
-      "network": "Can't reach the server. Check your internet connection.",
-      "server": "The service is temporarily unavailable. Please try again in a moment.",
-      "loginFailed": "Unable to sign in (ref: {{ref}}). Try again or contact support.",
-      "signupFailed": "Unable to sign up (ref: {{ref}}). Try again or contact support."
+      "network": "Unable to reach the server. Check your internet connection.",
+      "server": "The service is temporarily unavailable. Try again in a moment.",
+      "loginFailed": "Unable to log in (ref.: {{ref}}). Try again or contact support.",
+      "signupFailed": "Unable to sign up (ref.: {{ref}}). Try again or contact support."
     }
   },
   "achievements": {
     "title": "Achievements",
     "unlocked": "Achievement unlocked!",
     "items": {
-      "LEVEL_10": {
-        "name": "Apprentice",
-        "desc": "Reach level 10"
-      },
-      "LEVEL_25": {
-        "name": "Experienced",
-        "desc": "Reach level 25"
-      },
-      "LEVEL_50": {
-        "name": "Master",
-        "desc": "Reach level 50"
-      },
-      "CARDS_10": {
-        "name": "Collector",
-        "desc": "Own 10 saints"
-      },
-      "ARTS_5_ON_ONE_CARD": {
-        "name": "Admirer",
-        "desc": "Own 5 artworks of the same saint"
-      },
-      "COINS_100": {
-        "name": "Nest egg",
-        "desc": "Own 100 coins"
-      },
-      "SHOP_FIRST_PURCHASE": {
-        "name": "First purchase",
-        "desc": "Buy an artwork in the shop"
-      },
-      "SHOP_20_PURCHASES": {
-        "name": "Loyal customer",
-        "desc": "Buy 20 artworks in the shop"
-      },
-      "LEVEL_2": {
-        "name": "First steps",
-        "desc": "Reach level 2"
-      },
-      "MINIGAME_FIRST_WIN": {
-        "name": "First victory",
-        "desc": "Win your first mini-game"
-      },
-      "MINIGAME_10_WINS": {
-        "name": "Dedicated player",
-        "desc": "Win 10 mini-games"
-      },
-      "MINIGAME_50_WINS": {
-        "name": "Mini-game champion",
-        "desc": "Win 50 mini-games"
-      },
+      "LEVEL_10": { "name": "Apprentice", "desc": "Reach level 10" },
+      "LEVEL_25": { "name": "Experienced", "desc": "Reach level 25" },
+      "LEVEL_50": { "name": "Master", "desc": "Reach level 50" },
+      "CARDS_10": { "name": "Collector", "desc": "Own 10 saints" },
+      "ARTS_5_ON_ONE_CARD": { "name": "Admirer", "desc": "Own 5 artworks of the same saint" },
+      "COINS_100": { "name": "Nest egg", "desc": "Own 100 coins" },
+      "SHOP_FIRST_PURCHASE": { "name": "First purchase", "desc": "Buy an artwork in the shop" },
+      "SHOP_20_PURCHASES": { "name": "Loyal customer", "desc": "Buy 20 artworks in the shop" },
+      "LEVEL_2": { "name": "First steps", "desc": "Reach level 2" },
+      "MINIGAME_FIRST_WIN": { "name": "First victory", "desc": "Win your first minigame" },
+      "MINIGAME_10_WINS": { "name": "Dedicated player", "desc": "Win 10 minigames" },
+      "MINIGAME_50_WINS": { "name": "Minigame champion", "desc": "Win 50 minigames" },
       "MINIGAME_PERFECT": {
         "name": "Stroke of genius",
-        "desc": "Win a mini-game perfectly (e.g. guess the word on the first try)"
+        "desc": "Complete a minigame perfectly (e.g. word found on the first try)"
       },
-      "MINIGAME_STREAK_3": {
-        "name": "Regular",
-        "desc": "Play mini-games 3 days in a row"
-      },
-      "MINIGAME_STREAK_7": {
-        "name": "Never misses a day",
-        "desc": "Play mini-games 7 days in a row"
-      },
-      "MINIGAME_STREAK_30": {
-        "name": "Unconditional",
-        "desc": "Play mini-games 30 days in a row"
-      },
-      "MINIGAME_3_GAMES": {
-        "name": "Jack of all trades",
-        "desc": "Win 3 different mini-games"
-      }
+      "MINIGAME_STREAK_3": { "name": "Regular", "desc": "Play minigames 3 days in a row" },
+      "MINIGAME_STREAK_7": { "name": "Never misses a day", "desc": "Play minigames 7 days in a row" },
+      "MINIGAME_STREAK_30": { "name": "Unwavering", "desc": "Play minigames 30 days in a row" },
+      "MINIGAME_3_GAMES": { "name": "Jack of all trades", "desc": "Win 3 different minigames" }
     }
   },
   "filters": {
-    "search": "Search a saint (name, description…)",
+    "search": "Search for a saint (name, description…)",
     "families": "Families",
     "month": "Feast month",
     "day": "Day",
     "all": "All",
     "owned": "Owned",
     "missing": "Missing",
-    "today": "Feast day today",
+    "today": "Celebrated today",
     "reset": "Reset",
     "title": "Filters",
     "show": "Show {{count}} saints"
   },
   "card-list": {
-    "collection": "My collection",
-    "no-cards": "No cards for now.",
+    "collection": "Collection",
+    "no-cards": "No cards yet.",
     "loadError": "Unable to load cards.",
     "no-results": "No saint matches these filters."
   },
@@ -145,8 +98,8 @@
     "open": "Open a pack",
     "stored": "Packs to open: {{count}}",
     "description": {
-      "daily": "Open a free pack every day to discover new saint illustrations and earn coins. Duplicates give you fragments to upgrade your cards.",
-      "level": "This pack was unlocked by reaching a new level. Open it to discover new cards and earn coins."
+      "daily": "Open a free pack every day to discover new saint artworks and earn coins. Duplicates give you fragments to upgrade your cards.",
+      "level": "This pack was unlocked by gaining a level. Open it to discover new cards and earn coins."
     },
     "nextPack": "Next pack in",
     "title": {
@@ -158,25 +111,25 @@
       "level": "Level {{ level }} reward"
     },
     "coins": "Coins:",
-    "pity": "Pity: guaranteed rare artwork or better after {{ pity }} packs without one ({{ current }}/{{ pity }})",
+    "pity": "Guarantee: a rare or better artwork after {{ pity }} packs without one ({{ current }}/{{ pity }})",
     "actions": {
-      "openPack": "Open pack",
-      "openDaily": "Open my daily pack",
-      "dailyOpened": "Daily pack already opened",
-      "revealCard": "Reveal card",
-      "revealAll": "Reveal all",
-      "backToShop": "Back to shop",
       "openStored": "Open a stored pack",
       "continue": "Continue",
+      "openPack": "Open the pack",
+      "openDaily": "Open my daily pack",
+      "dailyOpened": "Daily pack already opened",
+      "revealCard": "Reveal the card",
+      "revealAll": "Reveal all",
+      "backToShop": "Back to the shop",
       "unclaimedPacks": "{{ count }} pack(s) to claim in the shop"
     },
     "reveal": {
-      "hint": "Tap cards to reveal them",
+      "hint": "Tap the cards to reveal them",
       "coinsUnit": "coins",
       "newSaint": "New saint!",
       "newArt": "New artwork",
       "duplicate": "Duplicate · +{{ count }} fragments",
-      "fragmentsProgress": "{{ current }} / {{ next }} fragments for {{ title }}",
+      "fragmentsProgress": "{{ current }} / {{ next }} fragments of {{ title }}",
       "maxLevel": "Max level",
       "upgradeAvailable": "⬆ Level up available"
     },
@@ -184,32 +137,41 @@
       "coinsGained": "+{{ count }} 🪙 coins earned",
       "xpGained": "+{{ count }} XP",
       "levelReached": "Level {{ level }} reached!",
-      "newPackInShop": "A new pack is waiting to be claimed in the shop."
+      "newPackInShop": "A new pack is waiting for you in the shop."
     },
     "errors": {
       "notUnlocked": "This pack isn't unlocked yet.",
       "levelAlreadyOpened": "This level pack has already been opened.",
-      "dailyAlreadyOpened": "You've already opened today's pack. Come back tomorrow!",
-      "noArtwork": "No artwork is available right now.",
-      "openFailed": "Couldn't open the pack."
+      "dailyAlreadyOpened": "You have already opened your daily pack. Come back tomorrow!",
+      "noArtwork": "No artwork is available at the moment.",
+      "openFailed": "Unable to open the pack."
     }
   },
   "profile": {
     "title": "My profile",
+    "termsPending": "Please accept the terms of use",
     "loading-error": "Unable to load your profile.",
     "patron": {
       "title": "Patron saint",
       "placeholder": "Saint's name…",
-      "save": "Save",
+      "save": "Confirm",
       "remove": "Remove",
       "none": "None"
     },
+    "delete": {
+      "button": "Delete my account",
+      "title": "Delete your account?",
+      "message": "All your data (profile, progress, achievements, friends) will be permanently deleted. This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete permanently",
+      "error": "Deletion failed. Try again or contact us."
+    },
     "public": {
       "level": "Level",
-      "not-found": "No player found with this username."
+      "not-found": "No player with this username."
     },
     "level": {
-      "shortCode": "Lvl.",
+      "shortCode": "Lv.",
       "experience": "XP",
       "max": "Max level"
     },
@@ -218,18 +180,18 @@
   "shop": {
     "title": "Shop",
     "free": {
-      "tag": "🎁 Free",
-      "hint": "Free coins, nothing to spend.",
+      "tag": "Free",
+      "hint": "Free coins, without spending anything.",
       "dailyTitle": "Daily gift",
       "dailyOnce": "once a day",
       "claim": "Claim",
       "comeBackTomorrow": "Come back tomorrow",
       "adTitle": "Watch an ad",
-      "adRemaining": "+{{remaining}}/{{max}} remaining today",
+      "adRemaining": "+{{remaining}}/{{max}} left today",
       "watch": "Watch"
     },
     "packs": {
-      "tag": "🎴 Level packs",
+      "tag": "Level packs",
       "hint": "Each level unlocks a pack (premium every 5 levels).",
       "premium": "Premium pack",
       "standard": "Standard pack",
@@ -239,34 +201,52 @@
       "noMore": "No upcoming packs.",
       "openedCount": "{{count}} pack(s) already opened ✓",
       "claim": "Claim",
-      "claimed": "{{label}} (lvl {{level}}): already claimed",
-      "claimedHint": "Open it from the Packs tab"
+      "claimed": "{{label}} (lv. {{level}}): already claimed",
+      "claimedHint": "To open in the Packs tab"
     },
     "arts": {
-      "tag": "🖼️ Daily artworks",
-      "hint": "3 artworks, renewed daily. Price depends on rarity.",
+      "tag": "Today's artworks",
+      "hint": "3 artworks, renewed every day. The price depends on rarity.",
       "defaultTitle": "Artwork",
       "byArtist": "by {{name}}",
       "owned": "Owned",
-      "empty": "No artworks on sale right now."
+      "empty": "No artwork for sale at the moment."
     },
     "errors": {
       "loadFailed": "Unable to load the shop.",
-      "alreadyOwnedOrPoor": "Insufficient coins or artwork already owned.",
-      "buyFailed": "Purchase impossible.",
+      "alreadyOwnedOrPoor": "Not enough coins or artwork already owned.",
+      "buyFailed": "Purchase failed.",
       "alreadyClaimed": "Already claimed today.",
-      "adNotCompleted": "No reward: watch the ad all the way through.",
-      "adWait": "Wait a bit before the next ad.",
+      "adNotCompleted": "No reward: watch the ad until the end.",
+      "adWait": "Please wait a moment before the next ad.",
       "adLimitReached": "Ad limit reached for today.",
-      "adUnavailable": "Reward unavailable for now.",
-      "claimFailed": "Couldn't claim this pack."
+      "adUnavailable": "Reward unavailable at the moment.",
+      "claimFailed": "Unable to claim this pack."
     }
   },
   "friends": {
-    "title": "Friends"
+    "title": "Friends",
+    "list": "My friends",
+    "incoming": "Received requests",
+    "outgoing": "Sent requests",
+    "cancel": "Cancel",
+    "empty": "You don't have any friends yet. Add some using their username!",
+    "loading-error": "Unable to load your friends.",
+    "add": {
+      "title": "Add a friend",
+      "placeholder": "Username",
+      "button": "Add",
+      "sent": "Request sent!"
+    },
+    "errors": {
+      "self": "You can't add yourself.",
+      "not-found": "No player with this username.",
+      "already": "You are already friends or a request is already pending.",
+      "generic": "An error occurred, try again."
+    }
   },
   "minigames": {
-    "leaderboard": "Today's ranking",
+    "leaderboard": "Today's leaderboard",
     "xpGained": "+{{ xp }} XP",
     "xpShort": "{{ xp }} XP",
     "time": "Time",
@@ -276,41 +256,41 @@
       "UNKNOWN_WORD": "Unknown word",
       "UNKNOWN_CARD": "Pick a saint from the list",
       "ALREADY_GUESSED": "You already tried this saint",
-      "ALREADY_FINISHED": "You already finished this game today",
-      "FINISH_FIRST": "Finish your game to see the ranking",
+      "ALREADY_FINISHED": "You have already finished this game today",
+      "FINISH_FIRST": "Finish your game to see the leaderboard",
       "INVALID_TILE": "This card can't be played",
-      "ERROR": "Something went wrong"
+      "ERROR": "An error occurred"
     },
     "wordle": {
       "title": "Word of the day",
       "won": "Well done!",
       "lost": "Lost…",
       "wordWas": "The word was",
-      "enter": "Enter",
+      "enter": "Submit",
       "delete": "Delete",
-      "description": "Guess the hidden word in {{max}} tries or fewer. The final word is related to Catholicism and can be a proper noun. Each word has {{length}} letters. After each attempt, the colors show whether a letter is in the right place (green), elsewhere in the word (yellow) or not in the word (gray).",
+      "description": "Guess the hidden word in {{max}} tries at most. The final word is related to Catholicism. It may be a proper noun. Each word has {{length}} letters. After each attempt, the colors show whether a letter is in the right place (green), present elsewhere in the word (yellow) or absent (gray).",
       "nextWord": "Next word in"
     },
     "guessCard": {
       "title": "Guess the card",
-      "description": "A saint's card is zoomed in a lot: guess who it is in {{guesses}} tries or fewer. Each mistake zooms the card out and costs 5 XP. Level 1: zoom. Level 2: the card is also grayscale. Level 3: it is also rotated.",
-      "level": "Lvl {{n}}",
+      "description": "A saint card is heavily zoomed in: guess who it is in {{guesses}} tries at most. Each mistake zooms the card out and costs 5 XP. Level 1: zoom. Level 2: the card is also grayed out. Level 3: it is also flipped.",
+      "level": "Lv. {{n}}",
       "placeholder": "Saint's name…",
       "guess": "Submit",
-      "found": "Well done! It was {{name}} (+{{xp}} XP)",
+      "found": "Well played! It was {{name}} (+{{xp}} XP)",
       "missed": "Missed… it was {{name}}",
       "next": "Next level",
-      "done": "Finished!",
+      "done": "Done!",
       "summary": "{{found}}/{{total}} cards found",
       "guessesShort": "tries"
     },
     "memory": {
       "title": "Memory",
-      "description": "Find the {{pairs}} pairs of cards. They come from the same family or are linked to each other. The fewer moves you make, the more XP you earn; in case of a tie, the fastest player ranks higher.",
+      "description": "Find the {{pairs}} pairs of cards. They come from the same family or are linked to each other. The fewer moves you make, the more XP you earn; in case of a tie, the fastest wins.",
       "moves": "Moves",
       "pairs": "Pairs",
       "won": "Well done!",
-      "wonDetail": "Finished in {{moves}} moves",
+      "wonDetail": "Completed in {{moves}} moves",
       "movesShort": "moves"
     }
   },
@@ -326,18 +306,196 @@
   "tutorial": {
     "speaker": "Saint Peter",
     "skip": "Skip",
-    "prev": "Back",
+    "prev": "Previous",
     "next": "Next",
     "done": "Let's go!",
-    "replay": "Replay tutorial",
+    "replay": "Replay the tutorial",
     "steps": {
-      "welcome": "Peace be with you! I'm Saint Peter, keeper of the keys. Let me show you around.",
-      "collection": "This is your collection: every card you've obtained.",
+      "welcome": "Peace be with you! I am Saint Peter, keeper of the keys. Let me show you around.",
+      "collection": "This is your collection: all the cards you have obtained.",
       "packs": "Open packs to discover new cards.",
-      "shop": "Stop by the shop to grow your collection.",
+      "shop": "Head to the shop to enrich your collection.",
       "friends": "Add friends to share the adventure.",
-      "minigames": "And to unwind, mini-games are waiting for you here.",
-      "outro": "That's everything! Safe travels, and may luck be with you."
+      "minigames": "And to unwind, minigames are waiting for you here.",
+      "outro": "There you go, you know it all! Safe travels, and good luck."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "theme": { "label": "Theme", "system": "Automatic", "light": "Light", "dark": "Dark" }
+  },
+  "legal": {
+    "updated": "Last updated: November 20, 2026",
+    "terms": {
+      "title": "Terms of use",
+      "accept": "I have read and accept the terms of use",
+      "validate": "Confirm",
+      "sections": [
+        {
+          "title": "1. Purpose",
+          "text": [
+            "These terms govern the use of Nuée de Témoins (\"the Service\"), published by LECONTE Augustin. By creating an account, you accept them."
+          ]
+        },
+        {
+          "title": "2. Account",
+          "text": [
+            "You are responsible for your account and your username. Usernames that are offensive, impersonate a third party or are unlawful may be changed or deleted."
+          ]
+        },
+        {
+          "title": "3. Your data",
+          "text": [
+            "The data you entrust to us (email address, name, profile picture, username, country, language, progress, achievements, friends, patron saint) is used solely to operate the Service.",
+            "It is not sold, transferred or used for any other commercial purpose. Details are provided in the Privacy Policy."
+          ]
+        },
+        {
+          "title": "4. Advertising",
+          "text": [
+            "The Service is free and funded by advertising. Ads are provided by Adsense. We do not pass your profile data to them. Depending on your consent choices, the ad provider may use identifiers to personalize ads."
+          ]
+        },
+        {
+          "title": "5. Content and intellectual property",
+          "text": [
+            "The Service, its code and its graphic elements are protected. Some data and icons come from third-party sites, credited on the Credits page."
+          ]
+        },
+        {
+          "title": "6. Account deletion",
+          "text": ["You can delete your account at any time from your profile page. Your data is then erased."]
+        },
+        {
+          "title": "7. Availability and liability",
+          "text": [
+            "The Service is provided \"as is\", with no guarantee of continuous availability. We may modify or discontinue it."
+          ]
+        },
+        {
+          "title": "8. Changes to the terms",
+          "text": ["If these terms change significantly, you will be asked to accept them again."]
+        },
+        {
+          "title": "9. Governing law and contact",
+          "text": ["These terms are governed by French law. Contact: augustin@familleleconte.fr."]
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "sections": [
+        {
+          "title": "Data controller",
+          "text": ["LECONTE Augustin, 26260 BREN, augustin@familleleconte.fr."]
+        },
+        {
+          "title": "Data collected",
+          "items": [
+            "Account: email address, name and profile picture (depending on your sign-in method).",
+            "Profile: username, country, language, patron saint.",
+            "Game activity: progress, level, achievements, friendships.",
+            "Technical data: connection logs (IP address, date) required for security."
+          ]
+        },
+        {
+          "title": "Purposes and legal bases",
+          "items": [
+            "Provide the Service and manage your account (performance of a contract).",
+            "Ensure security and prevent abuse (legitimate interest).",
+            "Display advertising (your consent, where required)."
+          ]
+        },
+        {
+          "title": "Use of data",
+          "text": [
+            "Your data is not sold and is not used for commercial profiling. It is used solely to operate the Service."
+          ]
+        },
+        {
+          "title": "Recipients",
+          "text": [
+            "Your data is hosted by Netlify (France). The authentication provider Neon processes your sign-in. The ad provider Adsense may process advertising identifiers depending on your consent choices."
+          ]
+        },
+        {
+          "title": "Retention period",
+          "text": [
+            "Account data is kept as long as your account exists, then deleted when you delete your account. Technical logs are kept for 12 months at most."
+          ]
+        },
+        {
+          "title": "Local storage",
+          "text": [
+            "The app uses your device's storage for your session and preferences (theme, language). These items are strictly necessary for the Service to work."
+          ]
+        },
+        {
+          "title": "Your rights",
+          "text": [
+            "You have the rights of access, rectification, erasure, restriction, portability and objection. You can delete your account from your profile or write to us at augustin@familleleconte.fr. You may also lodge a complaint with the CNIL (cnil.fr)."
+          ]
+        },
+        {
+          "title": "Minors",
+          "text": ["The Service is intended for people aged 15 and over. Below that age, parental consent is required."]
+        }
+      ]
+    },
+    "dataSafety": {
+      "title": "Data safety",
+      "sections": [
+        {
+          "title": "Data collected",
+          "items": [
+            "Email address, name, profile picture",
+            "Username, country, language",
+            "Progress, achievements, friends"
+          ]
+        },
+        {
+          "title": "Data not collected",
+          "items": ["Precise location", "Contacts, messages, photos from your device", "Financial or health data"]
+        },
+        {
+          "title": "Sharing",
+          "text": [
+            "Your data is neither sold nor shared for commercial purposes. Only our technical providers (hosting, authentication) access it to operate the Service. The ad provider may receive advertising identifiers depending on your consent."
+          ]
+        },
+        {
+          "title": "Protection",
+          "items": [
+            "Encrypted communications (HTTPS)",
+            "Restricted and authenticated access to data",
+            "No password stored in plain text"
+          ]
+        },
+        {
+          "title": "Deletion",
+          "text": ["You can delete your account and all your data from the profile page at any time."]
+        }
+      ]
+    },
+    "credits": {
+      "title": "Credits",
+      "sections": [
+        {
+          "title": "Icons and illustrations",
+          "text": ["Thanks to the creators whose work illustrates the app."],
+          "links": [
+            { "label": "SVG Repo – svgrepo.com", "url": "https://www.svgrepo.com" },
+            { "label": "Icons8 – icons8.com", "url": "https://icons8.com" }
+          ]
+        },
+        {
+          "title": "Saints and feast days",
+          "text": [
+            "Information about the saints comes from Nominis, the website of the Bishops' Conference of France."
+          ],
+          "links": [{ "label": "Nominis – nominis.cef.fr", "url": "https://nominis.cef.fr" }]
+        }
+      ]
     }
   }
 }

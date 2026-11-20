@@ -17,6 +17,7 @@ export class UserAvatarComponent {
   private user = signal<{ name?: string; image?: string | null } | null>(null);
   imgFailed = signal(false);
 
+  termsPending = computed(() => this.profiles.current()?.termsAccepted === false);
   image = computed(() => this.user()?.image ?? null);
   initial = computed(() => (this.profiles.current()?.pseudo ?? this.user()?.name ?? '?').charAt(0).toUpperCase());
 

@@ -1,5 +1,5 @@
 {
-  "app-name": "Nube de testigos",
+  "app-name": "Nube de Testigos",
   "auth": {
     "email": "Correo electrónico",
     "password": "Contraseña",
@@ -7,7 +7,7 @@
     "loading": "Cargando…",
     "login": {
       "title": "Iniciar sesión",
-      "submit": "Entrar",
+      "submit": "Iniciar sesión",
       "google": "Continuar con Google",
       "noAccount": "¿No tienes cuenta?",
       "signupLink": "Regístrate"
@@ -16,7 +16,7 @@
       "title": "Registro",
       "submit": "Crear mi cuenta",
       "google": "Registrarse con Google",
-      "hasAccount": "¿Ya estás registrado?",
+      "hasAccount": "¿Ya tienes cuenta?",
       "loginLink": "Iniciar sesión"
     },
     "onboarding": {
@@ -24,101 +24,54 @@
       "pseudo": "Seudónimo",
       "country": "País",
       "language": "Idioma",
-      "submit": "Continuar"
+      "submit": "Continuar",
+      "terms": { "prefix": "He leído y acepto las", "link": "condiciones de uso" }
     },
     "errors": {
-      "generic": "Ha ocurrido un error",
+      "generic": "Se ha producido un error",
       "pseudoTaken": "Este seudónimo ya está en uso",
       "invalidCredentials": "Correo electrónico o contraseña incorrectos.",
       "useGoogle": "Esta cuenta se creó con Google. Usa el botón «Continuar con Google».",
-      "emailNotVerified": "Tu correo electrónico aún no está verificado. Revisa tu bandeja de entrada (y la carpeta de spam).",
+      "emailNotVerified": "Tu correo electrónico aún no está verificado. Revisa tu bandeja de entrada (y el spam).",
       "emailTaken": "Ya existe una cuenta con este correo electrónico. Inicia sesión o usa otro correo.",
       "passwordTooShort": "La contraseña es demasiado corta (mínimo 8 caracteres).",
       "passwordTooLong": "La contraseña es demasiado larga.",
       "invalidEmail": "La dirección de correo electrónico no es válida.",
-      "invalidData": "La información introducida no es válida. Revisa el correo y la contraseña.",
+      "invalidData": "Los datos introducidos no son válidos. Comprueba el correo y la contraseña.",
       "signupDisabled": "Los registros están cerrados temporalmente.",
       "tooManyRequests": "Demasiados intentos. Inténtalo de nuevo en unos minutos.",
       "sessionExpired": "Tu sesión ha caducado. Vuelve a iniciar sesión.",
-      "forbidden": "Acceso denegado. Contacta con el soporte si el problema persiste.",
+      "forbidden": "Acceso denegado. Contacta con soporte si el problema persiste.",
       "network": "No se puede conectar con el servidor. Comprueba tu conexión a internet.",
       "server": "El servicio no está disponible temporalmente. Inténtalo de nuevo en unos instantes.",
-      "loginFailed": "No se pudo iniciar sesión (ref.: {{ref}}). Inténtalo de nuevo o contacta con el soporte.",
-      "signupFailed": "No se pudo completar el registro (ref.: {{ref}}). Inténtalo de nuevo o contacta con el soporte."
+      "loginFailed": "No se pudo iniciar sesión (ref.: {{ref}}). Inténtalo de nuevo o contacta con soporte.",
+      "signupFailed": "No se pudo completar el registro (ref.: {{ref}}). Inténtalo de nuevo o contacta con soporte."
     }
   },
   "achievements": {
     "title": "Logros",
     "unlocked": "¡Logro desbloqueado!",
     "items": {
-      "LEVEL_10": {
-        "name": "Aprendiz",
-        "desc": "Alcanza el nivel 10"
-      },
-      "LEVEL_25": {
-        "name": "Veterano",
-        "desc": "Alcanza el nivel 25"
-      },
-      "LEVEL_50": {
-        "name": "Maestro",
-        "desc": "Alcanza el nivel 50"
-      },
-      "CARDS_10": {
-        "name": "Coleccionista",
-        "desc": "Posee 10 santos"
-      },
-      "ARTS_5_ON_ONE_CARD": {
-        "name": "Admirador",
-        "desc": "Posee 5 ilustraciones de un mismo santo"
-      },
-      "COINS_100": {
-        "name": "Ahorros",
-        "desc": "Posee 100 monedas"
-      },
-      "SHOP_FIRST_PURCHASE": {
-        "name": "Primera compra",
-        "desc": "Compra una ilustración en la tienda"
-      },
-      "SHOP_20_PURCHASES": {
-        "name": "Cliente fiel",
-        "desc": "Compra 20 ilustraciones en la tienda"
-      },
-      "LEVEL_2": {
-        "name": "Primeros pasos",
-        "desc": "Alcanza el nivel 2"
-      },
-      "MINIGAME_FIRST_WIN": {
-        "name": "Primera victoria",
-        "desc": "Gana tu primer minijuego"
-      },
-      "MINIGAME_10_WINS": {
-        "name": "Jugador constante",
-        "desc": "Gana 10 minijuegos"
-      },
-      "MINIGAME_50_WINS": {
-        "name": "Campeón de minijuegos",
-        "desc": "Gana 50 minijuegos"
-      },
+      "LEVEL_10": { "name": "Aprendiz", "desc": "Alcanza el nivel 10" },
+      "LEVEL_25": { "name": "Experimentado", "desc": "Alcanza el nivel 25" },
+      "LEVEL_50": { "name": "Maestro", "desc": "Alcanza el nivel 50" },
+      "CARDS_10": { "name": "Coleccionista", "desc": "Posee 10 santos" },
+      "ARTS_5_ON_ONE_CARD": { "name": "Admirador", "desc": "Posee 5 ilustraciones de un mismo santo" },
+      "COINS_100": { "name": "Monedero", "desc": "Posee 100 monedas" },
+      "SHOP_FIRST_PURCHASE": { "name": "Primera compra", "desc": "Compra una ilustración en la tienda" },
+      "SHOP_20_PURCHASES": { "name": "Cliente fiel", "desc": "Compra 20 ilustraciones en la tienda" },
+      "LEVEL_2": { "name": "Primeros pasos", "desc": "Alcanza el nivel 2" },
+      "MINIGAME_FIRST_WIN": { "name": "Primera victoria", "desc": "Gana tu primera partida de minijuego" },
+      "MINIGAME_10_WINS": { "name": "Jugador constante", "desc": "Gana 10 partidas de minijuegos" },
+      "MINIGAME_50_WINS": { "name": "Campeón de minijuegos", "desc": "Gana 50 partidas de minijuegos" },
       "MINIGAME_PERFECT": {
         "name": "Golpe de genio",
-        "desc": "Gana un minijuego a la perfección (p. ej. palabra al primer intento)"
+        "desc": "Completa un minijuego a la perfección (p. ej. palabra encontrada al primer intento)"
       },
-      "MINIGAME_STREAK_3": {
-        "name": "Regular",
-        "desc": "Juega a los minijuegos 3 días seguidos"
-      },
-      "MINIGAME_STREAK_7": {
-        "name": "Fiel a la cita",
-        "desc": "Juega a los minijuegos 7 días seguidos"
-      },
-      "MINIGAME_STREAK_30": {
-        "name": "Incondicional",
-        "desc": "Juega a los minijuegos 30 días seguidos"
-      },
-      "MINIGAME_3_GAMES": {
-        "name": "Todoterreno",
-        "desc": "Gana en 3 minijuegos diferentes"
-      }
+      "MINIGAME_STREAK_3": { "name": "Regular", "desc": "Juega a los minijuegos 3 días seguidos" },
+      "MINIGAME_STREAK_7": { "name": "Fiel a la cita", "desc": "Juega a los minijuegos 7 días seguidos" },
+      "MINIGAME_STREAK_30": { "name": "Incondicional", "desc": "Juega a los minijuegos 30 días seguidos" },
+      "MINIGAME_3_GAMES": { "name": "Todoterreno", "desc": "Gana en 3 minijuegos diferentes" }
     }
   },
   "filters": {
@@ -127,28 +80,28 @@
     "month": "Mes de la fiesta",
     "day": "Día",
     "all": "Todos",
-    "owned": "Obtenidos",
+    "owned": "Poseídos",
     "missing": "Faltantes",
-    "today": "Fiesta hoy",
+    "today": "Celebrados hoy",
     "reset": "Restablecer",
     "title": "Filtros",
     "show": "Ver {{count}} santos"
   },
   "card-list": {
-    "collection": "Mi colección",
-    "no-cards": "No hay cartas por el momento.",
-    "loadError": "Imposible cargar las cartas.",
+    "collection": "Colección",
+    "no-cards": "Aún no hay cartas.",
+    "loadError": "No se pueden cargar las cartas.",
     "no-results": "Ningún santo coincide con estos filtros."
   },
   "saints": "santos",
   "packs": {
     "open": "Abrir un sobre",
-    "stored": "Packs por abrir: {{count}}",
+    "stored": "Sobres por abrir: {{count}}",
     "description": {
-      "daily": "Abre cada día un pack gratuito para descubrir nuevas ilustraciones de santos y ganar monedas. Los duplicados te dan fragmentos para mejorar tus cartas.",
-      "level": "Este pack se desbloqueó al subir de nivel. Ábrelo para descubrir nuevas cartas y ganar monedas."
+      "daily": "Abre cada día un sobre gratis para descubrir nuevas ilustraciones de santos y ganar monedas. Los duplicados te dan fragmentos para mejorar tus cartas.",
+      "level": "Este sobre se desbloqueó al subir de nivel. Ábrelo para descubrir nuevas cartas y ganar monedas."
     },
-    "nextPack": "Próximo pack en",
+    "nextPack": "Próximo sobre en",
     "title": {
       "default": "Sobres",
       "level": "Sobre de nivel {{ level }}"
@@ -158,24 +111,17 @@
       "level": "Recompensa de nivel {{ level }}"
     },
     "coins": "Monedas:",
-    "pity": "Garantía: una ilustración rara o mejor tras {{ pity }} sobres sin ella ({{ current }}/{{ pity }})",
+    "pity": "Garantía: una ilustración rara o mejor tras {{ pity }} sobres sin ninguna ({{ current }}/{{ pity }})",
     "actions": {
-      "openPack": "Abrir sobre",
+      "openStored": "Abrir un sobre guardado",
+      "continue": "Continuar",
+      "openPack": "Abrir el sobre",
       "openDaily": "Abrir mi sobre diario",
       "dailyOpened": "Sobre del día ya abierto",
-      "revealCard": "Revelar carta",
+      "revealCard": "Revelar la carta",
       "revealAll": "Revelar todo",
       "backToShop": "Volver a la tienda",
-      "openStored": "Abrir un pack guardado",
-      "continue": "Continuar",
-      "unclaimedPacks": "{{ count }} pack(s) por recoger en la tienda"
-    },
-    "errors": {
-      "notUnlocked": "Este pack aún no está desbloqueado.",
-      "levelAlreadyOpened": "Este pack de nivel ya se ha abierto.",
-      "dailyAlreadyOpened": "Ya has abierto tu pack del día. ¡Vuelve mañana!",
-      "noArtwork": "No hay ninguna ilustración disponible por ahora.",
-      "openFailed": "No se pudo abrir el pack."
+      "unclaimedPacks": "{{ count }} sobre(s) por recoger en la tienda"
     },
     "reveal": {
       "hint": "Toca las cartas para revelarlas",
@@ -191,22 +137,38 @@
       "coinsGained": "+{{ count }} 🪙 monedas ganadas",
       "xpGained": "+{{ count }} XP",
       "levelReached": "¡Nivel {{ level }} alcanzado!",
-      "newPackInShop": "Te espera un nuevo sobre en la tienda."
+      "newPackInShop": "Hay un nuevo sobre esperándote en la tienda."
+    },
+    "errors": {
+      "notUnlocked": "Este sobre aún no está desbloqueado.",
+      "levelAlreadyOpened": "Este sobre de nivel ya se ha abierto.",
+      "dailyAlreadyOpened": "Ya has abierto tu sobre del día. ¡Vuelve mañana!",
+      "noArtwork": "No hay ninguna ilustración disponible por el momento.",
+      "openFailed": "No se puede abrir el sobre."
     }
   },
   "profile": {
     "title": "Mi perfil",
-    "loading-error": "Imposible cargar tu perfil.",
+    "termsPending": "Por favor, acepta las condiciones de uso",
+    "loading-error": "No se puede cargar tu perfil.",
     "patron": {
       "title": "Santo patrón",
       "placeholder": "Nombre del santo…",
-      "save": "Guardar",
-      "remove": "Eliminar",
+      "save": "Confirmar",
+      "remove": "Quitar",
       "none": "Ninguno"
+    },
+    "delete": {
+      "button": "Eliminar mi cuenta",
+      "title": "¿Eliminar tu cuenta?",
+      "message": "Todos tus datos (perfil, progreso, logros, amigos) se eliminarán de forma definitiva. Esta acción es irreversible.",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar definitivamente",
+      "error": "La eliminación ha fallado. Inténtalo de nuevo o contáctanos."
     },
     "public": {
       "level": "Nivel",
-      "not-found": "No se encontró ningún jugador con este nombre de usuario."
+      "not-found": "Ningún jugador con este seudónimo."
     },
     "level": {
       "shortCode": "Niv.",
@@ -218,48 +180,69 @@
   "shop": {
     "title": "Tienda",
     "free": {
-      "tag": "🎁 Gratis",
-      "hint": "Monedas de regalo, sin gastar nada.",
+      "tag": "Gratis",
+      "hint": "Monedas gratis, sin gastar nada.",
       "dailyTitle": "Regalo del día",
       "dailyOnce": "una vez al día",
-      "claim": "Reclamar",
+      "claim": "Recoger",
       "comeBackTomorrow": "Vuelve mañana",
       "adTitle": "Ver un anuncio",
       "adRemaining": "+{{remaining}}/{{max}} restantes hoy",
       "watch": "Ver"
     },
     "packs": {
-      "tag": "🎴 Sobres de nivel",
-      "hint": "Cada nivel desbloquea un sobre (prémium cada 5 niveles).",
-      "premium": "Sobre prémium",
+      "tag": "Sobres de nivel",
+      "hint": "Cada nivel desbloquea un sobre (premium cada 5 niveles).",
+      "premium": "Sobre premium",
       "standard": "Sobre estándar",
       "levelInfo": "Nivel {{level}} · {{size}} espacios",
       "open": "Abrir",
-      "unlockAt": "Se desbloquea al nivel {{level}}",
+      "unlockAt": "Se desbloquea en el nivel {{level}}",
       "noMore": "No hay más sobres próximos.",
       "openedCount": "{{count}} sobre(s) ya abierto(s) ✓",
       "claim": "Recoger",
-      "claimed": "{{label}} (nv. {{level}}): ya recogido",
-      "claimedHint": "Ábrelo en la pestaña Packs"
+      "claimed": "{{label}} (niv. {{level}}): ya recogido",
+      "claimedHint": "Para abrir en la pestaña Sobres"
     },
     "arts": {
-      "tag": "🖼️ Ilustraciones del día",
+      "tag": "Ilustraciones del día",
       "hint": "3 ilustraciones, renovadas cada día. El precio depende de la rareza.",
       "defaultTitle": "Ilustración",
       "byArtist": "por {{name}}",
-      "owned": "En propiedad",
-      "empty": "No hay ilustraciones a la venta por el momento."
+      "owned": "Poseída",
+      "empty": "No hay ninguna ilustración a la venta por el momento."
     },
     "errors": {
-      "claimFailed": "No se pudo recoger este pack.",
-      "loadFailed": "Imposible cargar la tienda.",
-      "alreadyOwnedOrPoor": "Monedas insuficientes o ilustración ya en propiedad.",
-      "buyFailed": "Compra imposible.",
-      "alreadyClaimed": "Ya reclamado hoy.",
+      "loadFailed": "No se puede cargar la tienda.",
+      "alreadyOwnedOrPoor": "Monedas insuficientes o ilustración ya poseída.",
+      "buyFailed": "No se pudo realizar la compra.",
+      "alreadyClaimed": "Ya recogido hoy.",
       "adNotCompleted": "Sin recompensa: mira el anuncio hasta el final.",
-      "adWait": "Espera un poco antes del siguiente anuncio.",
+      "adWait": "Espera un momento antes del próximo anuncio.",
       "adLimitReached": "Límite de anuncios alcanzado por hoy.",
-      "adUnavailable": "Recompensa no disponible por el momento."
+      "adUnavailable": "Recompensa no disponible por el momento.",
+      "claimFailed": "No se puede recoger este sobre."
+    }
+  },
+  "friends": {
+    "title": "Amigos",
+    "list": "Mis amigos",
+    "incoming": "Solicitudes recibidas",
+    "outgoing": "Solicitudes enviadas",
+    "cancel": "Cancelar",
+    "empty": "Aún no tienes amigos. ¡Añade a alguien con su seudónimo!",
+    "loading-error": "No se pueden cargar tus amigos.",
+    "add": {
+      "title": "Añadir un amigo",
+      "placeholder": "Seudónimo",
+      "button": "Añadir",
+      "sent": "¡Solicitud enviada!"
+    },
+    "errors": {
+      "self": "No puedes añadirte a ti mismo.",
+      "not-found": "Ningún jugador con este seudónimo.",
+      "already": "Ya sois amigos o ya hay una solicitud en curso.",
+      "generic": "Se ha producido un error, inténtalo de nuevo."
     }
   },
   "minigames": {
@@ -285,16 +268,16 @@
       "wordWas": "La palabra era",
       "enter": "Validar",
       "delete": "Borrar",
-      "description": "Adivina la palabra oculta en un máximo de {{max}} intentos. La palabra final tiene relación con el catolicismo y puede ser un nombre propio. Cada palabra tiene {{length}} letras. Tras cada intento, los colores indican si una letra está bien colocada (verde), está en otro lugar de la palabra (amarillo) o no está (gris).",
+      "description": "Adivina la palabra oculta en {{max}} intentos como máximo. La palabra final está relacionada con el catolicismo. Puede ser un nombre propio. Cada palabra tiene {{length}} letras. Tras cada intento, los colores indican si una letra está bien colocada (verde), presente en otro lugar de la palabra (amarillo) o ausente (gris).",
       "nextWord": "Próxima palabra en"
     },
     "guessCard": {
       "title": "Adivina la carta",
-      "description": "La carta de un santo aparece muy ampliada: adivina de quién se trata en un máximo de {{guesses}} intentos. Cada error aleja el zoom y cuesta 5 XP. Nivel 1: zoom. Nivel 2: además la carta está en gris. Nivel 3: además está girada.",
-      "level": "Nivel {{n}}",
+      "description": "Una carta de santo aparece muy ampliada: adivina de quién se trata en {{guesses}} intentos como máximo. Cada error aleja el zoom de la carta y cuesta 5 XP. Nivel 1: zoom. Nivel 2: la carta además está en gris. Nivel 3: además está boca abajo.",
+      "level": "Niv. {{n}}",
       "placeholder": "Nombre del santo…",
       "guess": "Validar",
-      "found": "¡Bien hecho! Era {{name}} (+{{xp}} XP)",
+      "found": "¡Bien jugado! Era {{name}} (+{{xp}} XP)",
       "missed": "Fallaste… era {{name}}",
       "next": "Siguiente nivel",
       "done": "¡Terminado!",
@@ -308,11 +291,8 @@
       "pairs": "Parejas",
       "won": "¡Bravo!",
       "wonDetail": "Terminado en {{moves}} movimientos",
-      "movesShort": "mov."
+      "movesShort": "movimientos"
     }
-  },
-  "friends": {
-    "title": "Amiguos"
   },
   "nav": {
     "home": "Inicio",
@@ -334,10 +314,186 @@
       "welcome": "¡La paz sea contigo! Soy san Pedro, guardián de las llaves. Déjame enseñarte el lugar.",
       "collection": "Aquí está tu colección: todas las cartas que has conseguido.",
       "packs": "Abre sobres para descubrir nuevas cartas.",
-      "shop": "Pasa por la tienda para ampliar tu colección.",
+      "shop": "Pasa por la tienda para enriquecer tu colección.",
       "friends": "Añade amigos para compartir la aventura.",
-      "minigames": "Y para relajarte, aquí te esperan minijuegos.",
-      "outro": "¡Eso es todo! Buen camino, y que la suerte te acompañe."
+      "minigames": "Y para relajarte, aquí te esperan los minijuegos.",
+      "outro": "¡Ya lo sabes todo! Buen camino, y que la suerte te acompañe."
+    }
+  },
+  "settings": {
+    "title": "Ajustes",
+    "theme": { "label": "Tema", "system": "Automático", "light": "Claro", "dark": "Oscuro" }
+  },
+  "legal": {
+    "updated": "Última actualización: 20 de noviembre de 2026",
+    "terms": {
+      "title": "Condiciones de uso",
+      "accept": "He leído y acepto las condiciones de uso",
+      "validate": "Confirmar",
+      "sections": [
+        {
+          "title": "1. Objeto",
+          "text": [
+            "Las presentes condiciones regulan el uso de Nuée de Témoins («el Servicio»), editado por LECONTE Augustin. Al crear una cuenta, las aceptas."
+          ]
+        },
+        {
+          "title": "2. Cuenta",
+          "text": [
+            "Eres responsable de tu cuenta y de tu seudónimo. Los seudónimos injuriosos, que suplanten la identidad de un tercero o contrarios a la ley pueden ser modificados o eliminados."
+          ]
+        },
+        {
+          "title": "3. Tus datos",
+          "text": [
+            "Los datos que nos confías (correo electrónico, nombre, foto de perfil, seudónimo, país, idioma, progreso, logros, amigos, santo patrón) se utilizan únicamente para el funcionamiento del Servicio.",
+            "No se venden, ceden ni explotan con otros fines comerciales. El detalle figura en la Política de privacidad."
+          ]
+        },
+        {
+          "title": "4. Publicidad",
+          "text": [
+            "El Servicio es gratuito y se financia con publicidad. Los anuncios los proporciona Adsense. No les transmitimos tus datos de perfil. Según tus opciones de consentimiento, la plataforma publicitaria puede utilizar identificadores para personalizar los anuncios."
+          ]
+        },
+        {
+          "title": "5. Contenidos y propiedad intelectual",
+          "text": [
+            "El Servicio, su código y sus elementos gráficos están protegidos. Algunos datos e iconos proceden de sitios de terceros, citados en la página de Créditos."
+          ]
+        },
+        {
+          "title": "6. Eliminación de la cuenta",
+          "text": [
+            "Puedes eliminar tu cuenta en cualquier momento desde tu página de perfil. Tus datos se borran entonces."
+          ]
+        },
+        {
+          "title": "7. Disponibilidad y responsabilidad",
+          "text": [
+            "El Servicio se ofrece «tal cual», sin garantía de disponibilidad continua. Podemos modificarlo o interrumpirlo."
+          ]
+        },
+        {
+          "title": "8. Modificación de las condiciones",
+          "text": ["Si estas condiciones cambian de forma importante, se te invitará a aceptarlas de nuevo."]
+        },
+        {
+          "title": "9. Derecho aplicable y contacto",
+          "text": ["Estas condiciones se rigen por el derecho francés. Contacto: augustin@familleleconte.fr."]
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Política de privacidad",
+      "sections": [
+        {
+          "title": "Responsable del tratamiento",
+          "text": ["LECONTE Augustin, 26260 BREN, augustin@familleleconte.fr."]
+        },
+        {
+          "title": "Datos recogidos",
+          "items": [
+            "Cuenta: correo electrónico, nombre y foto de perfil (según tu método de inicio de sesión).",
+            "Perfil: seudónimo, país, idioma, santo patrón.",
+            "Actividad de juego: progreso, nivel, logros, relaciones de amistad.",
+            "Datos técnicos: registros de conexión (dirección IP, fecha) necesarios para la seguridad."
+          ]
+        },
+        {
+          "title": "Finalidades y bases jurídicas",
+          "items": [
+            "Prestar el Servicio y gestionar tu cuenta (ejecución del contrato).",
+            "Garantizar la seguridad y prevenir abusos (interés legítimo).",
+            "Mostrar publicidad (tu consentimiento, cuando se requiera)."
+          ]
+        },
+        {
+          "title": "Uso de los datos",
+          "text": [
+            "Tus datos no se venden ni se utilizan para la elaboración de perfiles comerciales. Solo sirven para el funcionamiento del Servicio."
+          ]
+        },
+        {
+          "title": "Destinatarios",
+          "text": [
+            "Tus datos están alojados por Netlify (Francia). El proveedor de autenticación Neon gestiona tu inicio de sesión. La plataforma publicitaria Adsense puede tratar identificadores publicitarios según tus opciones de consentimiento."
+          ]
+        },
+        {
+          "title": "Plazo de conservación",
+          "text": [
+            "Los datos de la cuenta se conservan mientras tu cuenta exista y se eliminan al borrarla. Los registros técnicos se conservan 12 meses como máximo."
+          ]
+        },
+        {
+          "title": "Almacenamiento local",
+          "text": [
+            "La aplicación utiliza el almacenamiento de tu dispositivo para tu sesión y tus preferencias (tema, idioma). Estos elementos son estrictamente necesarios para el funcionamiento del Servicio."
+          ]
+        },
+        {
+          "title": "Tus derechos",
+          "text": [
+            "Tienes derecho de acceso, rectificación, supresión, limitación, portabilidad y oposición. Puedes eliminar tu cuenta desde tu perfil o escribirnos a augustin@familleleconte.fr. También puedes presentar una reclamación ante la CNIL (cnil.fr)."
+          ]
+        },
+        {
+          "title": "Menores",
+          "text": [
+            "El Servicio está dirigido a personas de 15 años o más. Por debajo de esa edad, se requiere el consentimiento de un progenitor."
+          ]
+        }
+      ]
+    },
+    "dataSafety": {
+      "title": "Seguridad de los datos",
+      "sections": [
+        {
+          "title": "Datos recogidos",
+          "items": ["Correo electrónico, nombre, foto de perfil", "Seudónimo, país, idioma", "Progreso, logros, amigos"]
+        },
+        {
+          "title": "Datos no recogidos",
+          "items": ["Ubicación precisa", "Contactos, mensajes, fotos de tu dispositivo", "Datos financieros o de salud"]
+        },
+        {
+          "title": "Compartición",
+          "text": [
+            "Tus datos no se venden ni se comparten con fines comerciales. Solo nuestros proveedores técnicos (alojamiento, autenticación) acceden a ellos para hacer funcionar el Servicio. La plataforma publicitaria puede recibir identificadores publicitarios según tu consentimiento."
+          ]
+        },
+        {
+          "title": "Protección",
+          "items": [
+            "Comunicaciones cifradas (HTTPS)",
+            "Acceso a los datos restringido y autenticado",
+            "Ninguna contraseña almacenada en texto plano"
+          ]
+        },
+        {
+          "title": "Eliminación",
+          "text": ["Puedes eliminar tu cuenta y todos tus datos desde la página de perfil en cualquier momento."]
+        }
+      ]
+    },
+    "credits": {
+      "title": "Créditos",
+      "sections": [
+        {
+          "title": "Iconos e ilustraciones",
+          "text": ["Gracias a los creadores cuyas obras ilustran la aplicación."],
+          "links": [
+            { "label": "SVG Repo – svgrepo.com", "url": "https://www.svgrepo.com" },
+            { "label": "Icons8 – icons8.com", "url": "https://icons8.com" }
+          ]
+        },
+        {
+          "title": "Santos y fiestas del día",
+          "text": ["La información sobre los santos procede de Nominis, sitio de la Conferencia Episcopal de Francia."],
+          "links": [{ "label": "Nominis – nominis.cef.fr", "url": "https://nominis.cef.fr" }]
+        }
+      ]
     }
   }
 }
