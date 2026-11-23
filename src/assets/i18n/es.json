@@ -495,5 +495,9 @@
         }
       ]
     }
+  },
+  "common": {
+    "nextPackResetAt": "Nuevo paquete a las {{time}} (hora local)",
+    "nextResetAt": "Nueva oportunidad a las {{time}} (hora local)"
   }
 }

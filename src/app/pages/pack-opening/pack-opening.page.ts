@@ -20,7 +20,7 @@ import { DrawnItem, PackOffer, PackResult, PlayerCard, PlayerProgress, Wallet } 
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { UserAvatarComponent } from '../../shared/user-avatar/user-avatar.component';
-import { injectCountdown } from '../../shared/countdown';
+import { injectCountdown, injectResetLocalTime } from '../../shared/countdown';
 
 @Component({
   selector: 'app-pack-opening',
@@ -47,7 +47,6 @@ import { injectCountdown } from '../../shared/countdown';
 export class PackOpeningPage {
   private player = inject(PlayerService);
   private router = inject(Router);
-  private route = inject(ActivatedRoute);
   private transloco = inject(TranslocoService);
 
   private static readonly MIN_OPENING_MS = 1400;
@@ -66,6 +65,7 @@ export class PackOpeningPage {
   error = signal('');
 
   countdown = injectCountdown(() => this.refresh());
+  resetTime = injectResetLocalTime();
 
   storedCount = computed(() => this.stored().length);
   allRevealed = computed(() => this.revealed().length > 0 && this.revealed().every(Boolean));

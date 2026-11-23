@@ -6,4 +6,7 @@
 <p class="countdown">
   {{ 'minigames.time' | transloco }} <strong>{{ time(durationMs()) }}</strong> · {{ 'minigames.next' | transloco }}
   <strong>{{ countdown() }}</strong>
+  @if (resetTime()) {
+    <small> ({{ 'common.nextResetAt' | transloco: { time: resetTime() } }})</small>
+  }
 </p>

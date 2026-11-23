@@ -40,8 +40,8 @@
     <ion-button expand="block" color="success" [disabled]="phase() !== 'idle'" (click)="openStored()">
       {{ 'packs.actions.openStored' | transloco }}
     </ion-button>
-    } @if (!levelPack() && wallet()?.dailyPackAvailable === false && phase() === 'idle') {
-    <p class="countdown">{{ 'packs.nextPack' | transloco }} <strong>{{ countdown() }}</strong></p>
+    } @if (resetTime()) {
+    <small>{{ 'common.nextPackResetAt' | transloco: { time: resetTime() } }}</small>
     } @if (wallet(); as w) {
     <!--<p class="coins">{{ 'packs.coins' | transloco }} <strong>{{ w.coins }}</strong> 💰</p>-->
     <div class="pity">

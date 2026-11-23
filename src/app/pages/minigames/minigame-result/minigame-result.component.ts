@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { injectCountdown } from '../../../shared/countdown';
+import { injectCountdown, injectResetLocalTime } from '../../../shared/countdown';
 import { fmtDuration } from '../minigame.model';
 
 @Component({
@@ -17,5 +17,6 @@ export class MinigameResultComponent {
   xp = input.required<number>();
   durationMs = input.required<number>();
   countdown = injectCountdown();
+  resetTime = injectResetLocalTime();
   time = fmtDuration;
 }

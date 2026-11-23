@@ -497,5 +497,9 @@
         }
       ]
     }
+  },
+  "common": {
+    "nextPackResetAt": "New pack at {{time}} (local time)",
+    "nextResetAt": "New opportunity at {{time}} (local time)"
   }
 }
