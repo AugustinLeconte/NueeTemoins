@@ -1,40 +1,39 @@
 .saint-banner {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background: var(--ion-color-primary);
-  color: var(--ion-color-primary-contrast);
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px;
 }
-.saint-icon {
-  font-size: 28px;
-  flex-shrink: 0;
+.saint-art {
+  flex: 0 0 96px;
+  width: 96px;
+  aspect-ratio: 2 / 3; // adapte au ratio de tes cartes
+  object-fit: cover;
+  border-radius: 8px;
 }
 .saint-text {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  gap: 4px;
   min-width: 0;
 }
-.saint-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  opacity: 0.8;
-}
-.saint-name {
-  font-size: 18px;
-}
-.saint-desc {
-  font-size: 13px;
-  opacity: 0.9;
-}
-.saint-link {
-  color: inherit;
-  font-size: 20px;
-}
 
-.saint-desc ::ng-deep sup {
-  font-size: 0.7em;
-  line-height: 0;
+.saint-more {
+  margin-left: 4px;
+  white-space: nowrap;
+  font-size: 0.85em;
+  color: var(--ion-color-primary);
+  text-decoration: none;
+  opacity: 0.85;
+
+  ion-icon {
+    vertical-align: -1px;
+    font-size: 0.9em;
+  }
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+    opacity: 1;
+  }
 }

@@ -1,10 +1,9 @@
-// src/app/saint/saint-banner.component.ts
-import { Component, inject, signal } from '@angular/core';
-import { IonIcon, IonSkeletonText } from '@ionic/angular';
-import { addIcons } from 'ionicons';
-import { sunnyOutline, openOutline } from 'ionicons/icons';
-import { SaintDuJour, SaintService } from '../saint.service';
+import { Component, computed, inject, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { SaintOfTheDay, SaintService } from '../saint.service';
+import { IonIcon, IonSkeletonText } from '@ionic/angular';
+
+const NOMINIS_URL = 'https://nominis.cef.fr/';
 
 @Component({
   selector: 'app-saint-banner',
@@ -15,13 +14,18 @@ import { TranslocoPipe } from '@jsverse/transloco';
 export class SaintBannerComponent {
   private service = inject(SaintService);
 
-  saint = signal<SaintDuJour | null>(null);
+  saint = signal<SaintOfTheDay | null>(null);
+  loading = signal(true);
   error = signal(false);
 
+  readonly showNominis = computed(() => this.saint()?.country === 'FR');
+  readonly nominisUrl = NOMINIS_URL;
+
   constructor() {
-    this.service.getSaintDuJour().subscribe({
-      next: (s) => this.saint.set(s),
-      error: () => this.error.set(true),
-    });
+    this.service
+      .getSaintOfTheDay()
+      .then((s) => this.saint.set(s))
+      .catch(() => this.error.set(true))
+      .finally(() => this.loading.set(false));
   }
 }

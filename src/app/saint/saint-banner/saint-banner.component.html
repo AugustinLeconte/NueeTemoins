@@ -1,27 +1,37 @@
-<section class="saint-banner">
-  <ion-icon name="sunny-outline" class="saint-icon"></ion-icon>
-
-  @if (saint(); as s) {
-    <div class="saint-text">
-      <span class="saint-label">{{ 'saint.title' | transloco }}</span>
-      <strong class="saint-name" [innerHTML]="s.nom"></strong>
-      <span class="saint-desc" [innerHTML]="s.description"></span>
-    </div>
-    <a
-      class="saint-link"
-      [href]="s.lien"
-      target="_blank"
-      rel="noopener"
-      [attr.aria-label]="'saint.learnMore' | transloco"
-    >
-      <ion-icon name="open-outline"></ion-icon>
-    </a>
-  } @else if (error()) {
-    <span class="saint-desc">{{ 'saint.unavailable' | transloco }}</span>
-  } @else {
+@if (loading()) {
+  <section class="saint-banner">
+    <ion-skeleton-text [animated]="true" class="saint-art"></ion-skeleton-text>
     <div class="saint-text">
       <ion-skeleton-text [animated]="true" style="width: 160px"></ion-skeleton-text>
       <ion-skeleton-text [animated]="true" style="width: 220px"></ion-skeleton-text>
     </div>
-  }
-</section>
+  </section>
+} @else if (error()) {
+  <section class="saint-banner">
+    <span class="saint-desc" d>{{ 'saint.unavailable' | transloco }}</span>
+  </section>
+} @else if (saint(); as s) {
+  <section class="saint-banner">
+    @if (s.card.defaultArt; as art) {
+      <img class="saint-art" [src]="art.imageUrl" [alt]="s.card.title" />
+    }
+    <div class="saint-text">
+      <span class="saint-label">{{ 'saint.title' | transloco }}</span>
+      <strong class="saint-name">{{ s.card.title }}</strong>
+      @if (s.card.subtitle) {
+        <span class="saint-subtitle">{{ s.card.subtitle }}</span>
+      }
+      @if (s.card.description) {
+        <p class="saint-desc">
+          {{ s.card.description }}
+          @if (showNominis()) {
+            <a class="saint-more" [href]="nominisUrl" target="_blank" rel="noopener">
+              {{ 'saint.learnMore' | transloco }}
+              <ion-icon name="open-outline"></ion-icon>
+            </a>
+          }
+        </p>
+      }
+    </div>
+  </section>
+}
