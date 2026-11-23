@@ -4,8 +4,8 @@
   @if (saint(); as s) {
     <div class="saint-text">
       <span class="saint-label">{{ 'saint.title' | transloco }}</span>
-      <strong class="saint-name">{{ s.nom }}</strong>
-      <span class="saint-desc">{{ s.description }}</span>
+      <strong class="saint-name" [innerHTML]="s.nom"></strong>
+      <span class="saint-desc" [innerHTML]="s.description"></span>
     </div>
     <a
       class="saint-link"
