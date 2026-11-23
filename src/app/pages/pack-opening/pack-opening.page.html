@@ -1,49 +1,40 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      {{ levelPack() ? ('packs.title.level' | transloco: { level: levelPack() }) : ('packs.title.default' | transloco)
-      }}
-    </ion-title>
-    <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
+    <ion-title>{{ 'packs.title.default' | transloco }}</ion-title>
+    <ion-buttons slot="end"><app-currency-bar></app-currency-bar><app-user-avatar /></ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   @if (phase() !== 'reveal') {
   <section class="start">
-    <p class="intro">{{ (levelPack() ? 'packs.description.level' : 'packs.description.daily') | transloco }}</p>
+    <p class="intro">{{ 'packs.description.daily' | transloco }}</p>
 
-    <div class="pack" [class.opening]="phase() === 'opening'" [class.burst]="phase() === 'burst'">
-      <!--<small>
-        {{ levelPack() ? ('packs.subtitle.level' | transloco: { level: levelPack() }) : ('packs.subtitle.daily' |
-        transloco) }}
-      </small>-->
-    </div>
+    <div class="pack" [class.opening]="phase() === 'opening'" [class.burst]="phase() === 'burst'"></div>
 
     @if (error()) {
     <p class="error">{{ error() }}</p>
     }
 
-    <ion-button
-      expand="block"
-      [disabled]="phase() !== 'idle' || !wallet() || (!levelPack() && !wallet()?.dailyPackAvailable)"
-      (click)="open()"
-    >
+    <ion-button expand="block" [disabled]="phase() !== 'idle' || !wallet()?.dailyPackAvailable" (click)="open('daily')">
       @if (phase() !== 'idle') {
       <ion-spinner name="dots"></ion-spinner>
-      } @else if (levelPack()) { {{ 'packs.actions.openPack' | transloco }} } @else if (wallet()?.dailyPackAvailable) {
-      {{ 'packs.actions.openDaily' | transloco }} } @else { {{ 'packs.actions.dailyOpened' | transloco }} }
+      } @else if (wallet()?.dailyPackAvailable) { {{ 'packs.actions.openDaily' | transloco }} } @else { {{
+      'packs.actions.dailyOpened' | transloco }} }
     </ion-button>
 
-    @if (storedCount() > 0) {
-    <p class="stored">🎁 {{ 'packs.stored' | transloco: { count: storedCount() } }}</p>
-    <ion-button expand="block" color="success" [disabled]="phase() !== 'idle'" (click)="openStored()">
-      {{ 'packs.actions.openStored' | transloco }}
+    <ion-button
+      expand="block"
+      color="success"
+      [disabled]="phase() !== 'idle' || (wallet()?.packs ?? 0) < 1"
+      (click)="open('stock')"
+    >
+      🃏 ×1 · {{ 'packs.actions.openStock' | transloco }} ({{ wallet()?.packs ?? 0 }})
     </ion-button>
-    } @if (resetTime()) {
+
+    @if (resetTime()) {
     <small>{{ 'common.nextPackResetAt' | transloco: { time: resetTime() } }}</small>
     } @if (wallet(); as w) {
-    <!--<p class="coins">{{ 'packs.coins' | transloco }} <strong>{{ w.coins }}</strong> 💰</p>-->
     <div class="pity">
       <small>{{ 'packs.pity' | transloco: { pity: PITY, current: w.packsSinceRare } }}</small>
       <ion-progress-bar [value]="pityProgress()"></ion-progress-bar>
@@ -59,7 +50,7 @@
       <div class="slot" [style.--i]="i">
         @if (revealed()[i]) { @if (d.type === 'COINS') {
         <div class="coin-face flip-in">
-          <span class="coin">🪙</span>
+          <span class="coin">💰</span>
           <strong>+{{ d.coinsGained }}</strong>
           <small>{{ 'packs.reveal.coinsUnit' | transloco }}</small>
         </div>
@@ -128,13 +119,15 @@
         {{ 'packs.summary.levelReached' | transloco: { level: r.progress.level } }}
         <small>{{ 'packs.summary.newPackInShop' | transloco }}</small>
       </div>
-      } @if (levelPack()) {
+      }
+
       <ion-button expand="block" (click)="finish()"> {{ 'packs.actions.continue' | transloco }} </ion-button>
-      } @else { @if (r.progress.unclaimedPacks > 0) {
-      <ion-button expand="block" color="success" routerLink="/shop">
+
+      @if (r.progress.unclaimedPacks > 0) {
+      <ion-button expand="block" fill="outline" color="success" routerLink="/shop">
         {{ 'packs.actions.unclaimedPacks' | transloco: { count: r.progress.unclaimedPacks } }}
       </ion-button>
-      } }
+      }
     </div>
     }
   </section>

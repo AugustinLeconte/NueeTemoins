@@ -9,27 +9,32 @@
 <ion-content>
   <ion-list>
     @for (a of arts(); track a.publicId) {
-      <ion-item>
-        <ion-thumbnail slot="start"><img [src]="a.imageUrl" alt="" /></ion-thumbnail>
-        <ion-label>
-          <h2>{{ a.title || 'Sans titre' }}
-            @if (a.source === 'DEFAULT') { <ion-badge color="success">Défaut</ion-badge> }
-          </h2>
-          <p>{{ a.rarity }} · {{ a.source }}@if (a.artist) { · {{ a.artist.name }} }@if (a.coinPrice) { · {{ a.coinPrice }} 🪙 }</p>
-        </ion-label>
-        <ion-button fill="clear" [routerLink]="['/admin/arts', a.publicId]">
-          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-        </ion-button>
-        <ion-button fill="clear" color="danger" (click)="remove(a)">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start"><img [src]="a.imageUrl" alt="" /></ion-thumbnail>
+      <ion-label>
+        <h2>
+          {{ a.title || 'Sans titre' }} @if (a.source === 'DEFAULT') { <ion-badge color="success">Défaut</ion-badge> }
+        </h2>
+        <p>
+          {{ a.rarity }} · {{ a.source }}@if (a.artist) { · {{ a.artist.name }} }@if (a.coinPrice) { · {{ a.coinPrice }}
+          💰 }
+        </p>
+      </ion-label>
+      <ion-button fill="clear" [routerLink]="['/admin/arts', a.publicId]">
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" color="danger" (click)="remove(a)">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
     } @empty {
-      <p class="ion-padding">Aucune illustration. Commence par l'illustration par défaut.</p>
+    <p class="ion-padding">Aucune illustration. Commence par l'illustration par défaut.</p>
     }
   </ion-list>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button [routerLink]="['/admin/cards', cardPublicId, 'arts', 'new']"><ion-icon name="add"></ion-icon></ion-fab-button>
+    <ion-fab-button [routerLink]="['/admin/cards', cardPublicId, 'arts', 'new']"
+      ><ion-icon name="add"></ion-icon
+    ></ion-fab-button>
   </ion-fab>
 </ion-content>

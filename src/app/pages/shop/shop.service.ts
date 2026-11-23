@@ -12,16 +12,33 @@ export class ShopService {
   private toasts = inject(AchievementToastService);
   private base = `${environment.api}me/shop`;
 
-  public items() { return this.http.get<ShopItem[]>(this.base); }
-
-  public buy(artPublicId: string) {
-    return this.http.post<Wallet>(`${this.base}/arts/${artPublicId}/buy`, {})
-      .pipe(tap(r => this.toasts.show(r.newAchievements)));
+  public items() {
+    return this.http.get<ShopItem[]>(this.base);
   }
 
-  public freeOffers() { return this.http.get<FreeOffers>(`${this.base}/free`); }
+  public buy(artPublicId: string) {
+    return this.http
+      .post<Wallet>(`${this.base}/arts/${artPublicId}/buy`, {})
+      .pipe(tap((r) => this.toasts.show(r.newAchievements)));
+  }
 
-  public claimDaily() { return this.http.post<Wallet>(`${this.base}/free/daily`, {}); }
+  public freeOffers() {
+    return this.http.get<FreeOffers>(`${this.base}/free`);
+  }
 
-  public claimAd() { return this.http.post<Wallet>(`${this.base}/free/ad`, {}); }
+  public claimDaily() {
+    return this.http.post<Wallet>(`${this.base}/free/daily`, {});
+  }
+
+  public claimAd() {
+    return this.http.post<Wallet>(`${this.base}/free/ad`, {});
+  }
+
+  public packPrice() {
+    return this.http.get<{ price: number }>(`${this.base}/packs/price`);
+  }
+
+  public buyPack() {
+    return this.http.post<Wallet>(`${this.base}/packs/buy`, {});
+  }
 }

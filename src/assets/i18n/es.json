@@ -121,7 +121,8 @@
       "revealCard": "Revelar la carta",
       "revealAll": "Revelar todo",
       "backToShop": "Volver a la tienda",
-      "unclaimedPacks": "{{ count }} sobre(s) por recoger en la tienda"
+      "unclaimedPacks": "{{ count }} sobre(s) por recoger en la tienda",
+      "openStock": "Abrir un paquete"
     },
     "reveal": {
       "hint": "Toca las cartas para revelarlas",
@@ -134,7 +135,7 @@
       "upgradeAvailable": "⬆ Subida de nivel disponible"
     },
     "summary": {
-      "coinsGained": "+{{ count }} 🪙 monedas ganadas",
+      "coinsGained": "+{{ count }} 💰 monedas ganadas",
       "xpGained": "+{{ count }} XP",
       "levelReached": "¡Nivel {{ level }} alcanzado!",
       "newPackInShop": "Hay un nuevo sobre esperándote en la tienda."
@@ -144,7 +145,8 @@
       "levelAlreadyOpened": "Este sobre de nivel ya se ha abierto.",
       "dailyAlreadyOpened": "Ya has abierto tu sobre del día. ¡Vuelve mañana!",
       "noArtwork": "No hay ninguna ilustración disponible por el momento.",
-      "openFailed": "No se puede abrir el sobre."
+      "openFailed": "No se puede abrir el sobre.",
+      "noStock": "No hay paquetes en stock."
     }
   },
   "profile": {
@@ -202,7 +204,9 @@
       "openedCount": "{{count}} sobre(s) ya abierto(s) ✓",
       "claim": "Recoger",
       "claimed": "{{label}} (niv. {{level}}): ya recogido",
-      "claimedHint": "Para abrir en la pestaña Sobres"
+      "claimedHint": "Para abrir en la pestaña Sobres",
+      "buyTitle": "Comprar un paquete",
+      "buyHint": "Un paquete estándar, añadido a tu stock."
     },
     "arts": {
       "tag": "Ilustraciones del día",
@@ -221,7 +225,8 @@
       "adWait": "Espera un momento antes del próximo anuncio.",
       "adLimitReached": "Límite de anuncios alcanzado por hoy.",
       "adUnavailable": "Recompensa no disponible por el momento.",
-      "claimFailed": "No se puede recoger este sobre."
+      "claimFailed": "No se puede recoger este sobre.",
+      "notEnoughCoins": "No tienes suficientes monedas."
     }
   },
   "friends": {

@@ -1,123 +1,130 @@
 <ion-header>
-  <ion-toolbar><ion-title>{{ 'shop.title' | transloco }}</ion-title>
-  <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
+  <ion-toolbar
+    ><ion-title>{{ 'shop.title' | transloco }}</ion-title>
+    <ion-buttons slot="end"><app-currency-bar></app-currency-bar><app-user-avatar /></ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   @if (loading()) {
-    <div class="center"><ion-spinner></ion-spinner></div>
-  } @else {
-    <div class="top">
-      <ion-chip><ion-label>{{ wallet()?.coins ?? 0 }} 💰</ion-label></ion-chip>
+  <div class="center"><ion-spinner></ion-spinner></div>
+  } @if (error()) {
+  <p class="error">{{ error() }}</p>
+  }
+
+  <section class="category cat-free">
+    <header class="cat-header">
+      <span class="cat-tag">{{ 'shop.free.tag' | transloco }}</span>
+      <p class="hint">{{ 'shop.free.hint' | transloco }}</p>
+    </header>
+
+    @if (free(); as f) {
+    <div class="offer">
+      <div class="info">
+        <strong>{{ 'shop.free.dailyTitle' | transloco }}</strong>
+        <small>+{{ f.dailyCoins }} 💰 · {{ 'shop.free.dailyOnce' | transloco }}</small>
+      </div>
+      <ion-button size="small" [disabled]="!f.dailyAvailable || claiming()" (click)="claimDaily()">
+        {{ f.dailyAvailable ? ('shop.free.claim' | transloco) : ('shop.free.comeBackTomorrow' | transloco) }}
+      </ion-button>
     </div>
 
-    @if (error()) { <p class="error">{{ error() }}</p> }
-
-    <section class="category cat-free">
-      <header class="cat-header">
-        <span class="cat-tag">{{ 'shop.free.tag' | transloco }}</span>
-        <p class="hint">{{ 'shop.free.hint' | transloco }}</p>
-      </header>
-
-      @if (free(); as f) {
-        <div class="offer">
-          <div class="info">
-            <strong>{{ 'shop.free.dailyTitle' | transloco }}</strong>
-            <small>+{{ f.dailyCoins }} 💰 · {{ 'shop.free.dailyOnce' | transloco }}</small>
-          </div>
-          <ion-button size="small" [disabled]="!f.dailyAvailable || claiming()" (click)="claimDaily()">
-            {{ f.dailyAvailable ? ('shop.free.claim' | transloco) : ('shop.free.comeBackTomorrow' | transloco) }}
-          </ion-button>
-        </div>
-
-        @if (ads.available()) {
-          <div class="offer">
-            <div class="icon">📺</div>
-            <div class="info">
-              <strong>{{ 'shop.free.adTitle' | transloco }}</strong>
-              <small>+{{ f.adCoins }} 💰 · {{ 'shop.free.adRemaining' | transloco: { remaining: f.adRemaining, max: f.adMax } }}</small>
-            </div>
-            <ion-button size="small" color="secondary"
-                        [disabled]="f.adRemaining === 0 || adLoading()" (click)="watchAd()">
-              @if (adLoading()) { <ion-spinner name="dots"></ion-spinner> } @else { {{ 'shop.free.watch' | transloco }} }
-            </ion-button>
-          </div>
-        }
-      }
-    </section>
-
-    <section class="category cat-packs">
-      <header class="cat-header">
-        <span class="cat-tag">{{ 'shop.packs.tag' | transloco }}</span>
-        <p class="hint">{{ 'shop.packs.hint' | transloco }}</p>
-      </header>
-
-      @for (o of available(); track o.level) {
-        <div class="offer available">
-          <div class="icon">{{ o.packType === 'PREMIUM' ? '💎' : '🎴' }}</div>
-          <div class="info">
-            <strong>{{ packLabel(o) }}</strong>
-            <small>{{ 'shop.packs.levelInfo' | transloco: { level: o.level, size: o.size } }}</small>
-          </div>
-          <ion-button size="small" [disabled]="claimingLevel() !== null" (click)="claimPack(o)">
-            @if (claimingLevel() === o.level) { <ion-spinner name="dots"></ion-spinner> }
-            @else { {{ 'shop.packs.claim' | transloco }} }
-          </ion-button>
-        </div>
-      }
-      @for (o of claimed(); track o.level) {
-        <div class="offer claimed">
-          <div class="icon">✅</div>
-          <div class="info">
-            <strong>{{ 'shop.packs.claimed' | transloco: { label: packLabel(o), level: o.level } }}</strong>
-            <small>{{ 'shop.packs.claimedHint' | transloco }}</small>
-          </div>
-        </div>
-      }
-      @for (o of locked(); track o.level) {
-        <div class="offer locked">
-          <div class="icon">🔒</div>
-          <div class="info">
-            <strong>{{ packLabel(o) }}</strong>
-            <small>{{ 'shop.packs.unlockAt' | transloco: { level: o.level } }}</small>
-          </div>
-        </div>
-      }
-      @if (!available().length && !locked().length) { <p class="hint">{{ 'shop.packs.noMore' | transloco }}</p> }
-      @if (openedCount() > 0) { <p class="hint">{{ 'shop.packs.openedCount' | transloco: { count: openedCount() } }}</p> }
-    </section>
-
-    <!-- ===== ILLUSTRATIONS ===== -->
-    <section class="category cat-arts">
-      <header class="cat-header">
-        <span class="cat-tag">{{ 'shop.arts.tag' | transloco }}</span>
-        <p class="hint">{{ 'shop.arts.hint' | transloco }}</p>
-      </header>
-
-      <div class="grid">
-        @for (it of items(); track it.art.publicId) {
-          <div class="item" [attr.data-rarity]="it.art.rarity">
-            <span class="rarity-tag">{{ it.art.rarity }}</span>
-            <app-card-view [rarity]="it.art.rarity" [title]="it.art.cardTitle ?? ''" [imageUrl]="it.art.imageUrl" />
-            <div class="meta">
-              <strong>{{ it.art.title || ('shop.arts.defaultTitle' | transloco) }}</strong>
-              @if (it.art.artist) { <small>{{ 'shop.arts.byArtist' | transloco: { name: it.art.artist.name } }}</small> }
-              @if (it.owned) {
-                <ion-badge color="success">{{ 'shop.arts.owned' | transloco }}</ion-badge>
-              } @else {
-                <ion-button size="small" [disabled]="!canBuy(it)" (click)="buy(it)">
-                  @if (buying() === it.art.publicId) { <ion-spinner name="dots"></ion-spinner> } @else { {{ it.price }} 🪙 }
-                </ion-button>
-              }
-            </div>
-          </div>
-        } @empty {
-          <p class="hint">{{ 'shop.arts.empty' | transloco }}</p>
-        }
+    @if (ads.available()) {
+    <div class="offer">
+      <div class="icon">📺</div>
+      <div class="info">
+        <strong>{{ 'shop.free.adTitle' | transloco }}</strong>
+        <small
+          >+{{ f.adCoins }} 💰 · {{ 'shop.free.adRemaining' | transloco: { remaining: f.adRemaining, max: f.adMax }
+          }}</small
+        >
       </div>
-    </section>
-  }
+      <ion-button size="small" color="secondary" [disabled]="f.adRemaining === 0 || adLoading()" (click)="watchAd()">
+        @if (adLoading()) { <ion-spinner name="dots"></ion-spinner> } @else { {{ 'shop.free.watch' | transloco }} }
+      </ion-button>
+    </div>
+    } }
+  </section>
+
+  <section class="category cat-packs">
+    <header class="cat-header">
+      <span class="cat-tag">{{ 'shop.packs.tag' | transloco }}</span>
+      <p class="hint">{{ 'shop.packs.hint' | transloco }}</p>
+    </header>
+
+    <div class="offer available">
+      <div class="icon">🃏</div>
+      <div class="info">
+        <strong>{{ 'shop.packs.buyTitle' | transloco }}</strong>
+        <small>{{ 'shop.packs.buyHint' | transloco }}</small>
+      </div>
+      <ion-button size="small" [disabled]="!canBuyPack()" (click)="buyPack()">
+        @if (buyingPack()) { <ion-spinner name="dots"></ion-spinner> } @else { {{ packPrice() }} 💰 }
+      </ion-button>
+    </div>
+
+    @for (o of available(); track o.level) {
+    <div class="offer available">
+      <div class="icon">{{ o.packType === 'PREMIUM' ? '💎' : '🃏' }}</div>
+      <div class="info">
+        <strong>{{ packLabel(o) }}</strong>
+        <small>{{ 'shop.packs.levelInfo' | transloco: { level: o.level, size: o.size } }}</small>
+      </div>
+      <ion-button size="small" [disabled]="claimingLevel() !== null" (click)="claimPack(o)">
+        @if (claimingLevel() === o.level) { <ion-spinner name="dots"></ion-spinner> } @else { {{ 'shop.packs.claim' |
+        transloco }} }
+      </ion-button>
+    </div>
+    } @for (o of claimed(); track o.level) {
+    <div class="offer claimed">
+      <div class="icon">✅</div>
+      <div class="info">
+        <strong>{{ 'shop.packs.claimed' | transloco: { label: packLabel(o), level: o.level } }}</strong>
+        <small>{{ 'shop.packs.claimedHint' | transloco }}</small>
+      </div>
+    </div>
+    } @for (o of locked(); track o.level) {
+    <div class="offer locked">
+      <div class="icon">🔒</div>
+      <div class="info">
+        <strong>{{ packLabel(o) }}</strong>
+        <small>{{ 'shop.packs.unlockAt' | transloco: { level: o.level } }}</small>
+      </div>
+    </div>
+    } @if (!available().length && !locked().length) {
+    <p class="hint">{{ 'shop.packs.noMore' | transloco }}</p>
+    }
+  </section>
+
+  <!-- ===== ILLUSTRATIONS ===== -->
+  <section class="category cat-arts">
+    <header class="cat-header">
+      <span class="cat-tag">{{ 'shop.arts.tag' | transloco }}</span>
+      <p class="hint">{{ 'shop.arts.hint' | transloco }}</p>
+    </header>
+
+    <div class="grid">
+      @for (it of items(); track it.art.publicId) {
+      <div class="item" [attr.data-rarity]="it.art.rarity">
+        <span class="rarity-tag">{{ it.art.rarity }}</span>
+        <app-card-view [rarity]="it.art.rarity" [title]="it.art.cardTitle ?? ''" [imageUrl]="it.art.imageUrl" />
+        <div class="meta">
+          <strong>{{ it.art.title || ('shop.arts.defaultTitle' | transloco) }}</strong>
+          @if (it.art.artist) { <small>{{ 'shop.arts.byArtist' | transloco: { name: it.art.artist.name } }}</small> }
+          @if (it.owned) {
+          <ion-badge color="success">{{ 'shop.arts.owned' | transloco }}</ion-badge>
+          } @else {
+          <ion-button size="small" [disabled]="!canBuy(it)" (click)="buy(it)">
+            @if (buying() === it.art.publicId) { <ion-spinner name="dots"></ion-spinner> } @else { {{ it.price }} 💰 }
+          </ion-button>
+          }
+        </div>
+      </div>
+      } @empty {
+      <p class="hint">{{ 'shop.arts.empty' | transloco }}</p>
+      }
+    </div>
+  </section>
 </ion-content>
 
 <app-navbar></app-navbar>

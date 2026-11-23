@@ -1,0 +1,35 @@
+<ion-header
+  ><ion-toolbar
+    ><ion-title>Joueurs</ion-title> <ion-buttons slot="end"><app-user-avatar /></ion-buttons></ion-toolbar
+></ion-header>
+<ion-content>
+  <ion-searchbar debounce="300" placeholder="Pseudo…" (ionInput)="search($any($event).detail.value ?? '')" />
+
+  <ion-accordion-group>
+    @for (p of players(); track p.userId) {
+    <ion-accordion [value]="p.userId">
+      <ion-item slot="header">
+        <ion-label>
+          <h2>{{ p.pseudo }} <small>({{ p.country }})</small></h2>
+          <p>Niv. {{ p.progress.level }} · {{ p.xp }} XP · 💰 {{ p.coins }} · 🃏 {{ p.packs }}</p>
+        </ion-label>
+      </ion-item>
+
+      <div slot="content" class="ion-padding">
+        <app-level-bar [progress]="p.progress" />
+
+        <div class="gift">
+          <ion-input #packs type="number" min="0" label="Packs 🃏" labelPlacement="floating" fill="outline" />
+          <ion-input #coins type="number" min="0" label="Pièces 💰" labelPlacement="floating" fill="outline" />
+          <ion-input #xp type="number" min="0" label="XP" labelPlacement="floating" fill="outline" />
+        </div>
+        <ion-button expand="block" (click)="gift(p, packs, coins, xp)">Offrir</ion-button>
+        <ion-button expand="block" fill="outline" (click)="resetDaily(p)" [disabled]="p.dailyAvailable"
+          >Réinitialiser le pack du jour</ion-button
+        >
+        <ion-button expand="block" color="danger" fill="outline" (click)="remove(p)">Supprimer le compte</ion-button>
+      </div>
+    </ion-accordion>
+    }
+  </ion-accordion-group>
+</ion-content>

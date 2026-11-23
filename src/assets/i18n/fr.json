@@ -144,15 +144,12 @@
   "saints": "saints",
   "packs": {
     "open": "Ouvrir un pack",
-    "stored": "Packs à ouvrir : {{count}}",
     "description": {
-      "daily": "Ouvrez chaque jour un pack gratuit pour découvrir de nouvelles illustrations de saints et gagner des pièces. Les doublons vous donnent des fragments pour améliorer vos cartes.",
-      "level": "Ce pack a été débloqué en gagnant un niveau. Ouvrez-le pour découvrir de nouvelles cartes et gagner des pièces."
+      "daily": "Ouvrez chaque jour un pack gratuit pour découvrir de nouvelles illustrations de saints et gagner des pièces. Les doublons vous donnent des fragments pour améliorer vos cartes."
     },
     "nextPack": "Prochain pack dans",
     "title": {
-      "default": "Packs",
-      "level": "Pack de niveau {{ level }}"
+      "default": "Packs"
     },
     "subtitle": {
       "daily": "Pack du jour",
@@ -161,9 +158,9 @@
     "coins": "Pièces :",
     "pity": "Garantie : une illustration rare ou mieux après {{ pity }} packs sans ({{ current }}/{{ pity }})",
     "actions": {
-      "openStored": "Ouvrir un pack en stock",
       "continue": "Continuer",
       "openPack": "Ouvrir le pack",
+      "openStock": "Ouvrir un pack",
       "openDaily": "Ouvrir mon pack quotidien",
       "dailyOpened": "Pack du jour déjà ouvert",
       "revealCard": "Révéler la carte",
@@ -182,12 +179,13 @@
       "upgradeAvailable": "⬆ Montée de niveau disponible"
     },
     "summary": {
-      "coinsGained": "+{{ count }} 🪙 pièces gagnées",
+      "coinsGained": "+{{ count }} 💰 pièces gagnées",
       "xpGained": "+{{ count }} XP",
       "levelReached": "Niveau {{ level }} atteint !",
       "newPackInShop": "Un nouveau pack est à récupérer dans la boutique."
     },
     "errors": {
+      "noStock": "Aucun pack en stock",
       "notUnlocked": "Ce pack n'est pas encore débloqué.",
       "levelAlreadyOpened": "Ce pack de niveau a déjà été ouvert.",
       "dailyAlreadyOpened": "Vous avez déjà ouvert votre pack du jour. Revenez demain !",
@@ -247,10 +245,11 @@
       "open": "Ouvrir",
       "unlockAt": "Se débloque au niveau {{level}}",
       "noMore": "Aucun pack à venir.",
-      "openedCount": "{{count}} pack(s) déjà ouvert(s) ✓",
       "claim": "Récupérer",
       "claimed": "{{label}} (niv. {{level}}) : déjà récupéré",
-      "claimedHint": "À ouvrir dans l'onglet Packs"
+      "claimedHint": "À ouvrir dans l'onglet Packs",
+      "buyTitle": "Acheter un pack",
+      "buyHint": "Un pack standard, ajouté à ton stock."
     },
     "arts": {
       "tag": "Illustrations du jour",
@@ -269,7 +268,8 @@
       "adWait": "Patientez un peu avant la prochaine pub.",
       "adLimitReached": "Limite de pubs atteinte pour aujourd’hui.",
       "adUnavailable": "Récompense indisponible pour le moment.",
-      "claimFailed": "Impossible de récupérer ce pack."
+      "claimFailed": "Impossible de récupérer ce pack.",
+      "notEnoughCoins": "Tu n'as pas assez de pièces."
     }
   },
   "friends": {

@@ -24,6 +24,7 @@ import { FreeOffers, ShopItem } from './shop.model';
 import { AdProvider } from '../../ads/ad-provider';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { UserAvatarComponent } from '../../shared/user-avatar/user-avatar.component';
+import { CurrencyBarComponent } from '../../shared/currency-bar/currency-bar.component';
 
 @Component({
   selector: 'app-shop',
@@ -43,6 +44,7 @@ import { UserAvatarComponent } from '../../shared/user-avatar/user-avatar.compon
     NavbarComponent,
     TranslocoPipe,
     UserAvatarComponent,
+    CurrencyBarComponent,
   ],
   templateUrl: './shop.page.html',
   styleUrls: ['./shop.page.scss'],
@@ -61,6 +63,8 @@ export class ShopPage {
   public items = signal<ShopItem[]>([]);
   public free = signal<FreeOffers | null>(null);
   public claimingLevel = signal<number | null>(null);
+  public packPrice = signal(0);
+  public buyingPack = signal(false);
 
   public buying = signal<string | null>(null);
   public claiming = signal(false);
@@ -71,7 +75,6 @@ export class ShopPage {
   public claimed = computed(() => this.offers().filter((o) => o.status === 'CLAIMED'));
   public available = computed(() => this.offers().filter((o) => o.status === 'AVAILABLE'));
   public locked = computed(() => this.offers().filter((o) => o.status === 'LOCKED'));
-  public openedCount = computed(() => this.offers().filter((o) => o.status === 'OPENED').length);
 
   ionViewWillEnter() {
     this.load();
@@ -83,6 +86,7 @@ export class ShopPage {
       offers: this.player.packOffers(),
       items: this.shop.items(),
       free: this.shop.freeOffers(),
+      price: this.shop.packPrice(),
     }).subscribe({
       next: (r) => {
         this.wallet.set(r.wallet);
@@ -90,6 +94,7 @@ export class ShopPage {
         this.items.set(r.items);
         this.free.set(r.free);
         this.error.set('');
+        this.packPrice.set(r.price.price);
         this.loading.set(false);
       },
       error: (e: HttpErrorResponse) => {
@@ -115,12 +120,35 @@ export class ShopPage {
     this.player.claimLevelPack(o.level).subscribe({
       next: (offers) => {
         this.offers.set(offers);
+        this.wallet.update((w) => (w ? { ...w, packs: w.packs + 1 } : w));
         this.claimingLevel.set(null);
       },
       error: () => {
         this.claimingLevel.set(null);
         this.error.set(this.transloco.translate('shop.errors.claimFailed'));
         this.load();
+      },
+    });
+  }
+
+  canBuyPack() {
+    return !this.buyingPack() && (this.wallet()?.coins ?? 0) >= this.packPrice();
+  }
+
+  buyPack() {
+    if (!this.canBuyPack()) return;
+    this.buyingPack.set(true);
+    this.shop.buyPack().subscribe({
+      next: (w) => {
+        this.wallet.set(w);
+        this.player.walletState.set(w); // met à jour l'en-tête
+        this.buyingPack.set(false);
+      },
+      error: (e: HttpErrorResponse) => {
+        this.buyingPack.set(false);
+        this.error.set(
+          this.transloco.translate(e.status === 409 ? 'shop.errors.notEnoughCoins' : 'shop.errors.buyFailed'),
+        );
       },
     });
   }

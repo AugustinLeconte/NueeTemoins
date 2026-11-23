@@ -9,7 +9,14 @@ import {
 } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { ellipsisHorizontal, homeOutline, sunnyOutline, openOutline, helpCircleOutline } from 'ionicons/icons';
+import {
+  ellipsisHorizontal,
+  homeOutline,
+  sunnyOutline,
+  openOutline,
+  helpCircleOutline,
+  peopleOutline,
+} from 'ionicons/icons';
 
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
@@ -30,6 +37,7 @@ addIcons({
   sunnyOutline,
   openOutline,
   helpCircleOutline,
+  peopleOutline,
   // Icônes custom
   'custom-collection': 'assets/icons/collection-solid-svgrepo-com.svg',
   'custom-packs': 'assets/icons/poker-cards-svgrepo-com.svg',

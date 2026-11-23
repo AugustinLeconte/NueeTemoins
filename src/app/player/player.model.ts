@@ -5,6 +5,7 @@ export interface Wallet {
   packsSinceRare: number;
   dailyPackAvailable: boolean;
   newAchievements?: string[];
+  packs: number;
 }
 
 export interface PlayerCard {

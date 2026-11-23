@@ -121,6 +121,7 @@
       "revealCard": "Reveal the card",
       "revealAll": "Reveal all",
       "backToShop": "Back to the shop",
+      "openStock": "Open a pack",
       "unclaimedPacks": "{{ count }} pack(s) to claim in the shop"
     },
     "reveal": {
@@ -134,7 +135,7 @@
       "upgradeAvailable": "⬆ Level up available"
     },
     "summary": {
-      "coinsGained": "+{{ count }} 🪙 coins earned",
+      "coinsGained": "+{{ count }} 💰 coins earned",
       "xpGained": "+{{ count }} XP",
       "levelReached": "Level {{ level }} reached!",
       "newPackInShop": "A new pack is waiting for you in the shop."
@@ -144,7 +145,8 @@
       "levelAlreadyOpened": "This level pack has already been opened.",
       "dailyAlreadyOpened": "You have already opened your daily pack. Come back tomorrow!",
       "noArtwork": "No artwork is available at the moment.",
-      "openFailed": "Unable to open the pack."
+      "openFailed": "Unable to open the pack.",
+      "noStock": "No packs in stock."
     }
   },
   "profile": {
@@ -202,7 +204,9 @@
       "openedCount": "{{count}} pack(s) already opened ✓",
       "claim": "Claim",
       "claimed": "{{label}} (lv. {{level}}): already claimed",
-      "claimedHint": "To open in the Packs tab"
+      "claimedHint": "To open in the Packs tab",
+      "buyTitle": "Buy a pack",
+      "buyHint": "A standard pack, added to your stock."
     },
     "arts": {
       "tag": "Today's artworks",
@@ -221,7 +225,8 @@
       "adWait": "Please wait a moment before the next ad.",
       "adLimitReached": "Ad limit reached for today.",
       "adUnavailable": "Reward unavailable at the moment.",
-      "claimFailed": "Unable to claim this pack."
+      "claimFailed": "Unable to claim this pack.",
+      "notEnoughCoins": "You don't have enough coins."
     }
   },
   "friends": {
