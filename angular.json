@@ -23,7 +23,7 @@
               "browser": ""
             },
             "index": "src/index.html",
-            "polyfills": [],
+            "polyfills": ["src/app/shared/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
