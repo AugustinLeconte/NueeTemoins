@@ -11,8 +11,6 @@ import {
   IonButton,
   IonBadge,
   IonSpinner,
-  IonChip,
-  IonLabel,
   IonButtons,
 } from '@ionic/angular';
 import { CardViewComponent } from '../../cards/card-view/card-view.component';
@@ -37,8 +35,6 @@ import { CurrencyBarComponent } from '../../shared/currency-bar/currency-bar.com
     IonButton,
     IonBadge,
     IonSpinner,
-    IonChip,
-    IonLabel,
     IonButtons,
     CardViewComponent,
     NavbarComponent,

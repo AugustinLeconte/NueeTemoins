@@ -78,6 +78,13 @@
         <ion-icon name="custom-shop"></ion-icon>
         <ion-label>{{ 'shop.title' | transloco }}</ion-label>
       </a>
+
+      @if (profiles.hasRole('ADMIN') || profiles.hasRole('TRANSLATOR')) {
+        <a routerLink="/admin" data-tour="admin" routerLinkActive="active" class="nav-item" (click)="closeMore()">
+          <ion-icon name="custom-admin"></ion-icon>
+          <ion-label>Admin</ion-label>
+        </a>
+      }
     </div>
   </div>
 

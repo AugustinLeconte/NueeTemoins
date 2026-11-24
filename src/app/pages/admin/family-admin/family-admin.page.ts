@@ -2,8 +2,23 @@ import { Component, inject, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { addIcons } from 'ionicons';
 import { add, createOutline, trashOutline } from 'ionicons/icons';
-import { IonButtons, IonMenuButton, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonTitle,
-         IonToolbar, IonList, IonItem, IonLabel, IonButton, ModalController, AlertController } from '@ionic/angular';
+import {
+  IonButtons,
+  IonMenuButton,
+  IonContent,
+  IonFab,
+  IonFabButton,
+  IonHeader,
+  IonIcon,
+  IonTitle,
+  IonToolbar,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonButton,
+  ModalController,
+  AlertController,
+} from '@ionic/angular';
 import { UserAvatarComponent } from '../../../shared/user-avatar/user-avatar.component';
 import { FamilyService } from '../../../families/family.service';
 import { FamilyAdmin } from '../../../families/family.model';
@@ -14,8 +29,21 @@ import { FamilyFormModal } from './family-form.modal';
   standalone: true,
   templateUrl: './family-admin.page.html',
   styleUrls: ['./family-admin.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonContent, IonList, IonItem,
-            IonLabel, IonButton, IonIcon, IonFab, IonFabButton, UserAvatarComponent],
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonButtons,
+    IonMenuButton,
+    IonContent,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonButton,
+    IonIcon,
+    IonFab,
+    IonFabButton,
+  ],
 })
 export class FamilyAdminPage {
   private svc = inject(FamilyService);
@@ -29,14 +57,16 @@ export class FamilyAdminPage {
     this.load();
   }
 
-  load() { this.svc.getAllAdmin().subscribe(f => this.families.set(f)); }
+  load() {
+    this.svc.getAllAdmin().subscribe((f) => this.families.set(f));
+  }
 
   displayName(f: FamilyAdmin) {
-    return f.translations.find(t => t.locale === 'fr')?.name ?? f.publicId;
+    return f.translations.find((t) => t.locale === 'fr')?.name ?? f.publicId;
   }
 
   locales(f: FamilyAdmin) {
-    return f.translations.map(t => t.locale.toUpperCase()).join(', ');
+    return f.translations.map((t) => t.locale.toUpperCase()).join(', ');
   }
 
   async open(family?: FamilyAdmin) {
@@ -53,12 +83,16 @@ export class FamilyAdminPage {
       buttons: [
         { text: 'Annuler', role: 'cancel' },
         {
-          text: 'Supprimer', role: 'destructive',
-          handler: () => this.svc.delete(f.publicId).subscribe({
-            next: () => this.load(),
-            error: (err: HttpErrorResponse) => this.showError(
-              err.status === 409 ? 'Cette famille est utilisée par des cartes.' : 'Erreur lors de la suppression.'),
-          }),
+          text: 'Supprimer',
+          role: 'destructive',
+          handler: () =>
+            this.svc.delete(f.publicId).subscribe({
+              next: () => this.load(),
+              error: (err: HttpErrorResponse) =>
+                this.showError(
+                  err.status === 409 ? 'Cette famille est utilisée par des cartes.' : 'Erreur lors de la suppression.',
+                ),
+            }),
         },
       ],
     });

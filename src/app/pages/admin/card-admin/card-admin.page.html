@@ -2,34 +2,35 @@
   <ion-toolbar>
     <ion-buttons slot="start"><ion-menu-button></ion-menu-button></ion-buttons>
     <ion-title>Cartes</ion-title>
-    <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
     @for (c of cards(); track c.publicId) {
-      <ion-item>
-        @if (c.defaultArt) {
-          <ion-thumbnail slot="start"><img [src]="c.defaultArt.imageUrl" [alt]="c.title" /></ion-thumbnail>
+    <ion-item>
+      @if (c.defaultArt) {
+      <ion-thumbnail slot="start"><img [src]="c.defaultArt.imageUrl" [alt]="c.title" /></ion-thumbnail>
+      }
+      <ion-label>
+        <h2>{{ c.title }}</h2>
+        <p>{{ familyNames(c) }} · {{ c.publicId }}</p>
+        @if (!c.defaultArt) {
+        <p class="warn">⚠ Pas d'illustration par défaut</p>
         }
-        <ion-label>
-          <h2>{{ c.title }}</h2>
-          <p>{{ familyNames(c) }} · {{ c.publicId }}</p>
-          @if (!c.defaultArt) { <p class="warn">⚠ Pas d'illustration par défaut</p> }
-        </ion-label>
-        <ion-button fill="clear" [routerLink]="['/admin/cards', c.publicId, 'arts']" title="Illustrations">
-          <ion-icon slot="icon-only" name="images-outline"></ion-icon>
-        </ion-button>
-        <ion-button fill="clear" [routerLink]="['/admin/cards', c.publicId]" title="Modifier">
-          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-        </ion-button>
-        <ion-button fill="clear" color="danger" (click)="remove(c)">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
+      </ion-label>
+      <ion-button fill="clear" [routerLink]="['/admin/cards', c.publicId, 'arts']" title="Illustrations">
+        <ion-icon slot="icon-only" name="images-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" [routerLink]="['/admin/cards', c.publicId]" title="Modifier">
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" color="danger" (click)="remove(c)">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
     } @empty {
-      <p class="ion-padding">Aucune carte pour le moment.</p>
+    <p class="ion-padding">Aucune carte pour le moment.</p>
     }
   </ion-list>
 

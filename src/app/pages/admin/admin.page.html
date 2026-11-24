@@ -1,25 +1,34 @@
-<ion-split-pane contentId="admin-content">
-  <ion-menu contentId="admin-content">
-    <ion-header
-      ><ion-toolbar><ion-title>Administration</ion-title></ion-toolbar></ion-header
-    >
-    <ion-content>
-      <ion-list>
-        <ion-item button routerLink="/admin/families" routerLinkActive="active" detail="false">
-          <ion-icon slot="start" name="layers-outline"></ion-icon>
-          <ion-label>Familles</ion-label>
-        </ion-item>
-        <ion-item button routerLink="/admin/cards" routerLinkActive="active" detail="false">
-          <ion-icon slot="start" name="albums-outline"></ion-icon>
-          <ion-label>Cartes</ion-label>
-        </ion-item>
-        <ion-item button routerLink="/admin/players" routerLinkActive="active" detail="false">
-          <ion-icon slot="start" name="people-outline"></ion-icon>
-          <ion-label>Joueurs</ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/home"></ion-back-button></ion-buttons>
+    <ion-title>Administration</ion-title>
+    <ion-buttons slot="end"><app-user-avatar /></ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-router-outlet id="admin-content"></ion-router-outlet>
-</ion-split-pane>
+<ion-content>
+  <ion-split-pane contentId="admin-content">
+    <ion-menu contentId="admin-content">
+      <ion-content>
+        <ion-list>
+          <ion-item button routerLink="/admin/families" routerLinkActive="active" detail="false">
+            <ion-icon slot="start" name="layers-outline"></ion-icon>
+            <ion-label>Familles</ion-label>
+          </ion-item>
+          <ion-item button routerLink="/admin/cards" routerLinkActive="active" detail="false">
+            <ion-icon slot="start" name="albums-outline"></ion-icon>
+            <ion-label>Cartes</ion-label>
+          </ion-item>
+          @if (profiles.hasRole('ADMIN')) {
+          <ion-item button routerLink="/admin/players" routerLinkActive="active" detail="false">
+            <ion-icon slot="start" name="people-outline"></ion-icon>
+            <ion-label>Joueurs</ion-label>
+          </ion-item>
+          }
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    <ion-router-outlet id="admin-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-content>

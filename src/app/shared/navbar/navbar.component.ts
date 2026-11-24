@@ -6,6 +6,7 @@ import { addIcons } from 'ionicons';
 import { ellipsisHorizontal } from 'ionicons/icons';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { TutorialService } from '../../tutorial/tutorial.service';
+import { ProfileService } from '../../pages/profile/profile.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +18,7 @@ export class NavbarComponent {
   protected notifs = inject(NotificationsService);
   private router = inject(Router);
   private tutorial = inject(TutorialService);
+  protected profiles = inject(ProfileService);
 
   moreOpen = signal(false);
 
@@ -24,16 +26,6 @@ export class NavbarComponent {
 
   constructor() {
     this.notifs.start();
-    addIcons({
-      ellipsisHorizontal,
-      'custom-collection': 'assets/icons/collection-solid-svgrepo-com.svg',
-      'custom-packs': 'assets/icons/poker-cards-svgrepo-com.svg',
-      'custom-shop': 'assets/icons/shop-cart-svgrepo-com.svg',
-      'custom-wordle': 'assets/icons/wordlesolver-svgrepo-com.svg',
-      'custom-friends': 'assets/icons/icons8-friends.svg',
-      'custom-memory': 'assets/icons/icons8-memory-game.svg',
-      'custom-guess-card': 'assets/icons/icons8-card-game.svg',
-    });
 
     effect(() => {
       const force = this.tutorial.forceMore();

@@ -3,12 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
+export type Role = 'USER' | 'TRANSLATOR' | 'ADMIN';
+
 export interface Profile {
   pseudo: string;
   country: string;
   language: string;
   patronCardId?: string | null;
   termsAccepted: boolean;
+  role: Role;
 }
 
 export type ProfileCreate = Pick<Profile, 'pseudo' | 'country' | 'language'> & { acceptTerms: boolean };
@@ -33,6 +36,11 @@ export class ProfileService {
 
   get() {
     return this.http.get<Profile>(`${environment.api}profile`);
+  }
+
+  hasRole(...roles: Role[]) {
+    const r = this._current()?.role;
+    return !!r && roles.includes(r);
   }
 
   async load(force = false): Promise<Profile> {

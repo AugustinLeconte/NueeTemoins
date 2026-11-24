@@ -18,10 +18,6 @@ export class AuthService {
     return this.inflight;
   }
 
-  public isAdmin(): boolean {
-    return true;
-  }
-
   private cleanUrl() {
     const url = new URL(window.location.href);
     if (url.searchParams.has('neon_auth_session_verifier')) {

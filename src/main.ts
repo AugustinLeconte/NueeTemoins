@@ -16,6 +16,8 @@ import {
   openOutline,
   helpCircleOutline,
   peopleOutline,
+  albumsOutline,
+  layersOutline,
 } from 'ionicons/icons';
 
 import { AppComponent } from './app/app.component';
@@ -37,7 +39,9 @@ addIcons({
   sunnyOutline,
   openOutline,
   helpCircleOutline,
+  albumsOutline,
   peopleOutline,
+  layersOutline,
   // Icônes custom
   'custom-collection': 'assets/icons/collection-solid-svgrepo-com.svg',
   'custom-packs': 'assets/icons/poker-cards-svgrepo-com.svg',
@@ -46,6 +50,7 @@ addIcons({
   'custom-friends': 'assets/icons/icons8-friends.svg',
   'custom-memory': 'assets/icons/icons8-memory-game.svg',
   'custom-guess-card': 'assets/icons/icons8-card-game.svg',
+  'custom-admin': 'assets/icons/admin-svgrepo-com.svg',
 });
 
 bootstrapApplication(AppComponent, {

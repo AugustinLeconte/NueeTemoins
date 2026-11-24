@@ -1,7 +1,9 @@
-<ion-header
-  ><ion-toolbar
-    ><ion-title>Joueurs</ion-title> <ion-buttons slot="end"><app-user-avatar /></ion-buttons></ion-toolbar
-></ion-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Joueurs</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <ion-searchbar debounce="300" placeholder="Pseudo…" (ionInput)="search($any($event).detail.value ?? '')" />
 
@@ -10,26 +12,106 @@
     <ion-accordion [value]="p.userId">
       <ion-item slot="header">
         <ion-label>
-          <h2>{{ p.pseudo }} <small>({{ p.country }})</small></h2>
+          <h2>
+            {{ p.pseudo }} <small>({{ p.country }})</small>
+            @if (p.role !== 'USER') {
+            <ion-badge [color]="p.role === 'ADMIN' ? 'danger' : 'tertiary'">{{ roleLabels[p.role] }}</ion-badge>
+            }
+          </h2>
           <p>Niv. {{ p.progress.level }} · {{ p.xp }} XP · 💰 {{ p.coins }} · 🃏 {{ p.packs }}</p>
         </ion-label>
       </ion-item>
 
-      <div slot="content" class="ion-padding">
+      <div slot="content" class="panel">
         <app-level-bar [progress]="p.progress" />
 
-        <div class="gift">
-          <ion-input #packs type="number" min="0" label="Packs 🃏" labelPlacement="floating" fill="outline" />
-          <ion-input #coins type="number" min="0" label="Pièces 💰" labelPlacement="floating" fill="outline" />
-          <ion-input #xp type="number" min="0" label="XP" labelPlacement="floating" fill="outline" />
+        <div class="rights">
+          <span class="label">Droits</span>
+          @for (perm of permissions[p.role]; track perm) {
+          <ion-chip [color]="p.role === 'ADMIN' ? 'danger' : 'tertiary'">
+            <ion-icon name="checkmark-circle-outline" />
+            <ion-label>{{ perm }}</ion-label>
+          </ion-chip>
+          } @empty {
+          <ion-chip color="medium"><ion-label>Aucun droit spécial</ion-label></ion-chip>
+          }
         </div>
-        <ion-button expand="block" (click)="gift(p, packs, coins, xp)">Offrir</ion-button>
-        <ion-button expand="block" fill="outline" (click)="resetDaily(p)" [disabled]="p.dailyAvailable"
-          >Réinitialiser le pack du jour</ion-button
-        >
-        <ion-button expand="block" color="danger" fill="outline" (click)="remove(p)">Supprimer le compte</ion-button>
+
+        <div class="actions">
+          <ion-button size="small" (click)="openGift(p)">
+            <ion-icon slot="start" name="gift-outline" />Offrir
+          </ion-button>
+          <ion-button size="small" fill="outline" (click)="chooseRole(p)">
+            <ion-icon slot="start" name="shield-checkmark-outline" />Rôle
+          </ion-button>
+          <ion-button size="small" fill="outline" (click)="resetDaily(p)" [disabled]="p.dailyAvailable">
+            <ion-icon slot="start" name="refresh-outline" />Pack du jour
+          </ion-button>
+          <ion-button size="small" fill="clear" color="danger" class="delete" (click)="remove(p)">
+            <ion-icon slot="icon-only" name="trash-outline" />
+          </ion-button>
+        </div>
       </div>
     </ion-accordion>
     }
   </ion-accordion-group>
+
+  <ion-modal
+    [isOpen]="!!giftTarget()"
+    (didDismiss)="closeGift()"
+    [initialBreakpoint]="0.6"
+    [breakpoints]="[0, 0.6, 0.9]"
+  >
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Offrir à {{ giftTarget()?.pseudo }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeGift()">Fermer</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <div class="gift-form">
+          <ion-input
+            type="number"
+            min="0"
+            inputmode="numeric"
+            placeholder="0"
+            label="🃏 Packs"
+            labelPlacement="stacked"
+            fill="outline"
+            [value]="giftPacks()"
+            [helperText]="'Actuel : ' + giftTarget()?.packs"
+            (ionInput)="giftPacks.set($any($event).detail.value ?? '')"
+          />
+          <ion-input
+            type="number"
+            min="0"
+            inputmode="numeric"
+            placeholder="0"
+            label="💰 Pièces"
+            labelPlacement="stacked"
+            fill="outline"
+            [value]="giftCoins()"
+            [helperText]="'Actuel : ' + giftTarget()?.coins"
+            (ionInput)="giftCoins.set($any($event).detail.value ?? '')"
+          />
+          <ion-input
+            type="number"
+            min="0"
+            inputmode="numeric"
+            placeholder="0"
+            label="⭐ XP"
+            labelPlacement="stacked"
+            fill="outline"
+            [value]="giftXp()"
+            [helperText]="'Actuel : ' + giftTarget()?.xp"
+            (ionInput)="giftXp.set($any($event).detail.value ?? '')"
+          />
+          <ion-button expand="block" [disabled]="!canGift()" (click)="sendGift()">Offrir</ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

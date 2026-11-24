@@ -4,7 +4,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { OnboardingComponent } from './auth/onboarding/onboarding.component';
 import { authGuard } from './auth/auth.guard';
 import { AuthShellComponent } from './auth/auth-shell/auth-shell.component';
-import { adminGuard } from './pages/admin/admin.guard';
+import { roleGuard } from './pages/admin/role.guard';
 
 const legal = () => import('./pages/legal/legal.page').then((m) => m.LegalPage);
 
@@ -41,7 +41,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    canMatch: [adminGuard],
+    canMatch: [authGuard, roleGuard('ADMIN', 'TRANSLATOR')],
     loadChildren: () => import('./pages/admin/admin.routes').then((m) => m.ADMIN_ROUTES),
   },
   {

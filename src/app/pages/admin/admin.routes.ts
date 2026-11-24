@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AdminPage } from './admin.page';
+import { roleGuard } from './role.guard';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -31,6 +32,7 @@ export const ADMIN_ROUTES: Routes = [
       { path: 'arts/:artPublicId', loadComponent: () => import('./art-edit/art-edit.page').then((m) => m.ArtEditPage) },
       {
         path: 'players',
+        canActivate: [roleGuard('ADMIN')],
         loadComponent: () => import('./player-admin/player-admin.page').then((m) => m.PlayerAdminPage),
       },
     ],
