@@ -29,6 +29,7 @@ import { Achievement, PlayerProgress } from '../../../player/player.model';
 import { Profile, ProfileService } from '../profile.service';
 import { PatronPickerComponent } from '../patron-picker/patron-picker.component';
 import { ThemeService } from '../theme.service';
+import { LanguageService } from '../../../i18n/language.service';
 
 @Component({
   selector: 'app-profile',
@@ -67,6 +68,7 @@ export class ProfilePage {
   private alerts = inject(AlertController);
   private t = inject(TranslocoService);
   public theme = inject(ThemeService);
+  public lang = inject(LanguageService);
 
   public loading = signal(true);
   public loggingOut = signal(false);
@@ -85,13 +87,15 @@ export class ProfilePage {
       const [user, profile, achievements, progress] = await Promise.all([
         this.auth.getUser(),
         this.profiles.load(true),
-        //firstValueFrom(this.profiles.get()),
         firstValueFrom(this.player.achievements()).catch(() => [] as Achievement[]),
         firstValueFrom(this.player.progress()).catch(() => null as PlayerProgress | null),
       ]);
 
       this.user.set(user);
       this.profile.set(profile);
+      if (profile.language && profile.language !== this.lang.current()) {
+        this.lang.set(profile.language);
+      }
       this.achievements.set(achievements);
       this.progress.set(progress);
     } catch (e) {
@@ -106,11 +110,12 @@ export class ProfilePage {
   }
 
   countryName(code: string) {
-    return new Intl.DisplayNames(['fr'], { type: 'region' }).of(code) ?? code;
+    return new Intl.DisplayNames([this.lang.current()], { type: 'region' }).of(code) ?? code;
   }
   languageName(code: string) {
-    return new Intl.DisplayNames(['fr'], { type: 'language' }).of(code) ?? code;
+    return new Intl.DisplayNames([this.lang.current()], { type: 'language' }).of(code) ?? code;
   }
+
   initial() {
     return (this.profile()?.pseudo ?? this.user()?.name ?? '?').charAt(0).toUpperCase();
   }
@@ -125,6 +130,20 @@ export class ProfilePage {
 
   onPatronChanged(id: string | null) {
     this.profile.update((p) => p && { ...p, patronCardId: id });
+  }
+
+  async onLanguageChange(code: string) {
+    const previous = this.profile()?.language;
+    this.lang.set(code);
+    this.profile.update((p) => p && { ...p, language: code });
+    try {
+      await firstValueFrom(this.profiles.setLanguage(code));
+    } catch {
+      if (previous) {
+        this.lang.set(previous);
+        this.profile.update((p) => p && { ...p, language: previous });
+      }
+    }
   }
 
   async confirmDelete() {

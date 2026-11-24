@@ -327,7 +327,8 @@
   },
   "settings": {
     "title": "Settings",
-    "theme": { "label": "Theme", "system": "Automatic", "light": "Light", "dark": "Dark" }
+    "theme": { "label": "Theme", "system": "Automatic", "light": "Light", "dark": "Dark" },
+    "language": { "label": "Used language" }
   },
   "legal": {
     "updated": "Last updated: November 20, 2026",

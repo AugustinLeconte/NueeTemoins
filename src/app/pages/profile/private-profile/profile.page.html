@@ -39,10 +39,18 @@
         <dt>{{'auth.onboarding.country' | transloco}}</dt>
         <dd>{{ countryName(profile()!.country) }}</dd>
       </div>
-      <div>
-        <dt>{{'auth.onboarding.language' | transloco}}</dt>
-        <dd>{{ languageName(profile()!.language) }}</dd>
-      </div>
+      <ion-item>
+        <ion-select
+          interface="popover"
+          [label]="'settings.language.label' | transloco"
+          [value]="lang.current()"
+          (ionChange)="onLanguageChange($event.detail.value)"
+        >
+          @for (l of lang.supported; track l.code) {
+          <ion-select-option [value]="l.code">{{ l.label }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
     </dl>
   </section>
 

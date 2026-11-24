@@ -370,7 +370,8 @@
   },
   "settings": {
     "title": "Paramètres",
-    "theme": { "label": "Thème", "system": "Automatique", "light": "Clair", "dark": "Sombre" }
+    "theme": { "label": "Thème", "system": "Automatique", "light": "Clair", "dark": "Sombre" },
+    "language": { "label": "Langue utilisée" }
   },
   "legal": {
     "updated": "Dernière mise à jour : 20 novembre 2026",

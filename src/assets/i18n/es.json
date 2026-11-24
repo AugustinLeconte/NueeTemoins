@@ -327,7 +327,8 @@
   },
   "settings": {
     "title": "Ajustes",
-    "theme": { "label": "Tema", "system": "Automático", "light": "Claro", "dark": "Oscuro" }
+    "theme": { "label": "Tema", "system": "Automático", "light": "Claro", "dark": "Oscuro" },
+    "language": { "label": " Idioma utilizado" }
   },
   "legal": {
     "updated": "Última actualización: 20 de noviembre de 2026",

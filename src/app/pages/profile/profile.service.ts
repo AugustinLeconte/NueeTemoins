@@ -68,4 +68,10 @@ export class ProfileService {
   deleteAccount() {
     return this.http.delete<void>(`${environment.api}profile`);
   }
+
+  setLanguage(language: string) {
+    return this.http
+      .put<void>(`${environment.api}profile/language`, { language })
+      .pipe(tap(() => this._current.update((p) => p && { ...p, language })));
+  }
 }
