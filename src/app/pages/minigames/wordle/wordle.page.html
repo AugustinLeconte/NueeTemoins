@@ -28,11 +28,10 @@
     <app-minigame-result
       [won]="s.status === 'WON'"
       [title]="(s.status === 'WON' ? 'minigames.wordle.won' : 'minigames.wordle.lost') | transloco"
+      [detail]="('minigames.wordle.wordWas' | transloco) + ' ' + s.solution"
       [xp]="s.xpAwarded"
       [durationMs]="s.durationMs"
-    >
-      {{ 'minigames.wordle.wordWas' | transloco }} <strong class="solution">{{ s.solution }}</strong>
-    </app-minigame-result>
+    />
 
     <app-minigame-leaderboard [rows]="leaderboard()" [maxAttempts]="s.maxAttempts" />
     } @else {
