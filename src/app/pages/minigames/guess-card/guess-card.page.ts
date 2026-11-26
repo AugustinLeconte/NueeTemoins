@@ -65,6 +65,9 @@ export class GuessCardPage implements OnInit {
   ngOnInit() {
     this.api.cards(this.lang).subscribe((n) => this.names.set(n));
     this.api.today(this.lang).subscribe((s) => {
+      s.rounds.forEach((r) => {
+        if (r.imageUrl) new Image().src = r.imageUrl;
+      });
       this.state.set(s);
       if (s.status === 'FINISHED') this.loadLeaderboard();
     });

@@ -25,18 +25,19 @@
       }
     </div>
 
-    @if (shown(); as r) {
+    @if (shown(); as r) { @for (cur of [r]; track cur.level) {
     <div class="frame">
-      <div class="rot" [style.transform]="'rotate(' + r.rotation + 'deg)'">
+      <div class="rot" [style.transform]="'rotate(' + cur.rotation + 'deg)'">
         <img
-          [src]="r.imageUrl"
+          [src]="cur.imageUrl"
           alt=""
-          [style.transform]="'scale(' + r.zoom + ')'"
-          [style.transform-origin]="r.originX + '% ' + r.originY + '%'"
-          [style.filter]="r.grayscale ? 'grayscale(1)' : 'none'"
+          [style.transform]="'scale(' + cur.zoom + ')'"
+          [style.transform-origin]="cur.originX + '% ' + cur.originY + '%'"
+          [style.filter]="cur.grayscale ? 'grayscale(1)' : 'none'"
         />
       </div>
     </div>
+    }
 
     <div class="lives">
       @for (i of [0, 1, 2]; track i) { <span class="life" [class.lost]="i < r.wrongCount"></span> }
