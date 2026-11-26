@@ -26,3 +26,11 @@
     <app-root></app-root>
   </body>
 </html>
+
+<script>
+  try {
+    var m = localStorage.getItem('theme-mode');
+    var dark = m === 'dark' || (m !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.classList.toggle('ion-palette-dark', dark);
+  } catch (e) {}
+</script>

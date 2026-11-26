@@ -31,6 +31,7 @@ import { AdMobProvider } from './app/ads/admob.provider';
 import { WebAdProvider } from './app/ads/web-ad.provider';
 import { Capacitor } from '@capacitor/core';
 import { ThemeService } from './app/pages/profile/theme.service';
+import { LanguageService } from './app/i18n/language.service';
 
 addIcons({
   // Icônes Ionicons
@@ -60,6 +61,7 @@ bootstrapApplication(AppComponent, {
     provideAppInitializer(() => {
       inject(AdProvider).init();
       inject(ThemeService);
+      return inject(LanguageService).init();
     }),
     provideIonicAngular({ animated: false }),
     provideHttpClient(withInterceptors([authInterceptor])),

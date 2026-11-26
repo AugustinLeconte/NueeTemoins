@@ -2,6 +2,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { LanguageService } from '../../i18n/language.service';
 
 export type Role = 'USER' | 'TRANSLATOR' | 'ADMIN';
 
@@ -19,6 +20,7 @@ export type ProfileCreate = Pick<Profile, 'pseudo' | 'country' | 'language'> & {
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
   private http = inject(HttpClient);
+  private lang = inject(LanguageService);
 
   private _current = signal<Profile | null>(null);
   readonly current = this._current.asReadonly();
@@ -50,6 +52,7 @@ export class ProfileService {
     this.inflight ??= firstValueFrom(this.get())
       .then((p) => {
         this._current.set(p);
+        this.lang.set(p.language);
         return p;
       })
       .finally(() => (this.inflight = undefined));
@@ -70,8 +73,11 @@ export class ProfileService {
   }
 
   setLanguage(language: string) {
-    return this.http
-      .put<void>(`${environment.api}profile/language`, { language })
-      .pipe(tap(() => this._current.update((p) => p && { ...p, language })));
+    return this.http.put<void>(`${environment.api}profile/language`, { language }).pipe(
+      tap(() => {
+        this._current.update((p) => p && { ...p, language });
+        this.lang.set(language);
+      }),
+    );
   }
 }

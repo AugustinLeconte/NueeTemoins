@@ -42,4 +42,12 @@ export class LanguageService {
   private isSupported(code: string) {
     return this.supported.some((l) => l.code === code);
   }
+
+  private read(): string | null {
+    try {
+      return localStorage.getItem(STORAGE_KEY);
+    } catch {
+      return null;
+    }
+  }
 }
