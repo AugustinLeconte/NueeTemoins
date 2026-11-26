@@ -10,7 +10,8 @@
       "submit": "Se connecter",
       "google": "Continuer avec Google",
       "noAccount": "Pas de compte ?",
-      "signupLink": "S'inscrire"
+      "signupLink": "S'inscrire",
+      "forgot": "Mot de passe oublié ?"
     },
     "signup": {
       "title": "Inscription",
@@ -46,6 +47,21 @@
       "server": "Le service est momentanément indisponible. Réessaie dans quelques instants.",
       "loginFailed": "Connexion impossible (réf. : {{ref}}). Réessaie ou contacte le support.",
       "signupFailed": "Inscription impossible (réf. : {{ref}}). Réessaie ou contacte le support."
+    },
+    "forgot": {
+      "title": "Mot de passe oublié",
+      "intro": "Saisis ton email, nous t'enverrons un lien pour choisir un nouveau mot de passe.",
+      "submit": "Envoyer le lien",
+      "sent": "Si un compte existe avec cet email, un lien de réinitialisation vient d'être envoyé.",
+      "backToLogin": "Retour à la connexion"
+    },
+    "reset": {
+      "title": "Nouveau mot de passe",
+      "newPassword": "Nouveau mot de passe",
+      "submit": "Valider",
+      "error": "Impossible de modifier le mot de passe. Le lien a peut-être expiré.",
+      "invalidLink": "Ce lien est invalide ou a expiré.",
+      "requestNew": "Demander un nouveau lien"
     }
   },
   "achievements": {
@@ -203,6 +219,16 @@
       "save": "Valider",
       "remove": "Supprimer",
       "none": "Aucun"
+    },
+    "password": {
+      "button": "Changer le mot de passe",
+      "title": "Changer le mot de passe",
+      "current": "Mot de passe actuel",
+      "new": "Nouveau mot de passe (8 caractères min.)",
+      "confirm": "Valider",
+      "invalid": "Renseigne les deux champs (8 caractères minimum).",
+      "success": "Mot de passe modifié.",
+      "error": "Impossible de modifier le mot de passe. Vérifie le mot de passe actuel."
     },
     "delete": {
       "button": "Supprimer mon compte",

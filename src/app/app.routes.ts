@@ -17,9 +17,16 @@ export const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignupComponent },
       { path: 'onboarding', component: OnboardingComponent, canActivate: [authGuard] },
+      {
+        path: 'forgot-password',
+        loadComponent: () => import('./auth/forgot-password/forgot-password.page').then((m) => m.ForgotPasswordPage),
+      },
+      {
+        path: 'reset-password',
+        loadComponent: () => import('./auth/reset-password/reset-password.page').then((m) => m.ResetPasswordPage),
+      },
     ],
   },
-
   {
     path: 'cards',
     loadComponent: () => import('./pages/card-list/card-list.page').then((m) => m.CardListPage),

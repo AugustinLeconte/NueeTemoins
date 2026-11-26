@@ -18,6 +18,7 @@ import {
   IonSelectOption,
   IonSelect,
   IonLabel,
+  ToastController,
 } from '@ionic/angular';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { LevelBarComponent } from '../../../player/level-bar/level-bar.component';
@@ -67,9 +68,11 @@ export class ProfilePage {
   private notifs = inject(NotificationsService);
   private alerts = inject(AlertController);
   private t = inject(TranslocoService);
+  private toasts = inject(ToastController);
   public theme = inject(ThemeService);
   public lang = inject(LanguageService);
 
+  public canChangePassword = signal(false);
   public loading = signal(true);
   public loggingOut = signal(false);
   public error = signal('');
@@ -84,13 +87,15 @@ export class ProfilePage {
 
   async ngOnInit() {
     try {
-      const [user, profile, achievements, progress] = await Promise.all([
+      const [user, profile, achievements, progress, hasPassword] = await Promise.all([
         this.auth.getUser(),
         this.profiles.load(true),
         firstValueFrom(this.player.achievements()).catch(() => [] as Achievement[]),
         firstValueFrom(this.player.progress()).catch(() => null as PlayerProgress | null),
+        this.auth.hasPassword(),
       ]);
 
+      this.canChangePassword.set(hasPassword);
       this.user.set(user);
       this.profile.set(profile);
       if (profile.language && profile.language !== this.lang.current()) {
@@ -171,5 +176,54 @@ export class ProfilePage {
       this.deleteError.set(true);
       this.deleting.set(false);
     }
+  }
+
+  async changePassword() {
+    const alert = await this.alerts.create({
+      header: this.t.translate('profile.password.title'),
+      inputs: [
+        {
+          name: 'current',
+          type: 'password',
+          placeholder: this.t.translate('profile.password.current'),
+          attributes: { autocomplete: 'current-password' },
+        },
+        {
+          name: 'next',
+          type: 'password',
+          placeholder: this.t.translate('profile.password.new'),
+          attributes: { autocomplete: 'new-password' },
+        },
+      ],
+      buttons: [
+        { text: this.t.translate('profile.delete.cancel'), role: 'cancel' },
+        {
+          text: this.t.translate('profile.password.confirm'),
+          handler: (v: { current: string; next: string }) => {
+            if (!v.current || !v.next || v.next.length < 8) {
+              this.toast('profile.password.invalid');
+              return false; // garde l'alerte ouverte
+            }
+            void this.submitPasswordChange(v.current, v.next);
+            return true;
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  private async submitPasswordChange(current: string, next: string) {
+    try {
+      const { error } = await this.auth.changePassword(current, next);
+      this.toast(error ? 'profile.password.error' : 'profile.password.success');
+    } catch {
+      this.toast('profile.password.error');
+    }
+  }
+
+  private async toast(key: string) {
+    const toast = await this.toasts.create({ message: this.t.translate(key), duration: 2500 });
+    await toast.present();
   }
 }

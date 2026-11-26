@@ -77,6 +77,12 @@
         </ion-select>
       </ion-item>
 
+      @if (canChangePassword()) {
+      <ion-item button detail (click)="changePassword()">
+        <ion-label>{{ 'profile.password.button' | transloco }}</ion-label>
+      </ion-item>
+      }
+
       <ion-item button detail routerLink="/legal/terms">
         <ion-label>{{ 'legal.terms.title' | transloco }}</ion-label>
         @if (termsPending()) { <ion-badge color="danger" slot="end">!</ion-badge> }

@@ -10,7 +10,8 @@
       "submit": "Iniciar sesión",
       "google": "Continuar con Google",
       "noAccount": "¿No tienes cuenta?",
-      "signupLink": "Regístrate"
+      "signupLink": "Regístrate",
+      "forgot": "¿Olvidaste tu contraseña?"
     },
     "signup": {
       "title": "Registro",
@@ -46,6 +47,21 @@
       "server": "El servicio no está disponible temporalmente. Inténtalo de nuevo en unos instantes.",
       "loginFailed": "No se pudo iniciar sesión (ref.: {{ref}}). Inténtalo de nuevo o contacta con soporte.",
       "signupFailed": "No se pudo completar el registro (ref.: {{ref}}). Inténtalo de nuevo o contacta con soporte."
+    },
+    "forgot": {
+      "title": "Olvidé mi contraseña",
+      "intro": "Ingresa tu correo y te enviaremos un enlace para elegir una nueva contraseña.",
+      "submit": "Enviar enlace",
+      "sent": "Si existe una cuenta con este correo, te acabamos de enviar un enlace de restablecimiento.",
+      "backToLogin": "Volver al inicio de sesión"
+    },
+    "reset": {
+      "title": "Nueva contraseña",
+      "newPassword": "Nueva contraseña",
+      "submit": "Confirmar",
+      "error": "No se pudo cambiar la contraseña. Es posible que el enlace haya expirado.",
+      "invalidLink": "Este enlace no es válido o ya expiró.",
+      "requestNew": "Solicitar un nuevo enlace"
     }
   },
   "achievements": {
@@ -159,6 +175,16 @@
       "save": "Confirmar",
       "remove": "Quitar",
       "none": "Ninguno"
+    },
+    "password": {
+      "button": "Cambiar contraseña",
+      "title": "Cambiar contraseña",
+      "current": "Contraseña actual",
+      "new": "Nueva contraseña (mín. 8 caracteres)",
+      "confirm": "Confirmar",
+      "invalid": "Rellena ambos campos (mínimo 8 caracteres).",
+      "success": "Contraseña actualizada.",
+      "error": "No se pudo cambiar la contraseña. Comprueba tu contraseña actual."
     },
     "delete": {
       "button": "Eliminar mi cuenta",

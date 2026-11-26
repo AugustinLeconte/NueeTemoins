@@ -76,4 +76,32 @@ export class AuthService {
     this.inflight = undefined;
     return client.signOut();
   }
+
+  requestPasswordReset(email: string) {
+    return client.requestPasswordReset({
+      email,
+      redirectTo: window.location.origin + '/reset-password',
+    });
+  }
+
+  resetPassword(newPassword: string, token: string) {
+    return client.resetPassword({ newPassword, token });
+  }
+
+  changePassword(currentPassword: string, newPassword: string) {
+    return client.changePassword({
+      currentPassword,
+      newPassword,
+      revokeOtherSessions: true,
+    });
+  }
+
+  async hasPassword(): Promise<boolean> {
+    try {
+      const { data } = await client.listAccounts();
+      return !!data?.some((a) => a.providerId === 'credential');
+    } catch {
+      return false;
+    }
+  }
 }

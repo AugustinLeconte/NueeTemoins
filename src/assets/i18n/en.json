@@ -10,7 +10,8 @@
       "submit": "Log in",
       "google": "Continue with Google",
       "noAccount": "No account yet?",
-      "signupLink": "Sign up"
+      "signupLink": "Sign up",
+      "forgot": "Forgot password?"
     },
     "signup": {
       "title": "Sign up",
@@ -46,6 +47,21 @@
       "server": "The service is temporarily unavailable. Try again in a moment.",
       "loginFailed": "Unable to log in (ref.: {{ref}}). Try again or contact support.",
       "signupFailed": "Unable to sign up (ref.: {{ref}}). Try again or contact support."
+    },
+    "forgot": {
+      "title": "Forgot password",
+      "intro": "Enter your email and we'll send you a link to choose a new password.",
+      "submit": "Send link",
+      "sent": "If an account exists with this email, a reset link has just been sent.",
+      "backToLogin": "Back to login"
+    },
+    "reset": {
+      "title": "New password",
+      "newPassword": "New password",
+      "submit": "Confirm",
+      "error": "Unable to change password. The link may have expired.",
+      "invalidLink": "This link is invalid or has expired.",
+      "requestNew": "Request a new link"
     }
   },
   "achievements": {
@@ -159,6 +175,16 @@
       "save": "Confirm",
       "remove": "Remove",
       "none": "None"
+    },
+    "password": {
+      "button": "Change password",
+      "title": "Change password",
+      "current": "Current password",
+      "new": "New password (min. 8 characters)",
+      "confirm": "Confirm",
+      "invalid": "Fill in both fields (minimum 8 characters).",
+      "success": "Password updated.",
+      "error": "Unable to change password. Check your current password."
     },
     "delete": {
       "button": "Delete my account",
